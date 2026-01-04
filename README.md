@@ -1,4 +1,4 @@
-# RL-MTJail: Reinforcement Learning for Automated Black-Box Multi-Turn Jailbreaking of Large Language Models
+# TROMJail: Trajectory-Level Optimization for Multi-Turn Large Language Model Jailbreaking with Process Rewards
 
 This repository contains resources for training multi-turn dialogue jailbreak attack models.
 
@@ -7,9 +7,9 @@ This repository contains resources for training multi-turn dialogue jailbreak at
 ### 1.1 Create Virtual Environment
 
 ```bash
-cd RL-MTJail
-conda create --name RL-MTJail python=3.12
-conda activate RL-MTJail
+cd TROMJail
+conda create --name TROMJail python=3.12
+conda activate TROMJail
 ```
 
 ### 1.2 Install Dependencies
