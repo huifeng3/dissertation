@@ -1,4 +1,4 @@
-# TROJail: Trajectory-Level Optimization for Multi-Turn Large Language Model Jailbreaking with Process Rewards
+# TROJail: Trajectory-level Optimization with Process Rewards for Multi-Turn Large Language Model Jailbreaks
 
 This repository contains resources for training multi-turn dialogue jailbreak attack models.
 
