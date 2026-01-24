@@ -1,10 +1,10 @@
-env_llm_path="path/to/victim_model"
-judger_llm_path="path/to/HarmBench-Llama-2-13b-cls"
-model_path="path/to/Qwen2.5-3B-Instruct"
+env_llm_path="./models/Mistral-7B-Instruct-v0.3"
+judger_llm_path="./models/HarmBench-Llama-2-13b-cls"
+model_path="./models/Qwen2.5-3B-Instruct"
 
-env_llm_port=port_number
+env_llm_port=8001
 env_llm_base_url="http://localhost:$env_llm_port/v1"
-judger_llm_port=port_number
+judger_llm_port=8002
 judger_llm_base_url="http://localhost:$judger_llm_port/v1"
 
 
@@ -46,7 +46,7 @@ done
 echo "Both vLLM servers are ready!"
 
 
-experiment_name="experiment_name"
+experiment_name="train_demo"
 TENSORBOARD_DIR_2="./tensorboard_log/${experiment_name_2}"
 mkdir -p "$TENSORBOARD_DIR_2"
 python train.py --config-name _7_jailbreak.yaml \

@@ -4,7 +4,7 @@ from dataclasses import dataclass, field
 @dataclass
 class JailbreakEnvConfig:
     data_paths: List[str] = field(default_factory=lambda: [
-
+        "./data/AdvBench/data/train-00000-of-00001.parquet"
     ])
     val_data_paths: List[str] = field(default_factory=lambda: [
 
