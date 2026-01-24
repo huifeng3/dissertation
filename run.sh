@@ -1,5 +1,5 @@
 env_llm_path="./models/Mistral-7B-Instruct-v0.3"
-judger_llm_path="./models/HarmBench-Llama-2-13b-cls"
+judger_llm_path="./models/HarmBench-Mistral-7b-val-cls"
 model_path="./models/Qwen2.5-3B-Instruct"
 
 env_llm_port=8001
