@@ -1,11 +1,215 @@
+INFO 01-24 23:01:00 api_server.py:585] vLLM API server version 0.6.4.post1
+INFO 01-24 23:01:00 api_server.py:586] args: Namespace(host='0.0.0.0', port=8001, uvicorn_log_level='info', allow_credentials=False, allowed_origins=['*'], allowed_methods=['*'], allowed_headers=['*'], api_key=None, lora_modules=None, prompt_adapters=None, chat_template=None, response_role='assistant', ssl_keyfile=None, ssl_certfile=None, ssl_ca_certs=None, ssl_cert_reqs=0, root_path=None, middleware=[], return_tokens_as_token_ids=False, disable_frontend_multiprocessing=False, enable_auto_tool_choice=False, tool_call_parser=None, tool_parser_plugin='', model='./models/Mistral-7B-Instruct-v0.3', task='auto', tokenizer=None, skip_tokenizer_init=False, revision=None, code_revision=None, tokenizer_revision=None, tokenizer_mode='auto', chat_template_text_format='string', trust_remote_code=False, allowed_local_media_path=None, download_dir=None, load_format='auto', config_format=<ConfigFormat.AUTO: 'auto'>, dtype='auto', kv_cache_dtype='auto', quantization_param_path=None, max_model_len=13312, guided_decoding_backend='outlines', distributed_executor_backend=None, worker_use_ray=False, pipeline_parallel_size=1, tensor_parallel_size=1, max_parallel_loading_workers=None, ray_workers_use_nsight=False, block_size=16, enable_prefix_caching=False, disable_sliding_window=False, use_v2_block_manager=False, num_lookahead_slots=0, seed=0, swap_space=4, cpu_offload_gb=0, gpu_memory_utilization=0.4, num_gpu_blocks_override=None, max_num_batched_tokens=51200, max_num_seqs=256, max_logprobs=20, disable_log_stats=False, quantization=None, rope_scaling=None, rope_theta=None, hf_overrides=None, enforce_eager=False, max_seq_len_to_capture=8192, disable_custom_all_reduce=False, tokenizer_pool_size=0, tokenizer_pool_type='ray', tokenizer_pool_extra_config=None, limit_mm_per_prompt=None, mm_processor_kwargs=None, enable_lora=False, enable_lora_bias=False, max_loras=1, max_lora_rank=16, lora_extra_vocab_size=256, lora_dtype='auto', long_lora_scaling_factors=None, max_cpu_loras=None, fully_sharded_loras=False, enable_prompt_adapter=False, max_prompt_adapters=1, max_prompt_adapter_token=0, device='auto', num_scheduler_steps=1, multi_step_stream_outputs=True, scheduler_delay_factor=0.0, enable_chunked_prefill=None, speculative_model=None, speculative_model_quantization=None, num_speculative_tokens=None, speculative_disable_mqa_scorer=False, speculative_draft_tensor_parallel_size=None, speculative_max_model_len=None, speculative_disable_by_batch_size=None, ngram_prompt_lookup_max=None, ngram_prompt_lookup_min=None, spec_decoding_acceptance_method='rejection_sampler', typical_acceptance_sampler_posterior_threshold=None, typical_acceptance_sampler_posterior_alpha=None, disable_logprobs_during_spec_decoding=None, model_loader_extra_config=None, ignore_patterns=[], preemption_mode=None, served_model_name=None, qlora_adapter_name_or_path=None, otlp_traces_endpoint=None, collect_detailed_traces=None, disable_async_output_proc=False, scheduling_policy='fcfs', override_neuron_config=None, override_pooler_config=None, disable_log_requests=False, max_log_len=None, disable_fastapi_docs=False, enable_prompt_tokens_details=False)
+INFO 01-24 23:01:00 api_server.py:175] Multiprocessing frontend to use ipc:///tmp/7dc8654f-2e3a-41e5-b73f-7d06d2443fc6 for IPC Path.
+INFO 01-24 23:01:00 api_server.py:194] Started engine process with PID 2387828
+INFO 01-24 23:01:08 config.py:350] This model supports multiple tasks: {'embedding', 'generate'}. Defaulting to 'generate'.
+WARNING 01-24 23:01:08 arg_utils.py:1075] [DEPRECATED] Block manager v1 has been removed, and setting --use-v2-block-manager to True or False has no effect on vLLM behavior. Please remove --use-v2-block-manager in your engine argument. If your use case is not supported by SelfAttnBlockSpaceManager (i.e. block manager v2), please file an issue with detailed information.
+INFO 01-24 23:01:15 config.py:350] This model supports multiple tasks: {'generate', 'embedding'}. Defaulting to 'generate'.
+WARNING 01-24 23:01:15 arg_utils.py:1075] [DEPRECATED] Block manager v1 has been removed, and setting --use-v2-block-manager to True or False has no effect on vLLM behavior. Please remove --use-v2-block-manager in your engine argument. If your use case is not supported by SelfAttnBlockSpaceManager (i.e. block manager v2), please file an issue with detailed information.
+INFO 01-24 23:01:15 llm_engine.py:249] Initializing an LLM engine (v0.6.4.post1) with config: model='./models/Mistral-7B-Instruct-v0.3', speculative_config=None, tokenizer='./models/Mistral-7B-Instruct-v0.3', skip_tokenizer_init=False, tokenizer_mode=auto, revision=None, override_neuron_config=None, tokenizer_revision=None, trust_remote_code=False, dtype=torch.bfloat16, max_seq_len=13312, download_dir=None, load_format=LoadFormat.AUTO, tensor_parallel_size=1, pipeline_parallel_size=1, disable_custom_all_reduce=False, quantization=None, enforce_eager=False, kv_cache_dtype=auto, quantization_param_path=None, device_config=cuda, decoding_config=DecodingConfig(guided_decoding_backend='outlines'), observability_config=ObservabilityConfig(otlp_traces_endpoint=None, collect_model_forward_time=False, collect_model_execute_time=False), seed=0, served_model_name=./models/Mistral-7B-Instruct-v0.3, num_scheduler_steps=1, chunked_prefill_enabled=False multi_step_stream_outputs=True, enable_prefix_caching=False, use_async_output_proc=True, use_cached_outputs=True, chat_template_text_format=string, mm_processor_kwargs=None, pooler_config=None)
+--- Logging error ---
 Traceback (most recent call last):
-  File "<frozen runpy>", line 189, in _run_module_as_main
-  File "<frozen runpy>", line 112, in _get_module_details
-  File "/data1/hhc/miniconda3/envs/TROJail/lib/python3.12/site-packages/vllm/__init__.py", line 3, in <module>
-    from vllm.engine.arg_utils import AsyncEngineArgs, EngineArgs
-  File "/data1/hhc/miniconda3/envs/TROJail/lib/python3.12/site-packages/vllm/engine/arg_utils.py", line 8, in <module>
-    import torch
-  File "/data1/hhc/miniconda3/envs/TROJail/lib/python3.12/site-packages/torch/__init__.py", line 367, in <module>
-    from torch._C import *  # noqa: F403
-    ^^^^^^^^^^^^^^^^^^^^^^
-ImportError: /data1/hhc/miniconda3/envs/TROJail/lib/python3.12/site-packages/torch/lib/../../nvidia/cusparse/lib/libcusparse.so.12: undefined symbol: __nvJitLinkComplete_12_4, version libnvJitLink.so.12
+  File "/data1/hhc/miniconda3/envs/TROJail/lib/python3.12/logging/__init__.py", line 1160, in emit
+    msg = self.format(record)
+          ^^^^^^^^^^^^^^^^^^^
+  File "/data1/hhc/miniconda3/envs/TROJail/lib/python3.12/logging/__init__.py", line 999, in format
+    return fmt.format(record)
+           ^^^^^^^^^^^^^^^^^^
+  File "/data1/hhc/miniconda3/envs/TROJail/lib/python3.12/site-packages/vllm/logging_utils/formatter.py", line 11, in format
+    msg = logging.Formatter.format(self, record)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data1/hhc/miniconda3/envs/TROJail/lib/python3.12/logging/__init__.py", line 703, in format
+    record.message = record.getMessage()
+                     ^^^^^^^^^^^^^^^^^^^
+  File "/data1/hhc/miniconda3/envs/TROJail/lib/python3.12/logging/__init__.py", line 392, in getMessage
+    msg = msg % self.args
+          ~~~~^~~~~~~~~~~
+TypeError: %d format: a real number is required, not NoneType
+Call stack:
+  File "<string>", line 1, in <module>
+  File "/data1/hhc/miniconda3/envs/TROJail/lib/python3.12/multiprocessing/spawn.py", line 122, in spawn_main
+    exitcode = _main(fd, parent_sentinel)
+  File "/data1/hhc/miniconda3/envs/TROJail/lib/python3.12/multiprocessing/spawn.py", line 135, in _main
+    return self._bootstrap(parent_sentinel)
+  File "/data1/hhc/miniconda3/envs/TROJail/lib/python3.12/multiprocessing/process.py", line 314, in _bootstrap
+    self.run()
+  File "/data1/hhc/miniconda3/envs/TROJail/lib/python3.12/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+  File "/data1/hhc/miniconda3/envs/TROJail/lib/python3.12/site-packages/vllm/engine/multiprocessing/engine.py", line 357, in run_mp_engine
+    engine = MQLLMEngine.from_engine_args(engine_args=engine_args,
+  File "/data1/hhc/miniconda3/envs/TROJail/lib/python3.12/site-packages/vllm/engine/multiprocessing/engine.py", line 119, in from_engine_args
+    return cls(ipc_path=ipc_path,
+  File "/data1/hhc/miniconda3/envs/TROJail/lib/python3.12/site-packages/vllm/engine/multiprocessing/engine.py", line 71, in __init__
+    self.engine = LLMEngine(*args, **kwargs)
+  File "/data1/hhc/miniconda3/envs/TROJail/lib/python3.12/site-packages/vllm/engine/llm_engine.py", line 347, in __init__
+    self.model_executor = executor_class(vllm_config=vllm_config, )
+  File "/data1/hhc/miniconda3/envs/TROJail/lib/python3.12/site-packages/vllm/executor/executor_base.py", line 36, in __init__
+    self._init_executor()
+  File "/data1/hhc/miniconda3/envs/TROJail/lib/python3.12/site-packages/vllm/executor/gpu_executor.py", line 38, in _init_executor
+    self.driver_worker = self._create_worker()
+  File "/data1/hhc/miniconda3/envs/TROJail/lib/python3.12/site-packages/vllm/executor/gpu_executor.py", line 96, in _create_worker
+    return create_worker(**self._get_create_worker_kwargs(
+  File "/data1/hhc/miniconda3/envs/TROJail/lib/python3.12/site-packages/vllm/executor/gpu_executor.py", line 24, in create_worker
+    wrapper.init_worker(**kwargs)
+  File "/data1/hhc/miniconda3/envs/TROJail/lib/python3.12/site-packages/vllm/worker/worker_base.py", line 465, in init_worker
+    self.worker = worker_class(*args, **kwargs)
+  File "/data1/hhc/miniconda3/envs/TROJail/lib/python3.12/site-packages/vllm/worker/worker.py", line 82, in __init__
+    self.model_runner: GPUModelRunnerBase = ModelRunnerClass(
+  File "/data1/hhc/miniconda3/envs/TROJail/lib/python3.12/site-packages/vllm/worker/model_runner.py", line 1029, in __init__
+    self.attn_backend = get_attn_backend(
+  File "/data1/hhc/miniconda3/envs/TROJail/lib/python3.12/site-packages/vllm/attention/selector.py", line 105, in get_attn_backend
+    return _cached_get_attn_backend(
+  File "/data1/hhc/miniconda3/envs/TROJail/lib/python3.12/site-packages/vllm/attention/selector.py", line 132, in _cached_get_attn_backend
+    backend = which_attn_to_use(head_size, dtype, kv_cache_dtype, block_size,
+  File "/data1/hhc/miniconda3/envs/TROJail/lib/python3.12/site-packages/vllm/attention/selector.py", line 293, in which_attn_to_use
+    logger.info(
+Message: 'Cannot use FlashAttention-2 backend for head size %d.'
+Arguments: (None,)
+INFO 01-24 23:01:16 selector.py:144] Using XFormers backend.
+INFO 01-24 23:01:17 model_runner.py:1072] Starting to load model ./models/Mistral-7B-Instruct-v0.3...
+ERROR 01-24 23:01:17 engine.py:366] unsupported operand type(s) for *: 'int' and 'NoneType'
+ERROR 01-24 23:01:17 engine.py:366] Traceback (most recent call last):
+ERROR 01-24 23:01:17 engine.py:366]   File "/data1/hhc/miniconda3/envs/TROJail/lib/python3.12/site-packages/vllm/engine/multiprocessing/engine.py", line 357, in run_mp_engine
+ERROR 01-24 23:01:17 engine.py:366]     engine = MQLLMEngine.from_engine_args(engine_args=engine_args,
+ERROR 01-24 23:01:17 engine.py:366]              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+ERROR 01-24 23:01:17 engine.py:366]   File "/data1/hhc/miniconda3/envs/TROJail/lib/python3.12/site-packages/vllm/engine/multiprocessing/engine.py", line 119, in from_engine_args
+ERROR 01-24 23:01:17 engine.py:366]     return cls(ipc_path=ipc_path,
+ERROR 01-24 23:01:17 engine.py:366]            ^^^^^^^^^^^^^^^^^^^^^^
+ERROR 01-24 23:01:17 engine.py:366]   File "/data1/hhc/miniconda3/envs/TROJail/lib/python3.12/site-packages/vllm/engine/multiprocessing/engine.py", line 71, in __init__
+ERROR 01-24 23:01:17 engine.py:366]     self.engine = LLMEngine(*args, **kwargs)
+ERROR 01-24 23:01:17 engine.py:366]                   ^^^^^^^^^^^^^^^^^^^^^^^^^^
+ERROR 01-24 23:01:17 engine.py:366]   File "/data1/hhc/miniconda3/envs/TROJail/lib/python3.12/site-packages/vllm/engine/llm_engine.py", line 347, in __init__
+ERROR 01-24 23:01:17 engine.py:366]     self.model_executor = executor_class(vllm_config=vllm_config, )
+ERROR 01-24 23:01:17 engine.py:366]                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+ERROR 01-24 23:01:17 engine.py:366]   File "/data1/hhc/miniconda3/envs/TROJail/lib/python3.12/site-packages/vllm/executor/executor_base.py", line 36, in __init__
+ERROR 01-24 23:01:17 engine.py:366]     self._init_executor()
+ERROR 01-24 23:01:17 engine.py:366]   File "/data1/hhc/miniconda3/envs/TROJail/lib/python3.12/site-packages/vllm/executor/gpu_executor.py", line 40, in _init_executor
+ERROR 01-24 23:01:17 engine.py:366]     self.driver_worker.load_model()
+ERROR 01-24 23:01:17 engine.py:366]   File "/data1/hhc/miniconda3/envs/TROJail/lib/python3.12/site-packages/vllm/worker/worker.py", line 152, in load_model
+ERROR 01-24 23:01:17 engine.py:366]     self.model_runner.load_model()
+ERROR 01-24 23:01:17 engine.py:366]   File "/data1/hhc/miniconda3/envs/TROJail/lib/python3.12/site-packages/vllm/worker/model_runner.py", line 1074, in load_model
+ERROR 01-24 23:01:17 engine.py:366]     self.model = get_model(vllm_config=self.vllm_config)
+ERROR 01-24 23:01:17 engine.py:366]                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+ERROR 01-24 23:01:17 engine.py:366]   File "/data1/hhc/miniconda3/envs/TROJail/lib/python3.12/site-packages/vllm/model_executor/model_loader/__init__.py", line 12, in get_model
+ERROR 01-24 23:01:17 engine.py:366]     return loader.load_model(vllm_config=vllm_config)
+ERROR 01-24 23:01:17 engine.py:366]            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+ERROR 01-24 23:01:17 engine.py:366]   File "/data1/hhc/miniconda3/envs/TROJail/lib/python3.12/site-packages/vllm/model_executor/model_loader/loader.py", line 332, in load_model
+ERROR 01-24 23:01:17 engine.py:366]     model = _initialize_model(vllm_config=vllm_config)
+ERROR 01-24 23:01:17 engine.py:366]             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+ERROR 01-24 23:01:17 engine.py:366]   File "/data1/hhc/miniconda3/envs/TROJail/lib/python3.12/site-packages/vllm/model_executor/model_loader/loader.py", line 100, in _initialize_model
+ERROR 01-24 23:01:17 engine.py:366]     return model_class(vllm_config=vllm_config, prefix=prefix)
+ERROR 01-24 23:01:17 engine.py:366]            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+ERROR 01-24 23:01:17 engine.py:366]   File "/data1/hhc/miniconda3/envs/TROJail/lib/python3.12/site-packages/vllm/model_executor/models/llama.py", line 503, in __init__
+ERROR 01-24 23:01:17 engine.py:366]     self.model = LlamaModel(vllm_config=vllm_config,
+ERROR 01-24 23:01:17 engine.py:366]                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+ERROR 01-24 23:01:17 engine.py:366]   File "/data1/hhc/miniconda3/envs/TROJail/lib/python3.12/site-packages/vllm/compilation/decorators.py", line 126, in __init__
+ERROR 01-24 23:01:17 engine.py:366]     old_init(self, vllm_config=vllm_config, prefix=prefix, **kwargs)
+ERROR 01-24 23:01:17 engine.py:366]   File "/data1/hhc/miniconda3/envs/TROJail/lib/python3.12/site-packages/vllm/model_executor/models/llama.py", line 298, in __init__
+ERROR 01-24 23:01:17 engine.py:366]     self.start_layer, self.end_layer, self.layers = make_layers(
+ERROR 01-24 23:01:17 engine.py:366]                                                     ^^^^^^^^^^^^
+ERROR 01-24 23:01:17 engine.py:366]   File "/data1/hhc/miniconda3/envs/TROJail/lib/python3.12/site-packages/vllm/model_executor/models/utils.py", line 510, in make_layers
+ERROR 01-24 23:01:17 engine.py:366]     maybe_offload_to_cpu(layer_fn(prefix=f"{prefix}.{idx}"))
+ERROR 01-24 23:01:17 engine.py:366]                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+ERROR 01-24 23:01:17 engine.py:366]   File "/data1/hhc/miniconda3/envs/TROJail/lib/python3.12/site-packages/vllm/model_executor/models/llama.py", line 300, in <lambda>
+ERROR 01-24 23:01:17 engine.py:366]     lambda prefix: LlamaDecoderLayer(config=config,
+ERROR 01-24 23:01:17 engine.py:366]                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+ERROR 01-24 23:01:17 engine.py:366]   File "/data1/hhc/miniconda3/envs/TROJail/lib/python3.12/site-packages/vllm/model_executor/models/llama.py", line 217, in __init__
+ERROR 01-24 23:01:17 engine.py:366]     self.self_attn = LlamaAttention(
+ERROR 01-24 23:01:17 engine.py:366]                      ^^^^^^^^^^^^^^^
+ERROR 01-24 23:01:17 engine.py:366]   File "/data1/hhc/miniconda3/envs/TROJail/lib/python3.12/site-packages/vllm/model_executor/models/llama.py", line 134, in __init__
+ERROR 01-24 23:01:17 engine.py:366]     self.q_size = self.num_heads * self.head_dim
+ERROR 01-24 23:01:17 engine.py:366]                   ~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~
+ERROR 01-24 23:01:17 engine.py:366] TypeError: unsupported operand type(s) for *: 'int' and 'NoneType'
+Process SpawnProcess-1:
+Traceback (most recent call last):
+  File "/data1/hhc/miniconda3/envs/TROJail/lib/python3.12/multiprocessing/process.py", line 314, in _bootstrap
+    self.run()
+  File "/data1/hhc/miniconda3/envs/TROJail/lib/python3.12/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+  File "/data1/hhc/miniconda3/envs/TROJail/lib/python3.12/site-packages/vllm/engine/multiprocessing/engine.py", line 368, in run_mp_engine
+    raise e
+  File "/data1/hhc/miniconda3/envs/TROJail/lib/python3.12/site-packages/vllm/engine/multiprocessing/engine.py", line 357, in run_mp_engine
+    engine = MQLLMEngine.from_engine_args(engine_args=engine_args,
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data1/hhc/miniconda3/envs/TROJail/lib/python3.12/site-packages/vllm/engine/multiprocessing/engine.py", line 119, in from_engine_args
+    return cls(ipc_path=ipc_path,
+           ^^^^^^^^^^^^^^^^^^^^^^
+  File "/data1/hhc/miniconda3/envs/TROJail/lib/python3.12/site-packages/vllm/engine/multiprocessing/engine.py", line 71, in __init__
+    self.engine = LLMEngine(*args, **kwargs)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data1/hhc/miniconda3/envs/TROJail/lib/python3.12/site-packages/vllm/engine/llm_engine.py", line 347, in __init__
+    self.model_executor = executor_class(vllm_config=vllm_config, )
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data1/hhc/miniconda3/envs/TROJail/lib/python3.12/site-packages/vllm/executor/executor_base.py", line 36, in __init__
+    self._init_executor()
+  File "/data1/hhc/miniconda3/envs/TROJail/lib/python3.12/site-packages/vllm/executor/gpu_executor.py", line 40, in _init_executor
+    self.driver_worker.load_model()
+  File "/data1/hhc/miniconda3/envs/TROJail/lib/python3.12/site-packages/vllm/worker/worker.py", line 152, in load_model
+    self.model_runner.load_model()
+  File "/data1/hhc/miniconda3/envs/TROJail/lib/python3.12/site-packages/vllm/worker/model_runner.py", line 1074, in load_model
+    self.model = get_model(vllm_config=self.vllm_config)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data1/hhc/miniconda3/envs/TROJail/lib/python3.12/site-packages/vllm/model_executor/model_loader/__init__.py", line 12, in get_model
+    return loader.load_model(vllm_config=vllm_config)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data1/hhc/miniconda3/envs/TROJail/lib/python3.12/site-packages/vllm/model_executor/model_loader/loader.py", line 332, in load_model
+    model = _initialize_model(vllm_config=vllm_config)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data1/hhc/miniconda3/envs/TROJail/lib/python3.12/site-packages/vllm/model_executor/model_loader/loader.py", line 100, in _initialize_model
+    return model_class(vllm_config=vllm_config, prefix=prefix)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data1/hhc/miniconda3/envs/TROJail/lib/python3.12/site-packages/vllm/model_executor/models/llama.py", line 503, in __init__
+    self.model = LlamaModel(vllm_config=vllm_config,
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data1/hhc/miniconda3/envs/TROJail/lib/python3.12/site-packages/vllm/compilation/decorators.py", line 126, in __init__
+    old_init(self, vllm_config=vllm_config, prefix=prefix, **kwargs)
+  File "/data1/hhc/miniconda3/envs/TROJail/lib/python3.12/site-packages/vllm/model_executor/models/llama.py", line 298, in __init__
+    self.start_layer, self.end_layer, self.layers = make_layers(
+                                                    ^^^^^^^^^^^^
+  File "/data1/hhc/miniconda3/envs/TROJail/lib/python3.12/site-packages/vllm/model_executor/models/utils.py", line 510, in make_layers
+    maybe_offload_to_cpu(layer_fn(prefix=f"{prefix}.{idx}"))
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data1/hhc/miniconda3/envs/TROJail/lib/python3.12/site-packages/vllm/model_executor/models/llama.py", line 300, in <lambda>
+    lambda prefix: LlamaDecoderLayer(config=config,
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data1/hhc/miniconda3/envs/TROJail/lib/python3.12/site-packages/vllm/model_executor/models/llama.py", line 217, in __init__
+    self.self_attn = LlamaAttention(
+                     ^^^^^^^^^^^^^^^
+  File "/data1/hhc/miniconda3/envs/TROJail/lib/python3.12/site-packages/vllm/model_executor/models/llama.py", line 134, in __init__
+    self.q_size = self.num_heads * self.head_dim
+                  ~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~
+TypeError: unsupported operand type(s) for *: 'int' and 'NoneType'
+[rank0]:[W124 23:01:18.949750347 ProcessGroupNCCL.cpp:1250] Warning: WARNING: process group has NOT been destroyed before we destruct ProcessGroupNCCL. On normal program exit, the application should call destroy_process_group to ensure that any pending NCCL operations have finished in this process. In rare cases this process can exit before this point and block the progress of another member of the process group. This constraint has always been present,  but this warning has only been added since PyTorch 2.4 (function operator())
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "/data1/hhc/miniconda3/envs/TROJail/lib/python3.12/site-packages/vllm/entrypoints/openai/api_server.py", line 643, in <module>
+    uvloop.run(run_server(args))
+  File "/data1/hhc/miniconda3/envs/TROJail/lib/python3.12/site-packages/uvloop/__init__.py", line 96, in run
+    return __asyncio.run(
+           ^^^^^^^^^^^^^^
+  File "/data1/hhc/miniconda3/envs/TROJail/lib/python3.12/asyncio/runners.py", line 195, in run
+    return runner.run(main)
+           ^^^^^^^^^^^^^^^^
+  File "/data1/hhc/miniconda3/envs/TROJail/lib/python3.12/asyncio/runners.py", line 118, in run
+    return self._loop.run_until_complete(task)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "uvloop/loop.pyx", line 1518, in uvloop.loop.Loop.run_until_complete
+  File "/data1/hhc/miniconda3/envs/TROJail/lib/python3.12/site-packages/uvloop/__init__.py", line 48, in wrapper
+    return await main
+           ^^^^^^^^^^
+  File "/data1/hhc/miniconda3/envs/TROJail/lib/python3.12/site-packages/vllm/entrypoints/openai/api_server.py", line 609, in run_server
+    async with build_async_engine_client(args) as engine_client:
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data1/hhc/miniconda3/envs/TROJail/lib/python3.12/contextlib.py", line 210, in __aenter__
+    return await anext(self.gen)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/data1/hhc/miniconda3/envs/TROJail/lib/python3.12/site-packages/vllm/entrypoints/openai/api_server.py", line 113, in build_async_engine_client
+    async with build_async_engine_client_from_engine_args(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data1/hhc/miniconda3/envs/TROJail/lib/python3.12/contextlib.py", line 210, in __aenter__
+    return await anext(self.gen)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/data1/hhc/miniconda3/envs/TROJail/lib/python3.12/site-packages/vllm/entrypoints/openai/api_server.py", line 210, in build_async_engine_client_from_engine_args
+    raise RuntimeError(
+RuntimeError: Engine process failed to start. See stack trace for the root cause.
