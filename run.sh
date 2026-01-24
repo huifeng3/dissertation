@@ -12,7 +12,7 @@ CUDA_VISIBLE_DEVICES=0 python -m vllm.entrypoints.openai.api_server \
   --model $env_llm_path \
   --port $env_llm_port \
   --host 0.0.0.0 \
-  --gpu-memory-utilization 0.95 \
+  --gpu-memory-utilization 0.8 \
   --max-model-len 13312 \
   --max-num-seqs 256 \
   --max-num-batched-tokens 51200 \
@@ -26,7 +26,7 @@ CUDA_VISIBLE_DEVICES=1 python -m vllm.entrypoints.openai.api_server \
   --model $judger_llm_path \
   --port $judger_llm_port \
   --host 0.0.0.0 \
-  --gpu-memory-utilization 0.95 \
+  --gpu-memory-utilization 0.8 \
   --max-model-len 2048 \
   --max-num-seqs 256 \
   --max-num-batched-tokens 51200 \
@@ -46,7 +46,7 @@ done
 echo "Both vLLM servers are ready!"
 
 
-experiment_name="train_demo"
+experiment_name_2="train_demo"
 TENSORBOARD_DIR_2="./tensorboard_log/${experiment_name_2}"
 mkdir -p "$TENSORBOARD_DIR_2"
 python train.py --config-name _7_jailbreak.yaml \
