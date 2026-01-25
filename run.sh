@@ -17,6 +17,9 @@ CUDA_VISIBLE_DEVICES=0 python -m vllm.entrypoints.openai.api_server \
   --max-num-seqs 256 \
   --max-num-batched-tokens 51200 \
   --tensor-parallel-size 1 \
+  --dtype half \
+  --enforce-eager \
+  --trust-remote-code \
   > env_llm.log 2>&1 &
 
 env_llm_pid=$!
@@ -31,6 +34,9 @@ CUDA_VISIBLE_DEVICES=1 python -m vllm.entrypoints.openai.api_server \
   --max-num-seqs 256 \
   --max-num-batched-tokens 51200 \
   --tensor-parallel-size 1 \
+  --dtype half \
+  --enforce-eager \
+  --trust-remote-code \
   > judger_llm.log 2>&1 &
 
 judger_llm_pid=$!

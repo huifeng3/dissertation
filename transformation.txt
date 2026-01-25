@@ -1,215 +1,270 @@
-INFO 01-24 23:01:00 api_server.py:585] vLLM API server version 0.6.4.post1
-INFO 01-24 23:01:00 api_server.py:586] args: Namespace(host='0.0.0.0', port=8001, uvicorn_log_level='info', allow_credentials=False, allowed_origins=['*'], allowed_methods=['*'], allowed_headers=['*'], api_key=None, lora_modules=None, prompt_adapters=None, chat_template=None, response_role='assistant', ssl_keyfile=None, ssl_certfile=None, ssl_ca_certs=None, ssl_cert_reqs=0, root_path=None, middleware=[], return_tokens_as_token_ids=False, disable_frontend_multiprocessing=False, enable_auto_tool_choice=False, tool_call_parser=None, tool_parser_plugin='', model='./models/Mistral-7B-Instruct-v0.3', task='auto', tokenizer=None, skip_tokenizer_init=False, revision=None, code_revision=None, tokenizer_revision=None, tokenizer_mode='auto', chat_template_text_format='string', trust_remote_code=False, allowed_local_media_path=None, download_dir=None, load_format='auto', config_format=<ConfigFormat.AUTO: 'auto'>, dtype='auto', kv_cache_dtype='auto', quantization_param_path=None, max_model_len=13312, guided_decoding_backend='outlines', distributed_executor_backend=None, worker_use_ray=False, pipeline_parallel_size=1, tensor_parallel_size=1, max_parallel_loading_workers=None, ray_workers_use_nsight=False, block_size=16, enable_prefix_caching=False, disable_sliding_window=False, use_v2_block_manager=False, num_lookahead_slots=0, seed=0, swap_space=4, cpu_offload_gb=0, gpu_memory_utilization=0.4, num_gpu_blocks_override=None, max_num_batched_tokens=51200, max_num_seqs=256, max_logprobs=20, disable_log_stats=False, quantization=None, rope_scaling=None, rope_theta=None, hf_overrides=None, enforce_eager=False, max_seq_len_to_capture=8192, disable_custom_all_reduce=False, tokenizer_pool_size=0, tokenizer_pool_type='ray', tokenizer_pool_extra_config=None, limit_mm_per_prompt=None, mm_processor_kwargs=None, enable_lora=False, enable_lora_bias=False, max_loras=1, max_lora_rank=16, lora_extra_vocab_size=256, lora_dtype='auto', long_lora_scaling_factors=None, max_cpu_loras=None, fully_sharded_loras=False, enable_prompt_adapter=False, max_prompt_adapters=1, max_prompt_adapter_token=0, device='auto', num_scheduler_steps=1, multi_step_stream_outputs=True, scheduler_delay_factor=0.0, enable_chunked_prefill=None, speculative_model=None, speculative_model_quantization=None, num_speculative_tokens=None, speculative_disable_mqa_scorer=False, speculative_draft_tensor_parallel_size=None, speculative_max_model_len=None, speculative_disable_by_batch_size=None, ngram_prompt_lookup_max=None, ngram_prompt_lookup_min=None, spec_decoding_acceptance_method='rejection_sampler', typical_acceptance_sampler_posterior_threshold=None, typical_acceptance_sampler_posterior_alpha=None, disable_logprobs_during_spec_decoding=None, model_loader_extra_config=None, ignore_patterns=[], preemption_mode=None, served_model_name=None, qlora_adapter_name_or_path=None, otlp_traces_endpoint=None, collect_detailed_traces=None, disable_async_output_proc=False, scheduling_policy='fcfs', override_neuron_config=None, override_pooler_config=None, disable_log_requests=False, max_log_len=None, disable_fastapi_docs=False, enable_prompt_tokens_details=False)
-INFO 01-24 23:01:00 api_server.py:175] Multiprocessing frontend to use ipc:///tmp/7dc8654f-2e3a-41e5-b73f-7d06d2443fc6 for IPC Path.
-INFO 01-24 23:01:00 api_server.py:194] Started engine process with PID 2387828
-INFO 01-24 23:01:08 config.py:350] This model supports multiple tasks: {'embedding', 'generate'}. Defaulting to 'generate'.
-WARNING 01-24 23:01:08 arg_utils.py:1075] [DEPRECATED] Block manager v1 has been removed, and setting --use-v2-block-manager to True or False has no effect on vLLM behavior. Please remove --use-v2-block-manager in your engine argument. If your use case is not supported by SelfAttnBlockSpaceManager (i.e. block manager v2), please file an issue with detailed information.
-INFO 01-24 23:01:15 config.py:350] This model supports multiple tasks: {'generate', 'embedding'}. Defaulting to 'generate'.
-WARNING 01-24 23:01:15 arg_utils.py:1075] [DEPRECATED] Block manager v1 has been removed, and setting --use-v2-block-manager to True or False has no effect on vLLM behavior. Please remove --use-v2-block-manager in your engine argument. If your use case is not supported by SelfAttnBlockSpaceManager (i.e. block manager v2), please file an issue with detailed information.
-INFO 01-24 23:01:15 llm_engine.py:249] Initializing an LLM engine (v0.6.4.post1) with config: model='./models/Mistral-7B-Instruct-v0.3', speculative_config=None, tokenizer='./models/Mistral-7B-Instruct-v0.3', skip_tokenizer_init=False, tokenizer_mode=auto, revision=None, override_neuron_config=None, tokenizer_revision=None, trust_remote_code=False, dtype=torch.bfloat16, max_seq_len=13312, download_dir=None, load_format=LoadFormat.AUTO, tensor_parallel_size=1, pipeline_parallel_size=1, disable_custom_all_reduce=False, quantization=None, enforce_eager=False, kv_cache_dtype=auto, quantization_param_path=None, device_config=cuda, decoding_config=DecodingConfig(guided_decoding_backend='outlines'), observability_config=ObservabilityConfig(otlp_traces_endpoint=None, collect_model_forward_time=False, collect_model_execute_time=False), seed=0, served_model_name=./models/Mistral-7B-Instruct-v0.3, num_scheduler_steps=1, chunked_prefill_enabled=False multi_step_stream_outputs=True, enable_prefix_caching=False, use_async_output_proc=True, use_cached_outputs=True, chat_template_text_format=string, mm_processor_kwargs=None, pooler_config=None)
---- Logging error ---
+(TROJail) adminn@adminn:/data1/TROJail$ python -c "import torch; print(f'PyTorch:{torch.__version__}\\nCUDA Version:{torch.version.cuda}\\nCUDA Available:{torch.cuda.is_available()}')"
 Traceback (most recent call last):
-  File "/data1/hhc/miniconda3/envs/TROJail/lib/python3.12/logging/__init__.py", line 1160, in emit
-    msg = self.format(record)
-          ^^^^^^^^^^^^^^^^^^^
-  File "/data1/hhc/miniconda3/envs/TROJail/lib/python3.12/logging/__init__.py", line 999, in format
-    return fmt.format(record)
-           ^^^^^^^^^^^^^^^^^^
-  File "/data1/hhc/miniconda3/envs/TROJail/lib/python3.12/site-packages/vllm/logging_utils/formatter.py", line 11, in format
-    msg = logging.Formatter.format(self, record)
-          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/data1/hhc/miniconda3/envs/TROJail/lib/python3.12/logging/__init__.py", line 703, in format
-    record.message = record.getMessage()
-                     ^^^^^^^^^^^^^^^^^^^
-  File "/data1/hhc/miniconda3/envs/TROJail/lib/python3.12/logging/__init__.py", line 392, in getMessage
-    msg = msg % self.args
-          ~~~~^~~~~~~~~~~
-TypeError: %d format: a real number is required, not NoneType
-Call stack:
   File "<string>", line 1, in <module>
-  File "/data1/hhc/miniconda3/envs/TROJail/lib/python3.12/multiprocessing/spawn.py", line 122, in spawn_main
-    exitcode = _main(fd, parent_sentinel)
-  File "/data1/hhc/miniconda3/envs/TROJail/lib/python3.12/multiprocessing/spawn.py", line 135, in _main
-    return self._bootstrap(parent_sentinel)
-  File "/data1/hhc/miniconda3/envs/TROJail/lib/python3.12/multiprocessing/process.py", line 314, in _bootstrap
-    self.run()
-  File "/data1/hhc/miniconda3/envs/TROJail/lib/python3.12/multiprocessing/process.py", line 108, in run
-    self._target(*self._args, **self._kwargs)
-  File "/data1/hhc/miniconda3/envs/TROJail/lib/python3.12/site-packages/vllm/engine/multiprocessing/engine.py", line 357, in run_mp_engine
-    engine = MQLLMEngine.from_engine_args(engine_args=engine_args,
-  File "/data1/hhc/miniconda3/envs/TROJail/lib/python3.12/site-packages/vllm/engine/multiprocessing/engine.py", line 119, in from_engine_args
-    return cls(ipc_path=ipc_path,
-  File "/data1/hhc/miniconda3/envs/TROJail/lib/python3.12/site-packages/vllm/engine/multiprocessing/engine.py", line 71, in __init__
-    self.engine = LLMEngine(*args, **kwargs)
-  File "/data1/hhc/miniconda3/envs/TROJail/lib/python3.12/site-packages/vllm/engine/llm_engine.py", line 347, in __init__
-    self.model_executor = executor_class(vllm_config=vllm_config, )
-  File "/data1/hhc/miniconda3/envs/TROJail/lib/python3.12/site-packages/vllm/executor/executor_base.py", line 36, in __init__
-    self._init_executor()
-  File "/data1/hhc/miniconda3/envs/TROJail/lib/python3.12/site-packages/vllm/executor/gpu_executor.py", line 38, in _init_executor
-    self.driver_worker = self._create_worker()
-  File "/data1/hhc/miniconda3/envs/TROJail/lib/python3.12/site-packages/vllm/executor/gpu_executor.py", line 96, in _create_worker
-    return create_worker(**self._get_create_worker_kwargs(
-  File "/data1/hhc/miniconda3/envs/TROJail/lib/python3.12/site-packages/vllm/executor/gpu_executor.py", line 24, in create_worker
-    wrapper.init_worker(**kwargs)
-  File "/data1/hhc/miniconda3/envs/TROJail/lib/python3.12/site-packages/vllm/worker/worker_base.py", line 465, in init_worker
-    self.worker = worker_class(*args, **kwargs)
-  File "/data1/hhc/miniconda3/envs/TROJail/lib/python3.12/site-packages/vllm/worker/worker.py", line 82, in __init__
-    self.model_runner: GPUModelRunnerBase = ModelRunnerClass(
-  File "/data1/hhc/miniconda3/envs/TROJail/lib/python3.12/site-packages/vllm/worker/model_runner.py", line 1029, in __init__
-    self.attn_backend = get_attn_backend(
-  File "/data1/hhc/miniconda3/envs/TROJail/lib/python3.12/site-packages/vllm/attention/selector.py", line 105, in get_attn_backend
-    return _cached_get_attn_backend(
-  File "/data1/hhc/miniconda3/envs/TROJail/lib/python3.12/site-packages/vllm/attention/selector.py", line 132, in _cached_get_attn_backend
-    backend = which_attn_to_use(head_size, dtype, kv_cache_dtype, block_size,
-  File "/data1/hhc/miniconda3/envs/TROJail/lib/python3.12/site-packages/vllm/attention/selector.py", line 293, in which_attn_to_use
-    logger.info(
-Message: 'Cannot use FlashAttention-2 backend for head size %d.'
-Arguments: (None,)
-INFO 01-24 23:01:16 selector.py:144] Using XFormers backend.
-INFO 01-24 23:01:17 model_runner.py:1072] Starting to load model ./models/Mistral-7B-Instruct-v0.3...
-ERROR 01-24 23:01:17 engine.py:366] unsupported operand type(s) for *: 'int' and 'NoneType'
-ERROR 01-24 23:01:17 engine.py:366] Traceback (most recent call last):
-ERROR 01-24 23:01:17 engine.py:366]   File "/data1/hhc/miniconda3/envs/TROJail/lib/python3.12/site-packages/vllm/engine/multiprocessing/engine.py", line 357, in run_mp_engine
-ERROR 01-24 23:01:17 engine.py:366]     engine = MQLLMEngine.from_engine_args(engine_args=engine_args,
-ERROR 01-24 23:01:17 engine.py:366]              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-ERROR 01-24 23:01:17 engine.py:366]   File "/data1/hhc/miniconda3/envs/TROJail/lib/python3.12/site-packages/vllm/engine/multiprocessing/engine.py", line 119, in from_engine_args
-ERROR 01-24 23:01:17 engine.py:366]     return cls(ipc_path=ipc_path,
-ERROR 01-24 23:01:17 engine.py:366]            ^^^^^^^^^^^^^^^^^^^^^^
-ERROR 01-24 23:01:17 engine.py:366]   File "/data1/hhc/miniconda3/envs/TROJail/lib/python3.12/site-packages/vllm/engine/multiprocessing/engine.py", line 71, in __init__
-ERROR 01-24 23:01:17 engine.py:366]     self.engine = LLMEngine(*args, **kwargs)
-ERROR 01-24 23:01:17 engine.py:366]                   ^^^^^^^^^^^^^^^^^^^^^^^^^^
-ERROR 01-24 23:01:17 engine.py:366]   File "/data1/hhc/miniconda3/envs/TROJail/lib/python3.12/site-packages/vllm/engine/llm_engine.py", line 347, in __init__
-ERROR 01-24 23:01:17 engine.py:366]     self.model_executor = executor_class(vllm_config=vllm_config, )
-ERROR 01-24 23:01:17 engine.py:366]                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-ERROR 01-24 23:01:17 engine.py:366]   File "/data1/hhc/miniconda3/envs/TROJail/lib/python3.12/site-packages/vllm/executor/executor_base.py", line 36, in __init__
-ERROR 01-24 23:01:17 engine.py:366]     self._init_executor()
-ERROR 01-24 23:01:17 engine.py:366]   File "/data1/hhc/miniconda3/envs/TROJail/lib/python3.12/site-packages/vllm/executor/gpu_executor.py", line 40, in _init_executor
-ERROR 01-24 23:01:17 engine.py:366]     self.driver_worker.load_model()
-ERROR 01-24 23:01:17 engine.py:366]   File "/data1/hhc/miniconda3/envs/TROJail/lib/python3.12/site-packages/vllm/worker/worker.py", line 152, in load_model
-ERROR 01-24 23:01:17 engine.py:366]     self.model_runner.load_model()
-ERROR 01-24 23:01:17 engine.py:366]   File "/data1/hhc/miniconda3/envs/TROJail/lib/python3.12/site-packages/vllm/worker/model_runner.py", line 1074, in load_model
-ERROR 01-24 23:01:17 engine.py:366]     self.model = get_model(vllm_config=self.vllm_config)
-ERROR 01-24 23:01:17 engine.py:366]                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-ERROR 01-24 23:01:17 engine.py:366]   File "/data1/hhc/miniconda3/envs/TROJail/lib/python3.12/site-packages/vllm/model_executor/model_loader/__init__.py", line 12, in get_model
-ERROR 01-24 23:01:17 engine.py:366]     return loader.load_model(vllm_config=vllm_config)
-ERROR 01-24 23:01:17 engine.py:366]            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-ERROR 01-24 23:01:17 engine.py:366]   File "/data1/hhc/miniconda3/envs/TROJail/lib/python3.12/site-packages/vllm/model_executor/model_loader/loader.py", line 332, in load_model
-ERROR 01-24 23:01:17 engine.py:366]     model = _initialize_model(vllm_config=vllm_config)
-ERROR 01-24 23:01:17 engine.py:366]             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-ERROR 01-24 23:01:17 engine.py:366]   File "/data1/hhc/miniconda3/envs/TROJail/lib/python3.12/site-packages/vllm/model_executor/model_loader/loader.py", line 100, in _initialize_model
-ERROR 01-24 23:01:17 engine.py:366]     return model_class(vllm_config=vllm_config, prefix=prefix)
-ERROR 01-24 23:01:17 engine.py:366]            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-ERROR 01-24 23:01:17 engine.py:366]   File "/data1/hhc/miniconda3/envs/TROJail/lib/python3.12/site-packages/vllm/model_executor/models/llama.py", line 503, in __init__
-ERROR 01-24 23:01:17 engine.py:366]     self.model = LlamaModel(vllm_config=vllm_config,
-ERROR 01-24 23:01:17 engine.py:366]                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-ERROR 01-24 23:01:17 engine.py:366]   File "/data1/hhc/miniconda3/envs/TROJail/lib/python3.12/site-packages/vllm/compilation/decorators.py", line 126, in __init__
-ERROR 01-24 23:01:17 engine.py:366]     old_init(self, vllm_config=vllm_config, prefix=prefix, **kwargs)
-ERROR 01-24 23:01:17 engine.py:366]   File "/data1/hhc/miniconda3/envs/TROJail/lib/python3.12/site-packages/vllm/model_executor/models/llama.py", line 298, in __init__
-ERROR 01-24 23:01:17 engine.py:366]     self.start_layer, self.end_layer, self.layers = make_layers(
-ERROR 01-24 23:01:17 engine.py:366]                                                     ^^^^^^^^^^^^
-ERROR 01-24 23:01:17 engine.py:366]   File "/data1/hhc/miniconda3/envs/TROJail/lib/python3.12/site-packages/vllm/model_executor/models/utils.py", line 510, in make_layers
-ERROR 01-24 23:01:17 engine.py:366]     maybe_offload_to_cpu(layer_fn(prefix=f"{prefix}.{idx}"))
-ERROR 01-24 23:01:17 engine.py:366]                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-ERROR 01-24 23:01:17 engine.py:366]   File "/data1/hhc/miniconda3/envs/TROJail/lib/python3.12/site-packages/vllm/model_executor/models/llama.py", line 300, in <lambda>
-ERROR 01-24 23:01:17 engine.py:366]     lambda prefix: LlamaDecoderLayer(config=config,
-ERROR 01-24 23:01:17 engine.py:366]                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-ERROR 01-24 23:01:17 engine.py:366]   File "/data1/hhc/miniconda3/envs/TROJail/lib/python3.12/site-packages/vllm/model_executor/models/llama.py", line 217, in __init__
-ERROR 01-24 23:01:17 engine.py:366]     self.self_attn = LlamaAttention(
-ERROR 01-24 23:01:17 engine.py:366]                      ^^^^^^^^^^^^^^^
-ERROR 01-24 23:01:17 engine.py:366]   File "/data1/hhc/miniconda3/envs/TROJail/lib/python3.12/site-packages/vllm/model_executor/models/llama.py", line 134, in __init__
-ERROR 01-24 23:01:17 engine.py:366]     self.q_size = self.num_heads * self.head_dim
-ERROR 01-24 23:01:17 engine.py:366]                   ~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~
-ERROR 01-24 23:01:17 engine.py:366] TypeError: unsupported operand type(s) for *: 'int' and 'NoneType'
-Process SpawnProcess-1:
-Traceback (most recent call last):
-  File "/data1/hhc/miniconda3/envs/TROJail/lib/python3.12/multiprocessing/process.py", line 314, in _bootstrap
-    self.run()
-  File "/data1/hhc/miniconda3/envs/TROJail/lib/python3.12/multiprocessing/process.py", line 108, in run
-    self._target(*self._args, **self._kwargs)
-  File "/data1/hhc/miniconda3/envs/TROJail/lib/python3.12/site-packages/vllm/engine/multiprocessing/engine.py", line 368, in run_mp_engine
-    raise e
-  File "/data1/hhc/miniconda3/envs/TROJail/lib/python3.12/site-packages/vllm/engine/multiprocessing/engine.py", line 357, in run_mp_engine
-    engine = MQLLMEngine.from_engine_args(engine_args=engine_args,
-             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/data1/hhc/miniconda3/envs/TROJail/lib/python3.12/site-packages/vllm/engine/multiprocessing/engine.py", line 119, in from_engine_args
-    return cls(ipc_path=ipc_path,
-           ^^^^^^^^^^^^^^^^^^^^^^
-  File "/data1/hhc/miniconda3/envs/TROJail/lib/python3.12/site-packages/vllm/engine/multiprocessing/engine.py", line 71, in __init__
-    self.engine = LLMEngine(*args, **kwargs)
-                  ^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/data1/hhc/miniconda3/envs/TROJail/lib/python3.12/site-packages/vllm/engine/llm_engine.py", line 347, in __init__
-    self.model_executor = executor_class(vllm_config=vllm_config, )
-                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/data1/hhc/miniconda3/envs/TROJail/lib/python3.12/site-packages/vllm/executor/executor_base.py", line 36, in __init__
-    self._init_executor()
-  File "/data1/hhc/miniconda3/envs/TROJail/lib/python3.12/site-packages/vllm/executor/gpu_executor.py", line 40, in _init_executor
-    self.driver_worker.load_model()
-  File "/data1/hhc/miniconda3/envs/TROJail/lib/python3.12/site-packages/vllm/worker/worker.py", line 152, in load_model
-    self.model_runner.load_model()
-  File "/data1/hhc/miniconda3/envs/TROJail/lib/python3.12/site-packages/vllm/worker/model_runner.py", line 1074, in load_model
-    self.model = get_model(vllm_config=self.vllm_config)
-                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/data1/hhc/miniconda3/envs/TROJail/lib/python3.12/site-packages/vllm/model_executor/model_loader/__init__.py", line 12, in get_model
-    return loader.load_model(vllm_config=vllm_config)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/data1/hhc/miniconda3/envs/TROJail/lib/python3.12/site-packages/vllm/model_executor/model_loader/loader.py", line 332, in load_model
-    model = _initialize_model(vllm_config=vllm_config)
-            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/data1/hhc/miniconda3/envs/TROJail/lib/python3.12/site-packages/vllm/model_executor/model_loader/loader.py", line 100, in _initialize_model
-    return model_class(vllm_config=vllm_config, prefix=prefix)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/data1/hhc/miniconda3/envs/TROJail/lib/python3.12/site-packages/vllm/model_executor/models/llama.py", line 503, in __init__
-    self.model = LlamaModel(vllm_config=vllm_config,
-                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/data1/hhc/miniconda3/envs/TROJail/lib/python3.12/site-packages/vllm/compilation/decorators.py", line 126, in __init__
-    old_init(self, vllm_config=vllm_config, prefix=prefix, **kwargs)
-  File "/data1/hhc/miniconda3/envs/TROJail/lib/python3.12/site-packages/vllm/model_executor/models/llama.py", line 298, in __init__
-    self.start_layer, self.end_layer, self.layers = make_layers(
-                                                    ^^^^^^^^^^^^
-  File "/data1/hhc/miniconda3/envs/TROJail/lib/python3.12/site-packages/vllm/model_executor/models/utils.py", line 510, in make_layers
-    maybe_offload_to_cpu(layer_fn(prefix=f"{prefix}.{idx}"))
-                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/data1/hhc/miniconda3/envs/TROJail/lib/python3.12/site-packages/vllm/model_executor/models/llama.py", line 300, in <lambda>
-    lambda prefix: LlamaDecoderLayer(config=config,
-                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/data1/hhc/miniconda3/envs/TROJail/lib/python3.12/site-packages/vllm/model_executor/models/llama.py", line 217, in __init__
-    self.self_attn = LlamaAttention(
-                     ^^^^^^^^^^^^^^^
-  File "/data1/hhc/miniconda3/envs/TROJail/lib/python3.12/site-packages/vllm/model_executor/models/llama.py", line 134, in __init__
-    self.q_size = self.num_heads * self.head_dim
-                  ~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~
-TypeError: unsupported operand type(s) for *: 'int' and 'NoneType'
-[rank0]:[W124 23:01:18.949750347 ProcessGroupNCCL.cpp:1250] Warning: WARNING: process group has NOT been destroyed before we destruct ProcessGroupNCCL. On normal program exit, the application should call destroy_process_group to ensure that any pending NCCL operations have finished in this process. In rare cases this process can exit before this point and block the progress of another member of the process group. This constraint has always been present,  but this warning has only been added since PyTorch 2.4 (function operator())
-Traceback (most recent call last):
-  File "<frozen runpy>", line 198, in _run_module_as_main
-  File "<frozen runpy>", line 88, in _run_code
-  File "/data1/hhc/miniconda3/envs/TROJail/lib/python3.12/site-packages/vllm/entrypoints/openai/api_server.py", line 643, in <module>
-    uvloop.run(run_server(args))
-  File "/data1/hhc/miniconda3/envs/TROJail/lib/python3.12/site-packages/uvloop/__init__.py", line 96, in run
-    return __asyncio.run(
-           ^^^^^^^^^^^^^^
-  File "/data1/hhc/miniconda3/envs/TROJail/lib/python3.12/asyncio/runners.py", line 195, in run
-    return runner.run(main)
-           ^^^^^^^^^^^^^^^^
-  File "/data1/hhc/miniconda3/envs/TROJail/lib/python3.12/asyncio/runners.py", line 118, in run
-    return self._loop.run_until_complete(task)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "uvloop/loop.pyx", line 1518, in uvloop.loop.Loop.run_until_complete
-  File "/data1/hhc/miniconda3/envs/TROJail/lib/python3.12/site-packages/uvloop/__init__.py", line 48, in wrapper
-    return await main
-           ^^^^^^^^^^
-  File "/data1/hhc/miniconda3/envs/TROJail/lib/python3.12/site-packages/vllm/entrypoints/openai/api_server.py", line 609, in run_server
-    async with build_async_engine_client(args) as engine_client:
-               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/data1/hhc/miniconda3/envs/TROJail/lib/python3.12/contextlib.py", line 210, in __aenter__
-    return await anext(self.gen)
-           ^^^^^^^^^^^^^^^^^^^^^
-  File "/data1/hhc/miniconda3/envs/TROJail/lib/python3.12/site-packages/vllm/entrypoints/openai/api_server.py", line 113, in build_async_engine_client
-    async with build_async_engine_client_from_engine_args(
-               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/data1/hhc/miniconda3/envs/TROJail/lib/python3.12/contextlib.py", line 210, in __aenter__
-    return await anext(self.gen)
-           ^^^^^^^^^^^^^^^^^^^^^
-  File "/data1/hhc/miniconda3/envs/TROJail/lib/python3.12/site-packages/vllm/entrypoints/openai/api_server.py", line 210, in build_async_engine_client_from_engine_args
-    raise RuntimeError(
-RuntimeError: Engine process failed to start. See stack trace for the root cause.
+  File "/data1/hhc/miniconda3/envs/TROJail/lib/python3.12/site-packages/torch/__init__.py", line 367, in <module>
+    from torch._C import *  # noqa: F403
+    ^^^^^^^^^^^^^^^^^^^^^^
+ImportError: /data1/hhc/miniconda3/envs/TROJail/lib/python3.12/site-packages/torch/lib/../../nvidia/cusparse/lib/libcusparse.so.12: undefined symbol: __nvJitLinkComplete_12_4, version libnvJitLink.so.12
+
+
+(TROJail) adminn@adminn:/data1/TROJail$ conda env
+usage: conda env [-h] command ...
+
+positional arguments:
+  command
+    config    Configure a conda environment.
+    create    Create an environment based on an environment definition file.
+    export    Export a given environment
+    list      An alias for `conda info --envs`. Lists all conda environments.
+    remove    Remove an environment.
+    update    Update the current environment based on environment file.
+
+options:
+  -h, --help  Show this help message and exit.
+(TROJail) adminn@adminn:/data1/TROJail$ conda list
+# packages in environment at /data1/hhc/miniconda3/envs/TROJail:
+#
+# Name                    Version                   Build  Channel
+_libgcc_mutex             0.1                        main    defaults
+_openmp_mutex             5.1                       1_gnu    defaults
+absl-py                   2.3.1                    pypi_0    pypi
+accelerate                1.9.0                    pypi_0    pypi
+aiohappyeyeballs          2.6.1                    pypi_0    pypi
+aiohttp                   3.13.3                   pypi_0    pypi
+aiosignal                 1.4.0                    pypi_0    pypi
+airportsdata              20250909                 pypi_0    pypi
+annotated-doc             0.0.4                    pypi_0    pypi
+annotated-types           0.7.0                    pypi_0    pypi
+anthropic                 0.58.2                   pypi_0    pypi
+antlr4-python3-runtime    4.9.3                    pypi_0    pypi
+anyio                     4.12.1                   pypi_0    pypi
+astor                     0.8.1                    pypi_0    pypi
+asttokens                 3.0.1                    pypi_0    pypi
+attrs                     25.4.0                   pypi_0    pypi
+blake3                    1.0.8                    pypi_0    pypi
+bzip2                     1.0.8                h5eee18b_6    defaults
+ca-certificates           2025.12.2            h06a4308_0    defaults
+cachetools                6.2.4                    pypi_0    pypi
+certifi                   2026.1.4                 pypi_0    pypi
+charset-normalizer        3.4.4                    pypi_0    pypi
+click                     8.1.8                    pypi_0    pypi
+cloudpickle               3.1.2                    pypi_0    pypi
+codetiming                1.4.0                    pypi_0    pypi
+compressed-tensors        0.8.0                    pypi_0    pypi
+contourpy                 1.3.3                    pypi_0    pypi
+cupy-cuda12x              13.6.0                   pypi_0    pypi
+cycler                    0.12.1                   pypi_0    pypi
+datasets                  4.0.0                    pypi_0    pypi
+debugpy                   1.8.15                   pypi_0    pypi
+decorator                 5.2.1                    pypi_0    pypi
+depyf                     0.18.0                   pypi_0    pypi
+dill                      0.3.8                    pypi_0    pypi
+diskcache                 5.6.3                    pypi_0    pypi
+distro                    1.9.0                    pypi_0    pypi
+dnspython                 2.8.0                    pypi_0    pypi
+einops                    0.8.1                    pypi_0    pypi
+email-validator           2.3.0                    pypi_0    pypi
+eval-type-backport        0.2.2                    pypi_0    pypi
+executing                 2.2.1                    pypi_0    pypi
+expat                     2.7.3                h7354ed3_4    defaults
+farama-notifications      0.0.4                    pypi_0    pypi
+fast-bleu                 0.0.90                   pypi_0    pypi
+fastapi                   0.128.0                  pypi_0    pypi
+fastapi-cli               0.0.20                   pypi_0    pypi
+fastapi-cloud-cli         0.11.0                   pypi_0    pypi
+fastar                    0.8.0                    pypi_0    pypi
+fastrlock                 0.8.3                    pypi_0    pypi
+filelock                  3.20.3                   pypi_0    pypi
+fonttools                 4.61.1                   pypi_0    pypi
+frozenlist                1.8.0                    pypi_0    pypi
+fsspec                    2025.3.0                 pypi_0    pypi
+gguf                      0.10.0                   pypi_0    pypi
+gitdb                     4.0.12                   pypi_0    pypi
+gitpython                 3.1.46                   pypi_0    pypi
+grpcio                    1.76.0                   pypi_0    pypi
+gym                       0.26.2                   pypi_0    pypi
+gym-notices               0.1.0                    pypi_0    pypi
+gym-sokoban               0.0.6                    pypi_0    pypi
+gymnasium                 1.2.0                    pypi_0    pypi
+h11                       0.16.0                   pypi_0    pypi
+hf-xet                    1.2.0                    pypi_0    pypi
+httpcore                  1.0.9                    pypi_0    pypi
+httptools                 0.7.1                    pypi_0    pypi
+httpx                     0.28.1                   pypi_0    pypi
+huggingface-hub           0.36.0                   pypi_0    pypi
+hydra-core                1.3.2                    pypi_0    pypi
+idna                      3.11                     pypi_0    pypi
+imageio                   2.37.2                   pypi_0    pypi
+importlib-metadata        8.7.1                    pypi_0    pypi
+interegular               0.3.3                    pypi_0    pypi
+ipython                   9.9.0                    pypi_0    pypi
+ipython-pygments-lexers   1.1.1                    pypi_0    pypi
+jedi                      0.19.2                   pypi_0    pypi
+jinja2                    3.1.6                    pypi_0    pypi
+jiter                     0.12.0                   pypi_0    pypi
+joblib                    1.5.3                    pypi_0    pypi
+jsonschema                4.26.0                   pypi_0    pypi
+jsonschema-specifications 2025.9.1                 pypi_0    pypi
+kiwisolver                1.4.9                    pypi_0    pypi
+lark                      1.2.2                    pypi_0    pypi
+ld_impl_linux-64          2.44                 h153f514_2    defaults
+libexpat                  2.7.3                h7354ed3_4    defaults
+libffi                    3.4.4                h6a678d5_1    defaults
+libgcc                    15.2.0               h69a1729_7    defaults
+libgcc-ng                 15.2.0               h166f726_7    defaults
+libgomp                   15.2.0               h4751f2c_7    defaults
+libnsl                    2.0.0                h5eee18b_0    defaults
+libstdcxx                 15.2.0               h39759b7_7    defaults
+libstdcxx-ng              15.2.0               hc03a8fd_7    defaults
+libuuid                   1.41.5               h5eee18b_0    defaults
+libxcb                    1.17.0               h9b100fa_0    defaults
+libzlib                   1.3.1                hb25bd0a_0    defaults
+llguidance                0.7.30                   pypi_0    pypi
+llvmlite                  0.43.0                   pypi_0    pypi
+lm-format-enforcer        0.10.12                  pypi_0    pypi
+markdown                  3.10                     pypi_0    pypi
+markdown-it-py            4.0.0                    pypi_0    pypi
+markupsafe                3.0.3                    pypi_0    pypi
+matplotlib                3.10.3                   pypi_0    pypi
+matplotlib-inline         0.2.1                    pypi_0    pypi
+mdurl                     0.1.2                    pypi_0    pypi
+mistral-common            1.8.8                    pypi_0    pypi
+mpmath                    1.3.0                    pypi_0    pypi
+msgpack                   1.1.2                    pypi_0    pypi
+msgspec                   0.20.0                   pypi_0    pypi
+multidict                 6.7.0                    pypi_0    pypi
+multiprocess              0.70.16                  pypi_0    pypi
+ncurses                   6.5                  h7934f7d_0    defaults
+nest-asyncio              1.6.0                    pypi_0    pypi
+networkx                  3.6.1                    pypi_0    pypi
+ninja                     1.13.0                   pypi_0    pypi
+nltk                      3.9.1                    pypi_0    pypi
+numba                     0.60.0                   pypi_0    pypi
+numpy                     1.26.4                   pypi_0    pypi
+nvidia-cublas-cu12        12.4.5.8                 pypi_0    pypi
+nvidia-cuda-cupti-cu12    12.4.127                 pypi_0    pypi
+nvidia-cuda-nvrtc-cu12    12.4.127                 pypi_0    pypi
+nvidia-cuda-runtime-cu12  12.4.127                 pypi_0    pypi
+nvidia-cudnn-cu12         9.1.0.70                 pypi_0    pypi
+nvidia-cufft-cu12         11.2.1.3                 pypi_0    pypi
+nvidia-curand-cu12        10.3.5.147               pypi_0    pypi
+nvidia-cusolver-cu12      11.6.1.9                 pypi_0    pypi
+nvidia-cusparse-cu12      12.3.1.170               pypi_0    pypi
+nvidia-cusparselt-cu12    0.6.2                    pypi_0    pypi
+nvidia-ml-py              13.580.126               pypi_0    pypi
+nvidia-nccl-cu12          2.21.5                   pypi_0    pypi
+nvidia-nvjitlink-cu12     12.4.127                 pypi_0    pypi
+nvidia-nvtx-cu12          12.4.127                 pypi_0    pypi
+nvitop                    1.6.1                    pypi_0    pypi
+omegaconf                 2.3.0                    pypi_0    pypi
+openai                    2.15.0                   pypi_0    pypi
+opencv-python-headless    4.11.0.86                pypi_0    pypi
+openssl                   3.0.18               hd6dcaed_0    defaults
+orjson                    3.11.5                   pypi_0    pypi
+outlines                  0.0.46                   pypi_0    pypi
+outlines-core             0.1.26                   pypi_0    pypi
+packaging                 25.0                     pypi_0    pypi
+pandas                    2.3.1                    pypi_0    pypi
+parso                     0.8.5                    pypi_0    pypi
+partial-json-parser       0.2.1.1.post7            pypi_0    pypi
+peft                      0.16.0                   pypi_0    pypi
+pexpect                   4.9.0                    pypi_0    pypi
+pillow                    11.3.0                   pypi_0    pypi
+pip                       25.3               pyhc872135_0    defaults
+platformdirs              4.5.1                    pypi_0    pypi
+prometheus-client         0.24.1                   pypi_0    pypi
+prometheus-fastapi-instrumentator 7.1.0                    pypi_0    pypi
+prompt-toolkit            3.0.52                   pypi_0    pypi
+propcache                 0.4.1                    pypi_0    pypi
+protobuf                  6.33.4                   pypi_0    pypi
+psutil                    7.2.1                    pypi_0    pypi
+pthread-stubs             0.3                  h0ce48e5_1    defaults
+ptyprocess                0.7.0                    pypi_0    pypi
+pure-eval                 0.2.3                    pypi_0    pypi
+py-cpuinfo                9.0.0                    pypi_0    pypi
+pyairports                0.0.1                    pypi_0    pypi
+pyarrow                   22.0.0                   pypi_0    pypi
+pybind11                  3.0.0                    pypi_0    pypi
+pycountry                 24.6.1                   pypi_0    pypi
+pydantic                  2.12.5                   pypi_0    pypi
+pydantic-core             2.41.5                   pypi_0    pypi
+pydantic-extra-types      2.11.0                   pypi_0    pypi
+pydantic-settings         2.12.0                   pypi_0    pypi
+pygame                    2.6.1                    pypi_0    pypi
+pygments                  2.19.2                   pypi_0    pypi
+pylatexenc                2.10                     pypi_0    pypi
+pyparsing                 3.3.1                    pypi_0    pypi
+python                    3.12.12              hd17a9e1_1    defaults
+python-dateutil           2.9.0.post0              pypi_0    pypi
+python-dotenv             1.2.1                    pypi_0    pypi
+python-json-logger        4.0.0                    pypi_0    pypi
+python-multipart          0.0.21                   pypi_0    pypi
+pytz                      2025.2                   pypi_0    pypi
+pyyaml                    6.0.3                    pypi_0    pypi
+pyzmq                     27.1.0                   pypi_0    pypi
+ray                       2.53.0                   pypi_0    pypi
+readline                  8.3                  hc2a1206_0    defaults
+referencing               0.37.0                   pypi_0    pypi
+regex                     2026.1.15                pypi_0    pypi
+requests                  2.32.5                   pypi_0    pypi
+rich                      14.2.0                   pypi_0    pypi
+rich-toolkit              0.17.1                   pypi_0    pypi
+rignore                   0.7.6                    pypi_0    pypi
+rpds-py                   0.30.0                   pypi_0    pypi
+safetensors               0.7.0                    pypi_0    pypi
+scikit-learn              1.8.0                    pypi_0    pypi
+scipy                     1.17.0                   pypi_0    pypi
+sentence-transformers     5.1.0                    pypi_0    pypi
+sentencepiece             0.2.1                    pypi_0    pypi
+sentry-sdk                2.49.0                   pypi_0    pypi
+setuptools                80.9.0          py312h06a4308_0    defaults
+shellingham               1.5.4                    pypi_0    pypi
+six                       1.17.0                   pypi_0    pypi
+smmap                     5.0.2                    pypi_0    pypi
+sniffio                   1.3.1                    pypi_0    pypi
+sqlite                    3.51.1               he0a8d7e_0    defaults
+stack-data                0.6.3                    pypi_0    pypi
+starlette                 0.50.0                   pypi_0    pypi
+sympy                     1.13.1                   pypi_0    pypi
+tabulate                  0.9.0                    pypi_0    pypi
+tensorboard               2.20.0                   pypi_0    pypi
+tensorboard-data-server   0.7.2                    pypi_0    pypi
+tensordict                0.8.3                    pypi_0    pypi
+threadpoolctl             3.6.0                    pypi_0    pypi
+tiktoken                  0.12.0                   pypi_0    pypi
+tk                        8.6.15               h54e0aa7_0    defaults
+together                  1.5.21                   pypi_0    pypi
+tokenizers                0.21.4                   pypi_0    pypi
+torch                     2.5.1                    pypi_0    pypi
+torchaudio                2.4.0+cu121              pypi_0    pypi
+torchdata                 0.11.0                   pypi_0    pypi
+torchvision               0.20.1                   pypi_0    pypi
+tqdm                      4.67.1                   pypi_0    pypi
+traitlets                 5.14.3                   pypi_0    pypi
+transformers              4.53.2                   pypi_0    pypi
+triton                    3.1.0                    pypi_0    pypi
+typer                     0.15.4                   pypi_0    pypi
+typing-extensions         4.15.0                   pypi_0    pypi
+typing-inspection         0.4.2                    pypi_0    pypi
+tzdata                    2025.3                   pypi_0    pypi
+urllib3                   2.6.3                    pypi_0    pypi
+uvicorn                   0.40.0                   pypi_0    pypi
+uvloop                    0.22.1                   pypi_0    pypi
+vllm                      0.6.4.post1              pypi_0    pypi
+wandb                     0.21.0                   pypi_0    pypi
+watchfiles                1.1.1                    pypi_0    pypi
+wcwidth                   0.2.14                   pypi_0    pypi
+websockets                16.0                     pypi_0    pypi
+werkzeug                  3.1.5                    pypi_0    pypi
+wheel                     0.45.1          py312h06a4308_0    defaults
+xformers                  0.0.28.post3             pypi_0    pypi
+xgrammar                  0.1.16                   pypi_0    pypi
+xorg-libx11               1.8.12               h9b100fa_1    defaults
+xorg-libxau               1.0.12               h9b100fa_0    defaults
+xorg-libxdmcp             1.1.5                h9b100fa_0    defaults
+xorg-xorgproto            2024.1               h5eee18b_1    defaults
+xxhash                    3.6.0                    pypi_0    pypi
+xz                        5.6.4                h5eee18b_1    defaults
+yarl                      1.22.0                   pypi_0    pypi
+zipp                      3.23.0                   pypi_0    pypi
+zlib                      1.3.1                hb25bd0a_0    defaults
