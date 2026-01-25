@@ -1,0 +1,138 @@
+[2026-01-25 20:12:49,643 I 2437375 2437375] core_worker_process.cc:777: Constructing CoreWorkerProcess. pid: 2437375
+[2026-01-25 20:12:49,646 I 2437375 2437375] event.cc:499: Ray Event initialized for CORE_WORKER
+[2026-01-25 20:12:49,646 I 2437375 2437375] event.cc:499: Ray Event initialized for EXPORT_TASK
+[2026-01-25 20:12:49,646 I 2437375 2437375] event.cc:332: Set ray event level to warning
+[2026-01-25 20:12:49,646 I 2437375 2437375] event_aggregator_client.h:50: Initiating the local event aggregator client with port: 59011
+[2026-01-25 20:12:49,648 I 2437375 2437375] grpc_server.cc:143: worker server started, listening on port 43369.
+[2026-01-25 20:12:49,663 I 2437375 2437375] core_worker_process.cc:262: Initializing worker at address: 172.28.6.5:43369 worker_id=79bc656c033f90fa5f9479930841f7ddcda3087dab443fe6efc01ecd node_id=064d6f2d53d313ef19022884d25b99b1a07d09385a43308dba166421
+[2026-01-25 20:12:49,665 I 2437375 2437375] task_event_buffer.cc:480: Reporting task events to GCS every 1000ms.
+[2026-01-25 20:12:49,666 I 2437375 2437375] core_worker.cc:515: Adjusted worker niceness to 15
+[2026-01-25 20:12:49,666 I 2437375 2437375] metrics_agent_client.cc:45: Initializing exporter ...
+[2026-01-25 20:12:49,666 I 2437375 2438238] core_worker.cc:455: Event stats:
+
+
+Global stats: 12 total (10 active)
+Queueing time: mean = 0.00ms, max = 0.02ms, min = 0.02ms, total = 0.04ms
+Execution time:  mean = 0.00ms, total = 0.05ms
+Event stats:
+	PeriodicalRunner.RunFnPeriodically - 7 total (5 active, 1 running), Execution time: mean = 0.01ms, total = 0.05ms, Queueing time: mean = 0.01ms, max = 0.02ms, min = 0.02ms, total = 0.04ms
+	Publisher.CheckDeadSubscribers - 1 total (1 active), Execution time: mean = 0.00ms, total = 0.00ms, Queueing time: mean = 0.00ms, max = -0.00ms, min = 9223372036854.78ms, total = 0.00ms
+	CoreWorker.ExitIfParentRayletDies - 1 total (1 active), Execution time: mean = 0.00ms, total = 0.00ms, Queueing time: mean = 0.00ms, max = -0.00ms, min = 9223372036854.78ms, total = 0.00ms
+	ray::rpc::InternalPubSubGcsService.grpc_client.GcsSubscriberCommandBatch - 1 total (1 active), Execution time: mean = 0.00ms, total = 0.00ms, Queueing time: mean = 0.00ms, max = -0.00ms, min = 9223372036854.78ms, total = 0.00ms
+	ray::rpc::InternalPubSubGcsService.grpc_client.GcsSubscriberPoll - 1 total (1 active), Execution time: mean = 0.00ms, total = 0.00ms, Queueing time: mean = 0.00ms, max = -0.00ms, min = 9223372036854.78ms, total = 0.00ms
+	ray::rpc::WorkerInfoGcsService.grpc_client.AddWorkerInfo - 1 total (1 active), Execution time: mean = 0.00ms, total = 0.00ms, Queueing time: mean = 0.00ms, max = -0.00ms, min = 9223372036854.78ms, total = 0.00ms
+
+-----------------
+Task execution event stats:
+
+Global stats: 0 total (0 active)
+Queueing time: mean = -nanms, max = -0.00ms, min = 9223372036854.78ms, total = 0.00ms
+Execution time:  mean = -nanms, total = 0.00ms
+Event stats:
+
+-----------------
+Task Event stats:
+
+IO Service Stats:
+
+Global stats: 4 total (1 active)
+Queueing time: mean = 0.01ms, max = 0.04ms, min = 0.01ms, total = 0.05ms
+Execution time:  mean = 0.20ms, total = 0.81ms
+Event stats:
+	PeriodicalRunner.RunFnPeriodically - 1 total (0 active), Execution time: mean = 0.19ms, total = 0.19ms, Queueing time: mean = 0.04ms, max = 0.04ms, min = 0.04ms, total = 0.04ms
+	ray::rpc::TaskInfoGcsService.grpc_client.AddTaskEventData - 1 total (0 active), Execution time: mean = 0.59ms, total = 0.59ms, Queueing time: mean = 0.00ms, max = -0.00ms, min = 9223372036854.78ms, total = 0.00ms
+	CoreWorker.deadline_timer.flush_task_events - 1 total (1 active), Execution time: mean = 0.00ms, total = 0.00ms, Queueing time: mean = 0.00ms, max = -0.00ms, min = 9223372036854.78ms, total = 0.00ms
+	ray::rpc::TaskInfoGcsService.grpc_client.AddTaskEventData.OnReplyReceived - 1 total (0 active), Execution time: mean = 0.02ms, total = 0.02ms, Queueing time: mean = 0.01ms, max = 0.01ms, min = 0.01ms, total = 0.01ms
+Other Stats:
+	gcs_grpc_in_progress:0
+	event_aggregator_grpc_in_progress:0
+	current number of task status events in buffer: 0
+	current number of profile events in buffer: 0
+	current number of dropped task attempts tracked: 0
+	total task events sent: 0 MiB
+	total number of task attempts sent: 0
+	total number of task attempts dropped reported: 0
+	total number of sent failure: 0
+	num status task events dropped: 0
+	num profile task events dropped: 0
+	num ray task events reported to aggregator: 0
+	num ray task events failed to report to aggregator: 0
+	num of task attempts dropped reported to aggregator: 0
+	num of failed requests to aggregator: 0
+
+[2026-01-25 20:12:49,667 I 2437375 2438238] accessor.cc:433: Received address and liveness notification for node, IsAlive = 1 node_id=064d6f2d53d313ef19022884d25b99b1a07d09385a43308dba166421
+[2026-01-25 20:12:49,667 I 2437375 2438238] normal_task_submitter.cc:840: Number of alive nodes:1
+[2026-01-25 20:12:51,669 I 2437375 2438238] metrics_agent_client.cc:59: Exporter initialized.
+[2026-01-25 20:13:49,667 I 2437375 2438238] core_worker.cc:455: Event stats:
+
+
+Global stats: 890 total (8 active)
+Queueing time: mean = 2.30ms, max = 1000.07ms, min = 0.01ms, total = 2047.09ms
+Execution time:  mean = 0.09ms, total = 77.44ms
+Event stats:
+	CoreWorker.RecoverObjects - 600 total (1 active), Execution time: mean = 0.01ms, total = 6.39ms, Queueing time: mean = 0.06ms, max = 0.20ms, min = 0.01ms, total = 35.01ms
+	NodeManagerService.grpc_client.ReportWorkerBacklog.OnReplyReceived - 60 total (0 active), Execution time: mean = 0.03ms, total = 1.59ms, Queueing time: mean = 0.04ms, max = 0.06ms, min = 0.01ms, total = 2.15ms
+	CoreWorker.ExitIfParentRayletDies - 60 total (1 active), Execution time: mean = 0.01ms, total = 0.69ms, Queueing time: mean = 0.05ms, max = 0.09ms, min = 0.01ms, total = 3.09ms
+	CoreWorker.InternalHeartbeat - 60 total (1 active), Execution time: mean = 0.18ms, total = 10.99ms, Queueing time: mean = 0.05ms, max = 0.08ms, min = 0.02ms, total = 2.96ms
+	NodeManagerService.grpc_client.ReportWorkerBacklog - 60 total (0 active), Execution time: mean = 0.82ms, total = 49.12ms, Queueing time: mean = 0.00ms, max = -0.00ms, min = 9223372036854.78ms, total = 0.00ms
+	CoreWorker.RecordMetrics - 12 total (1 active), Execution time: mean = 0.06ms, total = 0.66ms, Queueing time: mean = 0.04ms, max = 0.07ms, min = 0.01ms, total = 0.51ms
+	PeriodicalRunner.RunFnPeriodically - 7 total (0 active), Execution time: mean = 0.10ms, total = 0.69ms, Queueing time: mean = 0.28ms, max = 0.67ms, min = 0.02ms, total = 1.93ms
+	CoreWorker.TryDelPendingObjectRefStreams - 6 total (1 active), Execution time: mean = 0.01ms, total = 0.03ms, Queueing time: mean = 0.05ms, max = 0.08ms, min = 0.01ms, total = 0.28ms
+	CoreWorkerService.grpc_server.GetCoreWorkerStats - 4 total (0 active), Execution time: mean = 0.37ms, total = 1.48ms, Queueing time: mean = 0.00ms, max = -0.00ms, min = 9223372036854.78ms, total = 0.00ms
+	CoreWorkerService.grpc_server.GetCoreWorkerStats.HandleRequestImpl - 4 total (0 active), Execution time: mean = 0.13ms, total = 0.52ms, Queueing time: mean = 0.04ms, max = 0.06ms, min = 0.03ms, total = 0.14ms
+	ReporterService.grpc_client.HealthCheck - 3 total (0 active), Execution time: mean = 0.84ms, total = 2.51ms, Queueing time: mean = 0.00ms, max = -0.00ms, min = 9223372036854.78ms, total = 0.00ms
+	ReporterService.grpc_client.HealthCheck.OnReplyReceived - 3 total (0 active), Execution time: mean = 0.15ms, total = 0.45ms, Queueing time: mean = 0.04ms, max = 0.06ms, min = 0.02ms, total = 0.13ms
+	MetricsAgentClient.WaitForServerReadyWithRetry - 2 total (0 active), Execution time: mean = 0.15ms, total = 0.30ms, Queueing time: mean = 1000.05ms, max = 1000.07ms, min = 1000.02ms, total = 2000.10ms
+	CoreWorker.PrintEventStats - 1 total (1 active, 1 running), Execution time: mean = 0.00ms, total = 0.00ms, Queueing time: mean = 0.00ms, max = -0.00ms, min = 9223372036854.78ms, total = 0.00ms
+	ray::rpc::WorkerInfoGcsService.grpc_client.AddWorkerInfo - 1 total (0 active), Execution time: mean = 0.76ms, total = 0.76ms, Queueing time: mean = 0.00ms, max = -0.00ms, min = 9223372036854.78ms, total = 0.00ms
+	ray::rpc::InternalPubSubGcsService.grpc_client.GcsSubscriberCommandBatch.OnReplyReceived - 1 total (0 active), Execution time: mean = 0.13ms, total = 0.13ms, Queueing time: mean = 0.37ms, max = 0.37ms, min = 0.37ms, total = 0.37ms
+	ray::rpc::WorkerInfoGcsService.grpc_client.AddWorkerInfo.OnReplyReceived - 1 total (0 active), Execution time: mean = 0.03ms, total = 0.03ms, Queueing time: mean = 0.41ms, max = 0.41ms, min = 0.41ms, total = 0.41ms
+	ray::rpc::InternalPubSubGcsService.grpc_client.GcsSubscriberCommandBatch - 1 total (0 active), Execution time: mean = 0.60ms, total = 0.60ms, Queueing time: mean = 0.00ms, max = -0.00ms, min = 9223372036854.78ms, total = 0.00ms
+	Publisher.CheckDeadSubscribers - 1 total (1 active), Execution time: mean = 0.00ms, total = 0.00ms, Queueing time: mean = 0.00ms, max = -0.00ms, min = 9223372036854.78ms, total = 0.00ms
+	ray::rpc::NodeInfoGcsService.grpc_client.GetAllNodeAddressAndLiveness - 1 total (0 active), Execution time: mean = 0.41ms, total = 0.41ms, Queueing time: mean = 0.00ms, max = -0.00ms, min = 9223372036854.78ms, total = 0.00ms
+	ray::rpc::InternalPubSubGcsService.grpc_client.GcsSubscriberPoll - 1 total (1 active), Execution time: mean = 0.00ms, total = 0.00ms, Queueing time: mean = 0.00ms, max = -0.00ms, min = 9223372036854.78ms, total = 0.00ms
+	ray::rpc::NodeInfoGcsService.grpc_client.GetAllNodeAddressAndLiveness.OnReplyReceived - 1 total (0 active), Execution time: mean = 0.06ms, total = 0.06ms, Queueing time: mean = 0.01ms, max = 0.01ms, min = 0.01ms, total = 0.01ms
+
+-----------------
+Task execution event stats:
+
+Global stats: 5960 total (1 active)
+Queueing time: mean = 0.06ms, max = 8.56ms, min = 0.00ms, total = 351.68ms
+Execution time:  mean = 0.02ms, total = 95.11ms
+Event stats:
+	CoreWorker.CheckSignal - 5959 total (1 active), Execution time: mean = 0.02ms, total = 95.09ms, Queueing time: mean = 0.06ms, max = 8.56ms, min = 0.01ms, total = 351.67ms
+	PeriodicalRunner.RunFnPeriodically - 1 total (0 active), Execution time: mean = 0.01ms, total = 0.01ms, Queueing time: mean = 0.00ms, max = 0.00ms, min = 0.00ms, total = 0.00ms
+
+-----------------
+Task Event stats:
+
+IO Service Stats:
+
+Global stats: 181 total (1 active)
+Queueing time: mean = 0.03ms, max = 0.11ms, min = 0.01ms, total = 5.03ms
+Execution time:  mean = 0.34ms, total = 61.49ms
+Event stats:
+	ray::rpc::TaskInfoGcsService.grpc_client.AddTaskEventData - 60 total (0 active), Execution time: mean = 0.78ms, total = 46.80ms, Queueing time: mean = 0.00ms, max = -0.00ms, min = 9223372036854.78ms, total = 0.00ms
+	CoreWorker.deadline_timer.flush_task_events - 60 total (1 active), Execution time: mean = 0.21ms, total = 12.45ms, Queueing time: mean = 0.05ms, max = 0.11ms, min = 0.02ms, total = 2.96ms
+	ray::rpc::TaskInfoGcsService.grpc_client.AddTaskEventData.OnReplyReceived - 60 total (0 active), Execution time: mean = 0.03ms, total = 2.05ms, Queueing time: mean = 0.03ms, max = 0.07ms, min = 0.01ms, total = 2.03ms
+	PeriodicalRunner.RunFnPeriodically - 1 total (0 active), Execution time: mean = 0.19ms, total = 0.19ms, Queueing time: mean = 0.04ms, max = 0.04ms, min = 0.04ms, total = 0.04ms
+Other Stats:
+	gcs_grpc_in_progress:0
+	event_aggregator_grpc_in_progress:0
+	current number of task status events in buffer: 0
+	current number of profile events in buffer: 0
+	current number of dropped task attempts tracked: 0
+	total task events sent: 0 MiB
+	total number of task attempts sent: 0
+	total number of task attempts dropped reported: 0
+	total number of sent failure: 0
+	num status task events dropped: 0
+	num profile task events dropped: 0
+	num ray task events reported to aggregator: 0
+	num ray task events failed to report to aggregator: 0
+	num of task attempts dropped reported to aggregator: 0
+	num of failed requests to aggregator: 0
+
+[2026-01-25 20:14:01,924 I 2437375 2438238] accessor.cc:433: Received address and liveness notification for node, IsAlive = 0 node_id=064d6f2d53d313ef19022884d25b99b1a07d09385a43308dba166421
+[2026-01-25 20:14:01,924 I 2437375 2438238] core_worker.cc:740: Node failure. All objects pinned on that node will be lost if object reconstruction is not enabled. node_id=064d6f2d53d313ef19022884d25b99b1a07d09385a43308dba166421
+[2026-01-25 20:14:01,924 I 2437375 2438238] normal_task_submitter.cc:840: Number of alive nodes:0
