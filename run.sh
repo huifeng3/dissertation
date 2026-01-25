@@ -43,11 +43,41 @@ judger_llm_pid=$!
 
 
 echo "Waiting for vLLM servers to be ready..."
+timeout=300
+counter=0
 while ! nc -z localhost $env_llm_port; do
   sleep 5
+  counter=$((counter + 5))
+  if [ $counter -ge $timeout ]; then
+    echo "Error: env_llm server failed to start within $timeout seconds."
+    kill $env_llm_pid 2>/dev/null
+    kill $judger_llm_pid 2>/dev/null
+    exit 1
+  fi
+  # Check if process is still running
+  if ! kill -0 $env_llm_pid 2>/dev/null; then
+    echo "Error: env_llm process died unexpectedly. Check env_llm.log for details."
+    kill $judger_llm_pid 2>/dev/null
+    exit 1
+  fi
 done
+
+counter=0
 while ! nc -z localhost $judger_llm_port; do
   sleep 5
+  counter=$((counter + 5))
+  if [ $counter -ge $timeout ]; then
+    echo "Error: judger_llm server failed to start within $timeout seconds."
+    kill $env_llm_pid 2>/dev/null
+    kill $judger_llm_pid 2>/dev/null
+    exit 1
+  fi
+  # Check if process is still running
+  if ! kill -0 $judger_llm_pid 2>/dev/null; then
+    echo "Error: judger_llm process died unexpectedly. Check judger_llm.log for details."
+    kill $env_llm_pid 2>/dev/null
+    exit 1
+  fi
 done
 echo "Both vLLM servers are ready!"
 
