@@ -1,63 +1,29 @@
-(TROJail-test) adminn@adminn:/data1/TROJail$ hf download sentence-transformers/all-MiniLM-L6-v2 --local-dir models/all-MiniLM-L6-v2
-Fetching 30 files:   0%|                                                                                                                                                       | 0/30 [00:00<?, ?it/s]
-Traceback (most recent call last):
-  File "/data1/hhc/miniconda3/envs/TROJail-test/lib/python3.12/site-packages/huggingface_hub/file_download.py", line 1565, in _get_metadata_or_catch_error
-    raise FileMetadataError(
-huggingface_hub.errors.FileMetadataError: Distant resource does not seem to be on huggingface.co. It is possible that a configuration issue prevents you from downloading resources from https://huggingface.co. Please check your firewall and proxy settings and make sure your SSL certificates are updated.
+# 1. 确保安装/更新核心库
+pip install -U huggingface_hub
 
-The above exception was the direct cause of the following exception:
+# 2. 运行下载脚本（直接在命令行执行这一段）
+python3 -c "
+import os
+# 强制设置环境变量，确保没有空格
+os.environ['HF_ENDPOINT'] = 'https://hf-mirror.com'
 
-Traceback (most recent call last):
-  File "/data1/hhc/miniconda3/envs/TROJail-test/bin/hf", line 7, in <module>
-    sys.exit(main())
-             ^^^^^^
-  File "/data1/hhc/miniconda3/envs/TROJail-test/lib/python3.12/site-packages/huggingface_hub/cli/hf.py", line 59, in main
-    service.run()
-  File "/data1/hhc/miniconda3/envs/TROJail-test/lib/python3.12/site-packages/huggingface_hub/cli/download.py", line 136, in run
-    print(self._download())  # Print path to downloaded files
-          ^^^^^^^^^^^^^^^^
-  File "/data1/hhc/miniconda3/envs/TROJail-test/lib/python3.12/site-packages/huggingface_hub/cli/download.py", line 169, in _download
-    return snapshot_download(
-           ^^^^^^^^^^^^^^^^^^
-  File "/data1/hhc/miniconda3/envs/TROJail-test/lib/python3.12/site-packages/huggingface_hub/utils/_validators.py", line 114, in _inner_fn
-    return fn(*args, **kwargs)
-           ^^^^^^^^^^^^^^^^^^^
-  File "/data1/hhc/miniconda3/envs/TROJail-test/lib/python3.12/site-packages/huggingface_hub/_snapshot_download.py", line 332, in snapshot_download
-    thread_map(
-  File "/data1/hhc/miniconda3/envs/TROJail-test/lib/python3.12/site-packages/tqdm/contrib/concurrent.py", line 69, in thread_map
-    return _executor_map(ThreadPoolExecutor, fn, *iterables, **tqdm_kwargs)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/data1/hhc/miniconda3/envs/TROJail-test/lib/python3.12/site-packages/tqdm/contrib/concurrent.py", line 51, in _executor_map
-    return list(tqdm_class(ex.map(fn, *iterables, chunksize=chunksize), **kwargs))
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/data1/hhc/miniconda3/envs/TROJail-test/lib/python3.12/site-packages/tqdm/std.py", line 1181, in __iter__
-    for obj in iterable:
-               ^^^^^^^^
-  File "/data1/hhc/miniconda3/envs/TROJail-test/lib/python3.12/concurrent/futures/_base.py", line 619, in result_iterator
-    yield _result_or_cancel(fs.pop())
-          ^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/data1/hhc/miniconda3/envs/TROJail-test/lib/python3.12/concurrent/futures/_base.py", line 317, in _result_or_cancel
-    return fut.result(timeout)
-           ^^^^^^^^^^^^^^^^^^^
-  File "/data1/hhc/miniconda3/envs/TROJail-test/lib/python3.12/concurrent/futures/_base.py", line 456, in result
-    return self.__get_result()
-           ^^^^^^^^^^^^^^^^^^^
-  File "/data1/hhc/miniconda3/envs/TROJail-test/lib/python3.12/concurrent/futures/_base.py", line 401, in __get_result
-    raise self._exception
-  File "/data1/hhc/miniconda3/envs/TROJail-test/lib/python3.12/concurrent/futures/thread.py", line 59, in run
-    result = self.fn(*self.args, **self.kwargs)
-             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/data1/hhc/miniconda3/envs/TROJail-test/lib/python3.12/site-packages/huggingface_hub/_snapshot_download.py", line 306, in _inner_hf_hub_download
-    return hf_hub_download(
-           ^^^^^^^^^^^^^^^^
-  File "/data1/hhc/miniconda3/envs/TROJail-test/lib/python3.12/site-packages/huggingface_hub/utils/_validators.py", line 114, in _inner_fn
-    return fn(*args, **kwargs)
-           ^^^^^^^^^^^^^^^^^^^
-  File "/data1/hhc/miniconda3/envs/TROJail-test/lib/python3.12/site-packages/huggingface_hub/file_download.py", line 987, in hf_hub_download
-    return _hf_hub_download_to_local_dir(
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/data1/hhc/miniconda3/envs/TROJail-test/lib/python3.12/site-packages/huggingface_hub/file_download.py", line 1250, in _hf_hub_download_to_local_dir
-    _raise_on_head_call_error(head_call_error, force_download, local_files_only)
-  File "/data1/hhc/miniconda3/envs/TROJail-test/lib/python3.12/site-packages/huggingface_hub/file_download.py", line 1658, in _raise_on_head_call_error
-    raise LocalEntryNotFoundError(
-huggingface_hub.errors.LocalEntryNotFoundError: An error happened while trying to locate the file on the Hub and we cannot find the requested files in the local cache. Please check your connection and try again or make sure your Internet connection is on.
+from huggingface_hub import snapshot_download
+import shutil
+
+repo_id = 'sentence-transformers/all-MiniLM-L6-v2'
+local_dir = 'models/all-MiniLM-L6-v2'
+
+print(f'正在从 {os.environ[\"HF_ENDPOINT\"]} 下载 {repo_id}...')
+
+try:
+    snapshot_download(
+        repo_id=repo_id,
+        local_dir=local_dir,
+        local_dir_use_symlinks=False,
+        endpoint=os.environ['HF_ENDPOINT'] # 显式指定 endpoint
+    )
+    print(f'\n下载成功！模型已保存至: {os.path.abspath(local_dir)}')
+except Exception as e:
+    print(f'\n下载失败。错误详情: {e}')
+    print('\n提示：如果依然报错 Distant resource...，请执行 curl -I https://hf-mirror.com 检查网络连通性。')
+"
