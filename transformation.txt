@@ -1,83 +1,9 @@
 (TROJail-test) adminn@adminn:/data1/TROJail$ hf download sentence-transformers/all-MiniLM-L6-v2 --local-dir models/all-MiniLM-L6-v2
-
-
-
+Fetching 30 files:   0%|                                                                                                                                                       | 0/30 [00:00<?, ?it/s]
 Traceback (most recent call last):
-  File "/data1/hhc/miniconda3/envs/TROJail-test/lib/python3.12/site-packages/urllib3/connection.py", line 204, in _new_conn
-    sock = connection.create_connection(
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/data1/hhc/miniconda3/envs/TROJail-test/lib/python3.12/site-packages/urllib3/util/connection.py", line 85, in create_connection
-    raise err
-  File "/data1/hhc/miniconda3/envs/TROJail-test/lib/python3.12/site-packages/urllib3/util/connection.py", line 73, in create_connection
-    sock.connect(sa)
-OSError: [Errno 101] Network is unreachable
-
-The above exception was the direct cause of the following exception:
-
-Traceback (most recent call last):
-  File "/data1/hhc/miniconda3/envs/TROJail-test/lib/python3.12/site-packages/urllib3/connectionpool.py", line 787, in urlopen
-    response = self._make_request(
-               ^^^^^^^^^^^^^^^^^^^
-  File "/data1/hhc/miniconda3/envs/TROJail-test/lib/python3.12/site-packages/urllib3/connectionpool.py", line 488, in _make_request
-    raise new_e
-  File "/data1/hhc/miniconda3/envs/TROJail-test/lib/python3.12/site-packages/urllib3/connectionpool.py", line 464, in _make_request
-    self._validate_conn(conn)
-  File "/data1/hhc/miniconda3/envs/TROJail-test/lib/python3.12/site-packages/urllib3/connectionpool.py", line 1093, in _validate_conn
-    conn.connect()
-  File "/data1/hhc/miniconda3/envs/TROJail-test/lib/python3.12/site-packages/urllib3/connection.py", line 759, in connect
-    self.sock = sock = self._new_conn()
-                       ^^^^^^^^^^^^^^^^
-  File "/data1/hhc/miniconda3/envs/TROJail-test/lib/python3.12/site-packages/urllib3/connection.py", line 219, in _new_conn
-    raise NewConnectionError(
-urllib3.exceptions.NewConnectionError: HTTPSConnection(host='huggingface.co', port=443): Failed to establish a new connection: [Errno 101] Network is unreachable
-
-The above exception was the direct cause of the following exception:
-
-Traceback (most recent call last):
-  File "/data1/hhc/miniconda3/envs/TROJail-test/lib/python3.12/site-packages/requests/adapters.py", line 644, in send
-    resp = conn.urlopen(
-           ^^^^^^^^^^^^^
-  File "/data1/hhc/miniconda3/envs/TROJail-test/lib/python3.12/site-packages/urllib3/connectionpool.py", line 841, in urlopen
-    retries = retries.increment(
-              ^^^^^^^^^^^^^^^^^^
-  File "/data1/hhc/miniconda3/envs/TROJail-test/lib/python3.12/site-packages/urllib3/util/retry.py", line 535, in increment
-    raise MaxRetryError(_pool, url, reason) from reason  # type: ignore[arg-type]
-    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-urllib3.exceptions.MaxRetryError: HTTPSConnectionPool(host='huggingface.co', port=443): Max retries exceeded with url: /api/models/sentence-transformers/all-MiniLM-L6-v2/revision/main (Caused by NewConnectionError("HTTPSConnection(host='huggingface.co', port=443): Failed to establish a new connection: [Errno 101] Network is unreachable"))
-
-During handling of the above exception, another exception occurred:
-
-Traceback (most recent call last):
-  File "/data1/hhc/miniconda3/envs/TROJail-test/lib/python3.12/site-packages/huggingface_hub/_snapshot_download.py", line 165, in snapshot_download
-    repo_info = api.repo_info(repo_id=repo_id, repo_type=repo_type, revision=revision)
-                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/data1/hhc/miniconda3/envs/TROJail-test/lib/python3.12/site-packages/huggingface_hub/utils/_validators.py", line 114, in _inner_fn
-    return fn(*args, **kwargs)
-           ^^^^^^^^^^^^^^^^^^^
-  File "/data1/hhc/miniconda3/envs/TROJail-test/lib/python3.12/site-packages/huggingface_hub/hf_api.py", line 2867, in repo_info
-    return method(
-           ^^^^^^^
-  File "/data1/hhc/miniconda3/envs/TROJail-test/lib/python3.12/site-packages/huggingface_hub/utils/_validators.py", line 114, in _inner_fn
-    return fn(*args, **kwargs)
-           ^^^^^^^^^^^^^^^^^^^
-  File "/data1/hhc/miniconda3/envs/TROJail-test/lib/python3.12/site-packages/huggingface_hub/hf_api.py", line 2660, in model_info
-    r = get_session().get(path, headers=headers, timeout=timeout, params=params)
-        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/data1/hhc/miniconda3/envs/TROJail-test/lib/python3.12/site-packages/requests/sessions.py", line 602, in get
-    return self.request("GET", url, **kwargs)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/data1/hhc/miniconda3/envs/TROJail-test/lib/python3.12/site-packages/requests/sessions.py", line 589, in request
-    resp = self.send(prep, **send_kwargs)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/data1/hhc/miniconda3/envs/TROJail-test/lib/python3.12/site-packages/requests/sessions.py", line 703, in send
-    r = adapter.send(request, **kwargs)
-        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/data1/hhc/miniconda3/envs/TROJail-test/lib/python3.12/site-packages/huggingface_hub/utils/_http.py", line 95, in send
-    return super().send(request, *args, **kwargs)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/data1/hhc/miniconda3/envs/TROJail-test/lib/python3.12/site-packages/requests/adapters.py", line 677, in send
-    raise ConnectionError(e, request=request)
-requests.exceptions.ConnectionError: (MaxRetryError('HTTPSConnectionPool(host=\'huggingface.co\', port=443): Max retries exceeded with url: /api/models/sentence-transformers/all-MiniLM-L6-v2/revision/main (Caused by NewConnectionError("HTTPSConnection(host=\'huggingface.co\', port=443): Failed to establish a new connection: [Errno 101] Network is unreachable"))'), '(Request ID: a24bf627-edc1-4c29-a03f-5a73c8a5a2b1)')
+  File "/data1/hhc/miniconda3/envs/TROJail-test/lib/python3.12/site-packages/huggingface_hub/file_download.py", line 1565, in _get_metadata_or_catch_error
+    raise FileMetadataError(
+huggingface_hub.errors.FileMetadataError: Distant resource does not seem to be on huggingface.co. It is possible that a configuration issue prevents you from downloading resources from https://huggingface.co. Please check your firewall and proxy settings and make sure your SSL certificates are updated.
 
 The above exception was the direct cause of the following exception:
 
@@ -96,6 +22,42 @@ Traceback (most recent call last):
   File "/data1/hhc/miniconda3/envs/TROJail-test/lib/python3.12/site-packages/huggingface_hub/utils/_validators.py", line 114, in _inner_fn
     return fn(*args, **kwargs)
            ^^^^^^^^^^^^^^^^^^^
-  File "/data1/hhc/miniconda3/envs/TROJail-test/lib/python3.12/site-packages/huggingface_hub/_snapshot_download.py", line 248, in snapshot_download
+  File "/data1/hhc/miniconda3/envs/TROJail-test/lib/python3.12/site-packages/huggingface_hub/_snapshot_download.py", line 332, in snapshot_download
+    thread_map(
+  File "/data1/hhc/miniconda3/envs/TROJail-test/lib/python3.12/site-packages/tqdm/contrib/concurrent.py", line 69, in thread_map
+    return _executor_map(ThreadPoolExecutor, fn, *iterables, **tqdm_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data1/hhc/miniconda3/envs/TROJail-test/lib/python3.12/site-packages/tqdm/contrib/concurrent.py", line 51, in _executor_map
+    return list(tqdm_class(ex.map(fn, *iterables, chunksize=chunksize), **kwargs))
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data1/hhc/miniconda3/envs/TROJail-test/lib/python3.12/site-packages/tqdm/std.py", line 1181, in __iter__
+    for obj in iterable:
+               ^^^^^^^^
+  File "/data1/hhc/miniconda3/envs/TROJail-test/lib/python3.12/concurrent/futures/_base.py", line 619, in result_iterator
+    yield _result_or_cancel(fs.pop())
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data1/hhc/miniconda3/envs/TROJail-test/lib/python3.12/concurrent/futures/_base.py", line 317, in _result_or_cancel
+    return fut.result(timeout)
+           ^^^^^^^^^^^^^^^^^^^
+  File "/data1/hhc/miniconda3/envs/TROJail-test/lib/python3.12/concurrent/futures/_base.py", line 456, in result
+    return self.__get_result()
+           ^^^^^^^^^^^^^^^^^^^
+  File "/data1/hhc/miniconda3/envs/TROJail-test/lib/python3.12/concurrent/futures/_base.py", line 401, in __get_result
+    raise self._exception
+  File "/data1/hhc/miniconda3/envs/TROJail-test/lib/python3.12/concurrent/futures/thread.py", line 59, in run
+    result = self.fn(*self.args, **self.kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data1/hhc/miniconda3/envs/TROJail-test/lib/python3.12/site-packages/huggingface_hub/_snapshot_download.py", line 306, in _inner_hf_hub_download
+    return hf_hub_download(
+           ^^^^^^^^^^^^^^^^
+  File "/data1/hhc/miniconda3/envs/TROJail-test/lib/python3.12/site-packages/huggingface_hub/utils/_validators.py", line 114, in _inner_fn
+    return fn(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^
+  File "/data1/hhc/miniconda3/envs/TROJail-test/lib/python3.12/site-packages/huggingface_hub/file_download.py", line 987, in hf_hub_download
+    return _hf_hub_download_to_local_dir(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data1/hhc/miniconda3/envs/TROJail-test/lib/python3.12/site-packages/huggingface_hub/file_download.py", line 1250, in _hf_hub_download_to_local_dir
+    _raise_on_head_call_error(head_call_error, force_download, local_files_only)
+  File "/data1/hhc/miniconda3/envs/TROJail-test/lib/python3.12/site-packages/huggingface_hub/file_download.py", line 1658, in _raise_on_head_call_error
     raise LocalEntryNotFoundError(
-huggingface_hub.errors.LocalEntryNotFoundError: An error happened while trying to locate the files on the Hub and we cannot find the appropriate snapshot folder for the specified revision on the local disk. Please check your internet connection and try again.
+huggingface_hub.errors.LocalEntryNotFoundError: An error happened while trying to locate the file on the Hub and we cannot find the requested files in the local cache. Please check your connection and try again or make sure your Internet connection is on.
