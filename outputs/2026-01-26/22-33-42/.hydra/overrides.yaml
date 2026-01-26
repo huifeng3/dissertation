@@ -1,0 +1,15 @@
+- model_path=./models/Qwen2.5-3B-Instruct
+- env_llm.model_path=./models/Mistral-7B-Instruct-v0.3
+- judger_llm.model_path=./models/HarmBench-Mistral-7b-val-cls
+- env_llm.base_url=http://localhost:8001/v1
+- judger_llm.base_url=http://localhost:8002/v1
+- algorithm.heuristic_process_adv_lambda=0.1
+- experiment_name=train_demo
+- trainer.total_training_steps=260
+- trainer.test_freq=10
+- actor_rollout_ref.actor.optim.lr=1e-6
+- actor_rollout_ref.actor.optim.lr_warmup_steps=20
+- actor_rollout_ref.actor.use_kl_loss=True
+- actor_rollout_ref.actor.kl_loss_coef=0.01
+- actor_rollout_ref.actor.kl_loss_type=low_var_kl
+- actor_rollout_ref.actor.entropy_coeff=0.01

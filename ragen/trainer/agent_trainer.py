@@ -100,7 +100,7 @@ def get_similarity_model():
     global _similarity_model
     
     if _similarity_model is None:        
-        model_path = "PATH/TO/all-MiniLM-L6-v2"        
+        model_path = "/data1/TROJail/models/all-MiniLM-L6-v2"
         _similarity_model = SentenceTransformer(model_path)
     
     return _similarity_model
