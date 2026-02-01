@@ -103,6 +103,7 @@ similarity_model_path="/data1/TROJail/models/all-MiniLM-L6-v2"
 
 
 echo "[$(date +'%Y-%m-%d %H:%M:%S')] Starting training: ${experiment_name_2}..."
+CUDA_VISIBLE_DEVICES=2,3
 RAY_TEMP_PATH=$ray_temp_path SIMILARITY_MODEL_PATH=$similarity_model_path python train.py --config-name _7_jailbreak.yaml \
   model_path=$model_path env_llm.model_path=$env_llm_path judger_llm.model_path=$judger_llm_path env_llm.base_url=$env_llm_base_url judger_llm.base_url=$judger_llm_base_url \
   algorithm.heuristic_process_adv_lambda=0.1 \
