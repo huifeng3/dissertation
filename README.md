@@ -12,6 +12,18 @@ conda create --name TROJail python=3.12
 conda activate TROJail
 ```
 
+#### 1.1.1.1 trouble shooting
+```
+当遇到 TypeError: unsupported operand type(s) for *: 'int' and 'NoneType'时
+将env和judger model的config.json中添加head_dim字段,其等于hidden_size / sum_attention_heads
+
+当遇到Import Error: cannot import name 'DataProto' from 'verl' (unknown location)
+运行
+cd verl
+pip install -e .
+cd ..
+```
+
 ### 1.2 Install Dependencies
 
 ```bash
