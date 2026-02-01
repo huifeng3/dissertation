@@ -6,7 +6,7 @@ system:
 
 ppo_mini_batch_size: 8
 model_path: path/to/target_model
-experiment_name: experiment_name
+experiment_name: experiment_name_2
 
 
 
@@ -22,10 +22,10 @@ actor_rollout_ref:
     ulysses_sequence_parallel_size: 2
   rollout:
     tensor_model_parallel_size: 2
-    max_model_len: 10000
+    max_model_len: 8192
     response_length: 128 # single-turn response length
-    gpu_memory_utilization: 0.5
-    max_num_batched_tokens: 10000
+    gpu_memory_utilization: 0.8
+    max_num_batched_tokens: 8192
     rollout_filter_ratio: 0.5
     tp_size_check: False
     val_kwargs:
@@ -99,11 +99,11 @@ es_manager:
       tags: ["Jailbreak"]
       n_groups: [4]
   val:
-    env_groups: 
+    env_groups: 1
     group_size: 3
     env_configs:
       tags: ["Jailbreak"]
-      n_groups: []
+      n_groups: [1]
 
 
 reward_model:

@@ -178,7 +178,7 @@ def run_ppo(config) -> None:
                 "RAY_DEBUG": "legacy", # used here for simpler breakpoint()
                 "TENSORBOARD_DIR": config.trainer.tensorboard_dir
             }
-        }, _temp_dir="/home/XXXX/XXXX/RAGEN/temp/ray")
+        }, _temp_dir="/data1/TROJail/RAGEN/temp/ray")
 
     runner = TaskRunner.remote()
     ray.get(runner.run.remote(config))

@@ -1,0 +1,186 @@
+[2026-01-25 16:45:57,157 I 2420469 2420469] core_worker_process.cc:777: Constructing CoreWorkerProcess. pid: 2420469
+[2026-01-25 16:45:57,160 I 2420469 2420469] event.cc:499: Ray Event initialized for CORE_WORKER
+[2026-01-25 16:45:57,160 I 2420469 2420469] event.cc:499: Ray Event initialized for EXPORT_TASK
+[2026-01-25 16:45:57,160 I 2420469 2420469] event.cc:332: Set ray event level to warning
+[2026-01-25 16:45:57,160 I 2420469 2420469] event_aggregator_client.h:50: Initiating the local event aggregator client with port: 64258
+[2026-01-25 16:45:57,162 I 2420469 2420469] grpc_server.cc:143: worker server started, listening on port 34655.
+[2026-01-25 16:45:57,171 I 2420469 2420469] core_worker_process.cc:262: Initializing worker at address: 172.28.6.5:34655 worker_id=ad09b3d3fdd788bb6ef6d82fcb46ccd440a7be9ea11f470c2cc43385 node_id=4f226b4fe4b290f4d252817708466ab16d04df7faef9706c068db3a2
+[2026-01-25 16:45:57,172 I 2420469 2420469] task_event_buffer.cc:480: Reporting task events to GCS every 1000ms.
+[2026-01-25 16:45:57,173 I 2420469 2420469] core_worker.cc:515: Adjusted worker niceness to 15
+[2026-01-25 16:45:57,173 I 2420469 2420469] metrics_agent_client.cc:45: Initializing exporter ...
+[2026-01-25 16:45:57,173 I 2420469 2420532] core_worker.cc:455: Event stats:
+
+
+Global stats: 12 total (10 active)
+Queueing time: mean = 0.01ms, max = 0.05ms, min = 0.04ms, total = 0.09ms
+Execution time:  mean = 0.00ms, total = 0.05ms
+Event stats:
+	PeriodicalRunner.RunFnPeriodically - 7 total (5 active, 1 running), Execution time: mean = 0.01ms, total = 0.05ms, Queueing time: mean = 0.01ms, max = 0.05ms, min = 0.04ms, total = 0.09ms
+	Publisher.CheckDeadSubscribers - 1 total (1 active), Execution time: mean = 0.00ms, total = 0.00ms, Queueing time: mean = 0.00ms, max = -0.00ms, min = 9223372036854.78ms, total = 0.00ms
+	ray::rpc::WorkerInfoGcsService.grpc_client.AddWorkerInfo - 1 total (1 active), Execution time: mean = 0.00ms, total = 0.00ms, Queueing time: mean = 0.00ms, max = -0.00ms, min = 9223372036854.78ms, total = 0.00ms
+	ray::rpc::InternalPubSubGcsService.grpc_client.GcsSubscriberCommandBatch - 1 total (1 active), Execution time: mean = 0.00ms, total = 0.00ms, Queueing time: mean = 0.00ms, max = -0.00ms, min = 9223372036854.78ms, total = 0.00ms
+	ray::rpc::InternalPubSubGcsService.grpc_client.GcsSubscriberPoll - 1 total (1 active), Execution time: mean = 0.00ms, total = 0.00ms, Queueing time: mean = 0.00ms, max = -0.00ms, min = 9223372036854.78ms, total = 0.00ms
+	CoreWorker.ExitIfParentRayletDies - 1 total (1 active), Execution time: mean = 0.00ms, total = 0.00ms, Queueing time: mean = 0.00ms, max = -0.00ms, min = 9223372036854.78ms, total = 0.00ms
+
+-----------------
+Task execution event stats:
+
+Global stats: 0 total (0 active)
+Queueing time: mean = -nanms, max = -0.00ms, min = 9223372036854.78ms, total = 0.00ms
+Execution time:  mean = -nanms, total = 0.00ms
+Event stats:
+
+-----------------
+Task Event stats:
+
+IO Service Stats:
+
+Global stats: 4 total (1 active)
+Queueing time: mean = 0.01ms, max = 0.02ms, min = 0.01ms, total = 0.03ms
+Execution time:  mean = 0.30ms, total = 1.19ms
+Event stats:
+	PeriodicalRunner.RunFnPeriodically - 1 total (0 active), Execution time: mean = 0.30ms, total = 0.30ms, Queueing time: mean = 0.01ms, max = 0.01ms, min = 0.01ms, total = 0.01ms
+	ray::rpc::TaskInfoGcsService.grpc_client.AddTaskEventData - 1 total (0 active), Execution time: mean = 0.85ms, total = 0.85ms, Queueing time: mean = 0.00ms, max = -0.00ms, min = 9223372036854.78ms, total = 0.00ms
+	ray::rpc::TaskInfoGcsService.grpc_client.AddTaskEventData.OnReplyReceived - 1 total (0 active), Execution time: mean = 0.04ms, total = 0.04ms, Queueing time: mean = 0.02ms, max = 0.02ms, min = 0.02ms, total = 0.02ms
+	CoreWorker.deadline_timer.flush_task_events - 1 total (1 active), Execution time: mean = 0.00ms, total = 0.00ms, Queueing time: mean = 0.00ms, max = -0.00ms, min = 9223372036854.78ms, total = 0.00ms
+Other Stats:
+	gcs_grpc_in_progress:0
+	event_aggregator_grpc_in_progress:0
+	current number of task status events in buffer: 0
+	current number of profile events in buffer: 0
+	current number of dropped task attempts tracked: 0
+	total task events sent: 0 MiB
+	total number of task attempts sent: 0
+	total number of task attempts dropped reported: 0
+	total number of sent failure: 0
+	num status task events dropped: 0
+	num profile task events dropped: 0
+	num ray task events reported to aggregator: 0
+	num ray task events failed to report to aggregator: 0
+	num of task attempts dropped reported to aggregator: 0
+	num of failed requests to aggregator: 0
+
+[2026-01-25 16:45:57,175 I 2420469 2420532] metrics_agent_client.cc:59: Exporter initialized.
+[2026-01-25 16:45:57,176 I 2420469 2420532] accessor.cc:433: Received address and liveness notification for node, IsAlive = 1 node_id=4f226b4fe4b290f4d252817708466ab16d04df7faef9706c068db3a2
+[2026-01-25 16:45:57,176 I 2420469 2420532] normal_task_submitter.cc:840: Number of alive nodes:1
+[2026-01-25 16:45:57,176 I 2420469 2420469] actor_task_submitter.cc:75: Set actor max pending calls to -1 actor_id=8bdacc0ac699f3793d2c901001000000
+[2026-01-25 16:45:57,176 I 2420469 2420469] core_worker.cc:2904: Creating actor actor_id=8bdacc0ac699f3793d2c901001000000
+[2026-01-25 16:46:03,032 W 2420469 2420469] actor_manager.cc:110: Failed to look up actor with name 'claTUB_register_center'. This could because 1. You are trying to look up a named actor you didn't create. 2. The named actor died. 3. You did not use a namespace matching the namespace of the actor.
+[2026-01-25 16:46:03,071 I 2420469 2420469] actor_task_submitter.cc:75: Set actor max pending calls to -1 actor_id=c52f86fb1dd5079f0934e02f01000000
+[2026-01-25 16:46:03,076 I 2420469 2420532] actor_manager.cc:236: received notification on actor, state: PENDING_CREATION, ip address: , port: 0, num_restarts: 0, death context type=CONTEXT_NOT_SET actor_id=c52f86fb1dd5079f0934e02f01000000 worker_id=NIL_ID node_id=4f226b4fe4b290f4d252817708466ab16d04df7faef9706c068db3a2
+[2026-01-25 16:46:04,055 I 2420469 2420532] actor_manager.cc:236: received notification on actor, state: ALIVE, ip address: 172.28.6.5, port: 34233, num_restarts: 0, death context type=CONTEXT_NOT_SET actor_id=c52f86fb1dd5079f0934e02f01000000 worker_id=3d3c1c37aeda59d69a21bff9ba043b0feef79de80728a26e06895538 node_id=4f226b4fe4b290f4d252817708466ab16d04df7faef9706c068db3a2
+[2026-01-25 16:46:10,910 I 2420469 2420469] task_receiver.cc:142: Actor creation task finished, task_id: ffffffffffffffff8bdacc0ac699f3793d2c901001000000, actor_id: 8bdacc0ac699f3793d2c901001000000, actor_repr_name: 
+[2026-01-25 16:46:52,844 I 2420469 2420469] core_worker_shutdown_executor.cc:94: Executing worker exit: SYSTEM_ERROR - Worker exits unexpectedly by a signal. SystemExit is raised (sys.exit is called). Exit code: 1. The process receives a SIGTERM. (timeout: -1ms)
+[2026-01-25 16:46:52,844 I 2420469 2420469] core_worker_shutdown_executor.cc:128: Wait for currently executing tasks in the underlying thread pools to finish.
+[2026-01-25 16:46:52,844 W 2420469 2420469] core_worker_shutdown_executor.cc:138: Failed to notify Raylet. The raylet may have already shut down or the connection was lost.
+[2026-01-25 16:46:52,844 I 2420469 2420469] core_worker_shutdown_executor.cc:170: Not draining reference counter since this is an actor worker.
+[2026-01-25 16:46:52,863 I 2420469 2420469] core_worker_shutdown_executor.cc:217: Try killing all child processes of this worker as it exits. Child process pids: 2421798
+[2026-01-25 16:46:52,863 I 2420469 2420469] core_worker_shutdown_executor.cc:226: Kill result for child pid 2421798: Success, bool 0
+[2026-01-25 16:46:52,863 I 2420469 2420469] core_worker_shutdown_executor.cc:262: Sending disconnect message to the local raylet.
+[2026-01-25 16:46:52,863 I 2420469 2420469] raylet_ipc_client.cc:135: RayletIpcClient::Disconnect, exit_type=SYSTEM_ERROR, exit_detail=Worker exits unexpectedly by a signal. SystemExit is raised (sys.exit is called). Exit code: 1. The process receives a SIGTERM., has creation_task_exception_pb_bytes=0
+[2026-01-25 16:46:52,863 W 2420469 2420469] core_worker_shutdown_executor.cc:281: Failed to disconnect from the local raylet: IOError: Broken pipe
+[2026-01-25 16:46:52,994 I 2420469 2420469] task_event_buffer.cc:491: Shutting down TaskEventBuffer.
+[2026-01-25 16:46:52,994 I 2420469 2420552] task_event_buffer.cc:459: Task event buffer io service stopped.
+[2026-01-25 16:46:52,994 I 2420469 2420469] core_worker_shutdown_executor.cc:54: Waiting for joining a core worker io thread. If it hangs here, there might be deadlock or a high load in the core worker io service.
+[2026-01-25 16:46:52,994 I 2420469 2420532] core_worker_process.cc:195: Core worker main io service stopped.
+[2026-01-25 16:46:52,998 I 2420469 2420469] core_worker_shutdown_executor.cc:72: Disconnecting a GCS client.
+[2026-01-25 16:46:52,998 I 2420469 2420469] core_worker_shutdown_executor.cc:79: Core worker ready to be deallocated.
+[2026-01-25 16:46:52,998 I 2420469 2420469] core_worker_process.cc:955: Task execution loop terminated. Removing the global worker.
+[2026-01-25 16:46:52,998 I 2420469 2420469] core_worker.cc:539: Core worker is destructed
+[2026-01-25 16:46:52,998 I 2420469 2420469] task_event_buffer.cc:491: Shutting down TaskEventBuffer.
+[2026-01-25 16:46:53,085 I 2420469 2420469] core_worker_process.cc:851: Destructing CoreWorkerProcessImpl. pid: 2420469
+[2026-01-25 16:46:53,087 W 2420469 2421922] open_telemetry_metric_recorder.cc:66: Failed to export metrics to the metrics agent. Result: 1
+[2026-01-25 16:46:53,087 I 2420469 2420469] stats.h:149: Stats module has shutdown.
+[2026-01-25 16:46:56,408 E 2420469 2420469] logging.cc:118: Unhandled exception: N3c105ErrorE. what(): Trying to free a pointer not allocated here
+Exception raised from raw_delete at /pytorch/torch/csrc/cuda/CUDAPluggableAllocator.cpp:151 (most recent call first):
+frame #0: c10::Error::Error(c10::SourceLocation, std::string) + 0x96 (0x7f858764c1b6 in /data1/hhc/miniconda3/envs/TROJail-test/lib/python3.12/site-packages/torch/lib/libc10.so)
+frame #1: c10::detail::torchCheckFail(char const*, char const*, unsigned int, char const*) + 0x68 (0x7f85875f5b3f in /data1/hhc/miniconda3/envs/TROJail-test/lib/python3.12/site-packages/torch/lib/libc10.so)
+frame #2: torch::cuda::CUDAPluggableAllocator::CUDAPluggableAllocator::raw_delete(void*) + 0x1a7 (0x7f858b1fa667 in /data1/hhc/miniconda3/envs/TROJail-test/lib/python3.12/site-packages/torch/lib/libtorch_cuda.so)
+frame #3: <unknown function> + 0x22b78 (0x7f8587702b78 in /data1/hhc/miniconda3/envs/TROJail-test/lib/python3.12/site-packages/torch/lib/libc10_cuda.so)
+frame #4: <unknown function> + 0x2320e (0x7f858770320e in /data1/hhc/miniconda3/envs/TROJail-test/lib/python3.12/site-packages/torch/lib/libc10_cuda.so)
+frame #5: <unknown function> + 0x39afa (0x7f8587719afa in /data1/hhc/miniconda3/envs/TROJail-test/lib/python3.12/site-packages/torch/lib/libc10_cuda.so)
+frame #6: c10::cuda::MemPool::~MemPool() + 0x1b9 (0x7f8587705329 in /data1/hhc/miniconda3/envs/TROJail-test/lib/python3.12/site-packages/torch/lib/libc10_cuda.so)
+frame #7: <unknown function> + 0xdffa90 (0x7f85d2820a90 in /data1/hhc/miniconda3/envs/TROJail-test/lib/python3.12/site-packages/torch/lib/libtorch_python.so)
+frame #8: <unknown function> + 0x517c37 (0x7f85d1f38c37 in /data1/hhc/miniconda3/envs/TROJail-test/lib/python3.12/site-packages/torch/lib/libtorch_python.so)
+frame #9: <unknown function> + 0x518881 (0x7f85d1f39881 in /data1/hhc/miniconda3/envs/TROJail-test/lib/python3.12/site-packages/torch/lib/libtorch_python.so)
+frame #10: ray::WorkerDict() [0x570d05]
+frame #11: ray::WorkerDict() [0x5154bc]
+frame #12: ray::WorkerDict() [0x515cf3]
+frame #13: ray::WorkerDict() [0x570f35]
+frame #14: ray::WorkerDict() [0x515f73]
+frame #15: ray::WorkerDict() [0x612427]
+frame #16: ray::WorkerDict() [0x530869]
+frame #17: ray::WorkerDict() [0x61a88c]
+frame #18: Py_FinalizeEx + 0x181 (0x600061 in ray::WorkerDict)
+frame #19: Py_Exit + 0x8 (0x61aac8 in ray::WorkerDict)
+frame #20: ray::WorkerDict() [0x61827b]
+frame #21: ray::WorkerDict() [0x617ed1]
+frame #22: ray::WorkerDict() [0x4685e9]
+frame #23: _PyRun_AnyFileObject + 0x43 (0x6118c3 in ray::WorkerDict)
+frame #24: Py_RunMain + 0x3a7 (0x60e707 in ray::WorkerDict)
+frame #25: Py_BytesMain + 0x39 (0x5c5bd9 in ray::WorkerDict)
+frame #26: __libc_start_main + 0xf3 (0x7f987082c083 in /lib/x86_64-linux-gnu/libc.so.6)
+frame #27: ray::WorkerDict() [0x5c5a09]
+ /data1/hhc/miniconda3/envs/TROJail-test/lib/python3.12/site-packages/ray/_raylet.so(+0x16cacfa) [0x7f986f482cfa] ray::operator<<()
+/data1/hhc/miniconda3/envs/TROJail-test/lib/python3.12/site-packages/ray/_raylet.so(+0x16cb7ac) [0x7f986f4837ac] ray::RayLog::operator<< <>()
+/data1/hhc/miniconda3/envs/TROJail-test/lib/python3.12/site-packages/ray/_raylet.so(+0x861967) [0x7f986e619967] ray::TerminateHandler()
+/data1/hhc/miniconda3/envs/TROJail-test/bin/../lib/libstdc++.so.6(+0xc2519) [0x7f986dc55519] __cxxabiv1::__terminate()
+/data1/hhc/miniconda3/envs/TROJail-test/bin/../lib/libstdc++.so.6(__cxa_call_terminate+0x2e) [0x7f986dc4f04c] __cxa_call_terminate
+/data1/hhc/miniconda3/envs/TROJail-test/bin/../lib/libstdc++.so.6(__gxx_personality_v0+0x72) [0x7f986dc54e55] __gxx_personality_v0
+/data1/hhc/miniconda3/envs/TROJail-test/bin/../lib/libgcc_s.so.1(+0x16194) [0x7f986db89194] _Unwind_RaiseException_Phase2
+/data1/hhc/miniconda3/envs/TROJail-test/bin/../lib/libgcc_s.so.1(_Unwind_Resume+0x63) [0x7f986db8976a] _Unwind_Resume
+/data1/hhc/miniconda3/envs/TROJail-test/lib/python3.12/site-packages/torch/lib/libc10_cuda.so(+0x14524) [0x7f85876f4524] c10::cuda::MemPool::~MemPool()
+/data1/hhc/miniconda3/envs/TROJail-test/lib/python3.12/site-packages/torch/lib/libtorch_python.so(+0xdffa90) [0x7f85d2820a90] pybind11::class_<>::dealloc()
+/data1/hhc/miniconda3/envs/TROJail-test/lib/python3.12/site-packages/torch/lib/libtorch_python.so(+0x517c37) [0x7f85d1f38c37] pybind11::detail::clear_instance()
+/data1/hhc/miniconda3/envs/TROJail-test/lib/python3.12/site-packages/torch/lib/libtorch_python.so(+0x518881) [0x7f85d1f39881] pybind11_object_dealloc
+ray::WorkerDict() [0x570d05] subtype_dealloc
+ray::WorkerDict() [0x5154bc] tupledealloc
+ray::WorkerDict() [0x515cf3] dict_dealloc
+ray::WorkerDict() [0x570f35] subtype_dealloc
+ray::WorkerDict() [0x515f73] free_keys_object
+ray::WorkerDict() [0x612427] type_clear
+ray::WorkerDict() [0x530869] gc_collect_main
+ray::WorkerDict() [0x61a88c] _PyGC_CollectNoFail.isra.0
+ray::WorkerDict(Py_FinalizeEx+0x181) [0x600061] Py_FinalizeEx
+ray::WorkerDict(Py_Exit+0x8) [0x61aac8] Py_Exit
+ray::WorkerDict() [0x61827b] handle_system_exit
+ray::WorkerDict() [0x617ed1] _PyErr_PrintEx
+ray::WorkerDict() [0x4685e9] _PyRun_SimpleFileObject.cold
+ray::WorkerDict(_PyRun_AnyFileObject+0x43) [0x6118c3] _PyRun_AnyFileObject
+ray::WorkerDict(Py_RunMain+0x3a7) [0x60e707] Py_RunMain
+ray::WorkerDict(Py_BytesMain+0x39) [0x5c5bd9] Py_BytesMain
+/lib/x86_64-linux-gnu/libc.so.6(__libc_start_main+0xf3) [0x7f987082c083] __libc_start_main
+ray::WorkerDict() [0x5c5a09]
+
+[2026-01-25 16:46:56,416 E 2420469 2420469] logging.cc:125: Stack trace: 
+ /data1/hhc/miniconda3/envs/TROJail-test/lib/python3.12/site-packages/ray/_raylet.so(+0x16cacfa) [0x7f986f482cfa] ray::operator<<()
+/data1/hhc/miniconda3/envs/TROJail-test/lib/python3.12/site-packages/ray/_raylet.so(+0x16cb7ac) [0x7f986f4837ac] ray::RayLog::operator<< <>()
+/data1/hhc/miniconda3/envs/TROJail-test/lib/python3.12/site-packages/ray/_raylet.so(+0x16cdd68) [0x7f986f485d68] ray::TerminateHandler()
+/data1/hhc/miniconda3/envs/TROJail-test/bin/../lib/libstdc++.so.6(+0xc2519) [0x7f986dc55519] __cxxabiv1::__terminate()
+/data1/hhc/miniconda3/envs/TROJail-test/bin/../lib/libstdc++.so.6(__cxa_call_terminate+0x2e) [0x7f986dc4f04c] __cxa_call_terminate
+/data1/hhc/miniconda3/envs/TROJail-test/bin/../lib/libstdc++.so.6(__gxx_personality_v0+0x72) [0x7f986dc54e55] __gxx_personality_v0
+/data1/hhc/miniconda3/envs/TROJail-test/bin/../lib/libgcc_s.so.1(+0x16194) [0x7f986db89194] _Unwind_RaiseException_Phase2
+/data1/hhc/miniconda3/envs/TROJail-test/bin/../lib/libgcc_s.so.1(_Unwind_Resume+0x63) [0x7f986db8976a] _Unwind_Resume
+/data1/hhc/miniconda3/envs/TROJail-test/lib/python3.12/site-packages/torch/lib/libc10_cuda.so(+0x14524) [0x7f85876f4524] c10::cuda::MemPool::~MemPool()
+/data1/hhc/miniconda3/envs/TROJail-test/lib/python3.12/site-packages/torch/lib/libtorch_python.so(+0xdffa90) [0x7f85d2820a90] pybind11::class_<>::dealloc()
+/data1/hhc/miniconda3/envs/TROJail-test/lib/python3.12/site-packages/torch/lib/libtorch_python.so(+0x517c37) [0x7f85d1f38c37] pybind11::detail::clear_instance()
+/data1/hhc/miniconda3/envs/TROJail-test/lib/python3.12/site-packages/torch/lib/libtorch_python.so(+0x518881) [0x7f85d1f39881] pybind11_object_dealloc
+ray::WorkerDict() [0x570d05] subtype_dealloc
+ray::WorkerDict() [0x5154bc] tupledealloc
+ray::WorkerDict() [0x515cf3] dict_dealloc
+ray::WorkerDict() [0x570f35] subtype_dealloc
+ray::WorkerDict() [0x515f73] free_keys_object
+ray::WorkerDict() [0x612427] type_clear
+ray::WorkerDict() [0x530869] gc_collect_main
+ray::WorkerDict() [0x61a88c] _PyGC_CollectNoFail.isra.0
+ray::WorkerDict(Py_FinalizeEx+0x181) [0x600061] Py_FinalizeEx
+ray::WorkerDict(Py_Exit+0x8) [0x61aac8] Py_Exit
+ray::WorkerDict() [0x61827b] handle_system_exit
+ray::WorkerDict() [0x617ed1] _PyErr_PrintEx
+ray::WorkerDict() [0x4685e9] _PyRun_SimpleFileObject.cold
+ray::WorkerDict(_PyRun_AnyFileObject+0x43) [0x6118c3] _PyRun_AnyFileObject
+ray::WorkerDict(Py_RunMain+0x3a7) [0x60e707] Py_RunMain
+ray::WorkerDict(Py_BytesMain+0x39) [0x5c5bd9] Py_BytesMain
+/lib/x86_64-linux-gnu/libc.so.6(__libc_start_main+0xf3) [0x7f987082c083] __libc_start_main
+ray::WorkerDict() [0x5c5a09]
+
