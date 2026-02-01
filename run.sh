@@ -91,11 +91,14 @@ mkdir -p "$TENSORBOARD_DIR_2"
 mkdir -p nohup_logs/run_logs
 
 # Set Ray temp dir to local project directory to avoid permission issues
+ray_temp_path="./RAGEN/temp/ray"
 export RAY_TMPDIR=$(pwd)/ray_temp
 mkdir -p $RAY_TMPDIR
 
+similarity_model_path="./models/all-MiniLM-L6-v2"
+
 echo "[$(date +'%Y-%m-%d %H:%M:%S')] Starting training: ${experiment_name_2}..."
-python train.py --config-name _7_jailbreak.yaml \
+RAY_TEMP_PATH=$ray_temp_path SIMILARITY_MODEL_PATH=$similarity_model_path python train.py --config-name _7_jailbreak.yaml \
   model_path=$model_path env_llm.model_path=$env_llm_path judger_llm.model_path=$judger_llm_path env_llm.base_url=$env_llm_base_url judger_llm.base_url=$judger_llm_base_url \
   algorithm.heuristic_process_adv_lambda=0.1 \
   experiment_name=${experiment_name_2} trainer.total_training_steps=260 trainer.test_freq=10 \
