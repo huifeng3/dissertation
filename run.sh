@@ -10,6 +10,7 @@ judger_llm_base_url="http://localhost:$judger_llm_port/v1"
 export VLLM_WORKER_MULTIPROC_METHOD=spawn
 export NCCL_P2P_DISABLE=1
 export NCCL_IB_DISABLE=1
+export NCCL_DEBUG=INFO
 echo "[$(date +'%Y-%m-%d %H:%M:%S')] Starting env_llm on port $env_llm_port..."
 CUDA_VISIBLE_DEVICES=0 python -m vllm.entrypoints.openai.api_server \
   --model $env_llm_path \
