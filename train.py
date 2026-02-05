@@ -307,7 +307,9 @@ class TaskRunner:
             val_reward_fn=val_reward_fn
         )
         trainer.init_workers()
+        print(f"[DEBUG]Trainer initialized", flush=True)
         trainer.init_agent_proxy()
+        print(f"[DEBUG]Agent proxy initialized", flush=True)
         trainer.fit()
 
 

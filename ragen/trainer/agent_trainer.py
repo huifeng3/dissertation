@@ -1647,6 +1647,7 @@ class RayAgentTrainer(VerlRayPPOTrainer):
          to construct the PPO dataflow.
         The light-weight advantage computation is done on the driver process.
         """
+        print(f"[DEBUG] Starting fit() method...", flush=True)
 
         from omegaconf import OmegaConf
 
@@ -1662,10 +1663,12 @@ class RayAgentTrainer(VerlRayPPOTrainer):
         self.global_steps = 0
 
         # load checkpoint before doing anything
+        print(f"[DEBUG] Loading checkpoint...", flush=True)
         self._load_checkpoint()
 
         # perform validation before training
         # currently, we only support validation using the reward_function.
+        print(f"[DEBUG] Checking validation config...", flush=True)
         if self.val_reward_fn is not None and self.config.trainer.get("val_before_train", True):
             val_metrics = self._validate()
             pprint(f"Initial validation metrics: {val_metrics}")
