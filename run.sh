@@ -12,7 +12,7 @@ export NCCL_P2P_DISABLE=1
 export NCCL_IB_DISABLE=1
 export NCCL_DEBUG=INFO
 echo "[$(date +'%Y-%m-%d %H:%M:%S')] Starting env_llm on port $env_llm_port..."
-CUDA_VISIBLE_DEVICES=0 python -m vllm.entrypoints.openai.api_server \
+CUDA_VISIBLE_DEVICES=2 python -m vllm.entrypoints.openai.api_server \
   --model $env_llm_path \
   --port $env_llm_port \
   --host 0.0.0.0 \
@@ -29,7 +29,7 @@ CUDA_VISIBLE_DEVICES=0 python -m vllm.entrypoints.openai.api_server \
 env_llm_pid=$!
 
 echo "[$(date +'%Y-%m-%d %H:%M:%S')] Starting judger_llm on port $judger_llm_port..."
-CUDA_VISIBLE_DEVICES=1 python -m vllm.entrypoints.openai.api_server \
+CUDA_VISIBLE_DEVICES=3 python -m vllm.entrypoints.openai.api_server \
   --model $judger_llm_path \
   --port $judger_llm_port \
   --host 0.0.0.0 \
@@ -103,7 +103,6 @@ similarity_model_path="/data1/TROJail/models/all-MiniLM-L6-v2"
 
 
 echo "[$(date +'%Y-%m-%d %H:%M:%S')] Starting training: ${experiment_name_2}..."
-CUDA_VISIBLE_DEVICES=2,3
 RAY_TEMP_PATH=$ray_temp_path SIMILARITY_MODEL_PATH=$similarity_model_path python train.py --config-name _7_jailbreak.yaml \
   model_path=$model_path env_llm.model_path=$env_llm_path judger_llm.model_path=$judger_llm_path env_llm.base_url=$env_llm_base_url judger_llm.base_url=$judger_llm_base_url \
   algorithm.heuristic_process_adv_lambda=0.1 \
