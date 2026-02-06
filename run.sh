@@ -16,7 +16,7 @@ CUDA_VISIBLE_DEVICES=2 python -m vllm.entrypoints.openai.api_server \
   --model $env_llm_path \
   --port $env_llm_port \
   --host 0.0.0.0 \
-  --gpu-memory-utilization 0.8 \
+  --gpu-memory-utilization 0.4 \
   --max-model-len 13312 \
   --max-num-seqs 256 \
   --max-num-batched-tokens 51200 \
@@ -33,7 +33,7 @@ CUDA_VISIBLE_DEVICES=3 python -m vllm.entrypoints.openai.api_server \
   --model $judger_llm_path \
   --port $judger_llm_port \
   --host 0.0.0.0 \
-  --gpu-memory-utilization 0.8 \
+  --gpu-memory-utilization 0.4 \
   --max-model-len 2048 \
   --max-num-seqs 256 \
   --max-num-batched-tokens 51200 \

@@ -786,6 +786,7 @@ class RayAgentTrainer(VerlRayPPOTrainer):
 
     def init_workers(self):
         """Init resource pool and worker group"""
+        print(f"[DEBUG] init_workers: Creating resource pool...", flush=True)
         self.resource_pool_manager.create_resource_pool()
  
         self.resource_pool_to_cls = {pool: {} for pool in self.resource_pool_manager.resource_pool_dict.values()}
@@ -833,6 +834,7 @@ class RayAgentTrainer(VerlRayPPOTrainer):
             wg_kwargs["ray_wait_register_center_timeout"] = self.config.trainer.ray_wait_register_center_timeout
 
         for resource_pool, class_dict in self.resource_pool_to_cls.items():
+            print(f"[DEBUG] init_workers: Spawning worker group for pool {resource_pool}...", flush=True)
             worker_dict_cls = create_colocated_worker_cls(class_dict=class_dict)
             wg_dict = self.ray_worker_group_cls(resource_pool=resource_pool, ray_cls_with_init=worker_dict_cls, **wg_kwargs)
             spawn_wg = wg_dict.spawn(prefix_set=class_dict.keys())
@@ -841,20 +843,28 @@ class RayAgentTrainer(VerlRayPPOTrainer):
             self.wg_dicts.append(wg_dict)
 
         if self.use_critic:
+            print("[DEBUG] init_workers: Initializing critic model...", flush=True)
             self.critic_wg = all_wg["critic"]
             self.critic_wg.init_model()
+            print(f"[DEBUG] init_workers: Critic model initialized.", flush=True)
 
         if self.use_reference_policy and not self.ref_in_actor:
+            print("[DEBUG] init_workers: Initializing reference policy model...", flush=True)
             self.ref_policy_wg = all_wg["ref"]
             self.ref_policy_wg.init_model()
+            print(f"[DEBUG] init_workers: Reference policy model initialized.", flush=True)
 
         if self.use_rm:
+            print("[DEBUG] init_workers: Initializing reward model...", flush=True)
             self.rm_wg = all_wg["rm"]
             self.rm_wg.init_model()
+            print(f"[DEBUG] init_workers: Reward model initialized.", flush=True)
 
         # we should create rollout at the end so that vllm can have a better estimation of kv cache memory
+        print("[DEBUG] init_workers: Initializing rollout model...", flush=True)
         self.actor_rollout_wg = all_wg["actor_rollout"]
         self.actor_rollout_wg.init_model()
+        print(f"[DEBUG] init_workers: Rollout model initialized.", flush=True)
 
         # create async rollout manager and request scheduler
         self.async_rollout_mode = False
