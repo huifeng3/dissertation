@@ -84,6 +84,9 @@ class ActorRolloutRefWorker(Worker):
         import torch.distributed
 
         if not torch.distributed.is_initialized():
+            local_rank = int(os.environ.get("LOCAL_RANK", 0))
+            torch.cuda.set_device(local_rank)
+            print(f"[DEBUG] Initializing process group. Local rank: {local_rank}, Device: {torch.cuda.current_device()}", flush=True)
             torch.distributed.init_process_group()
 
         # build device mesh for FSDP
