@@ -132,6 +132,8 @@ class ActorRolloutRefWorker(Worker):
     def __init__(self, config: DictConfig, role: str):
         super().__init__()
         self.config = config
+        NCCL_P2P_DISABLE = os.environ.get("NCCL_P2P_DISABLE", -1)
+        print(f"[INFO] start to init_distributed and device, the NCCL_P2P_DISABLE is {NCCL_P2P_DISABLE}", flush=True)
         init_distributed_and_device()
 
         print(json.dumps({
