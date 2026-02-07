@@ -85,14 +85,52 @@ class ActorRolloutRefWorker(Worker):
         import ray
 
         if not torch.distributed.is_initialized():
-            gpu_ids = ray.get_gpu_ids()
-            if gpu_ids:
-                device_id = 0
-                torch.cuda.set_device(device_id)
-                print(f"[DEBUG] Initializing process group. Ray GPU IDs: {gpu_ids}. Set device to {device_id}", flush=True)
+            # Debug: Print all environment variables to find rank info
+            # print(f"[DEBUG] Environment variables: {dict(os.environ)}", flush=True)
+            
+            # Try to get rank from standard torch distributed env vars
+            rank = int(os.environ.get("RANK", -1))
+            local_rank = int(os.environ.get("LOCAL_RANK", -1))
+            world_size = int(os.environ.get("WORLD_SIZE", -1))
+
+            if rank == -1:
+                # Fallback: Infer rank from Ray GPU IDs for single-node setup
+                gpu_ids = ray.get_gpu_ids()
+                if gpu_ids:
+                    # Assuming single node and continuous GPU allocation starting from 0
+                    # gpu_ids is a list of strings, e.g. ['0'] or ['1']
+                    try:
+                        rank = int(gpu_ids[0])
+                        local_rank = rank
+                        # Assuming we are using all visible GPUs as world size
+                        # This is a heuristic guess for your specific 2-GPU setup
+                        if world_size == -1:
+                            world_size = torch.cuda.device_count() # This might be 1 inside the container
+                            # Better guess: Check config
+                            world_size = self.config.get("trainer", {}).get("n_gpus_per_node", 2)
+                        
+                        print(f"[DEBUG] Inferred Rank: {rank}, World Size: {world_size} from Ray GPU IDs: {gpu_ids}", flush=True)
+                    except ValueError:
+                        print(f"[ERROR] Could not parse GPU ID: {gpu_ids}", flush=True)
+
+            if local_rank != -1:
+                # In Ray's isolated environment, we always use device 0
+                torch.cuda.set_device(0)
+                print(f"[DEBUG] Set device to 0 (Logical device for physical GPU {local_rank})", flush=True)
             else:
-                print(f"[DEBUG] No GPUs found for this worker via ray.get_gpu_ids()!", flush=True)
-            torch.distributed.init_process_group()
+                 print(f"[DEBUG] No rank info found!", flush=True)
+
+            if rank != -1 and world_size != -1:
+                # Set MASTER_ADDR and MASTER_PORT if not set (Ray usually handles this but let's be safe)
+                if "MASTER_ADDR" not in os.environ:
+                    os.environ["MASTER_ADDR"] = "127.0.0.1"
+                if "MASTER_PORT" not in os.environ:
+                    os.environ["MASTER_PORT"] = "29500"
+
+                torch.distributed.init_process_group(backend="nccl", rank=rank, world_size=world_size)
+            else:
+                # Fallback to default if inference failed (likely to hang if env vars are missing)
+                torch.distributed.init_process_group()
 
         # build device mesh for FSDP
         world_size = torch.distributed.get_world_size()
