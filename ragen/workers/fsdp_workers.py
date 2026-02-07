@@ -278,6 +278,8 @@ class ActorRolloutRefWorker(Worker):
             "current_device": torch.cuda.current_device() if torch.cuda.is_available() else None,
             "cuda_visible_devices": os.environ.get("CUDA_VISIBLE_DEVICES"),
             "model_path": str(local_path),
+            "torch_dtype": str(torch_dtype),
+            "trust_remote_code": trust_remote_code,
         }), flush=True)
 
         with init_context(), warnings.catch_warnings():
@@ -287,6 +289,16 @@ class ActorRolloutRefWorker(Worker):
             else:
                 actor_module_class = AutoModelForCausalLM
 
+            print(json.dumps({
+                "event": "from_pretrained_start",
+                "role": role,
+                "rank": torch.distributed.get_rank() if torch.distributed.is_initialized() else None,
+                "world_size": torch.distributed.get_world_size() if torch.distributed.is_initialized() else None,
+                "current_device": torch.cuda.current_device() if torch.cuda.is_available() else None,
+                "cuda_visible_devices": os.environ.get("CUDA_VISIBLE_DEVICES"),
+                "model_class": actor_module_class.__name__,
+                "attn_implementation": "flash_attention_2",
+            }), flush=True)
             actor_module = actor_module_class.from_pretrained(
                 pretrained_model_name_or_path=local_path,
                 torch_dtype=torch_dtype,
@@ -294,6 +306,15 @@ class ActorRolloutRefWorker(Worker):
                 attn_implementation="flash_attention_2",
                 trust_remote_code=trust_remote_code,
             )
+            print(json.dumps({
+                "event": "from_pretrained_done",
+                "role": role,
+                "rank": torch.distributed.get_rank() if torch.distributed.is_initialized() else None,
+                "world_size": torch.distributed.get_world_size() if torch.distributed.is_initialized() else None,
+                "current_device": torch.cuda.current_device() if torch.cuda.is_available() else None,
+                "cuda_visible_devices": os.environ.get("CUDA_VISIBLE_DEVICES"),
+                "model_class": actor_module_class.__name__,
+            }), flush=True)
 
             if use_remove_padding or self.ulysses_sequence_parallel_size > 1:
                 from verl.models.transformers.monkey_patch import apply_monkey_patch
@@ -324,7 +345,23 @@ class ActorRolloutRefWorker(Worker):
                     'bias': "none"
                 }
                 actor_module = get_peft_model(actor_module, LoraConfig(**lora_config))
+        print(json.dumps({
+            "event": "load_pretrained_barrier_start",
+            "role": role,
+            "rank": torch.distributed.get_rank() if torch.distributed.is_initialized() else None,
+            "world_size": torch.distributed.get_world_size() if torch.distributed.is_initialized() else None,
+            "current_device": torch.cuda.current_device() if torch.cuda.is_available() else None,
+            "cuda_visible_devices": os.environ.get("CUDA_VISIBLE_DEVICES"),
+        }), flush=True)
         torch.distributed.barrier()
+        print(json.dumps({
+            "event": "load_pretrained_barrier_done",
+            "role": role,
+            "rank": torch.distributed.get_rank() if torch.distributed.is_initialized() else None,
+            "world_size": torch.distributed.get_world_size() if torch.distributed.is_initialized() else None,
+            "current_device": torch.cuda.current_device() if torch.cuda.is_available() else None,
+            "cuda_visible_devices": os.environ.get("CUDA_VISIBLE_DEVICES"),
+        }), flush=True)
 
         if self.rank == 0:
             print_model_size(actor_module)
