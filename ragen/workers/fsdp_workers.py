@@ -82,11 +82,16 @@ class ActorRolloutRefWorker(Worker):
         super().__init__()
         self.config = config
         import torch.distributed
+        import ray
 
         if not torch.distributed.is_initialized():
-            local_rank = int(os.environ.get("LOCAL_RANK", 0))
-            torch.cuda.set_device(local_rank)
-            print(f"[DEBUG] Initializing process group. Local rank: {local_rank}, Device: {torch.cuda.current_device()}", flush=True)
+            gpu_ids = ray.get_gpu_ids()
+            if gpu_ids:
+                device_id = 0
+                torch.cuda.set_device(device_id)
+                print(f"[DEBUG] Initializing process group. Ray GPU IDs: {gpu_ids}. Set device to {device_id}", flush=True)
+            else:
+                print(f"[DEBUG] No GPUs found for this worker via ray.get_gpu_ids()!", flush=True)
             torch.distributed.init_process_group()
 
         # build device mesh for FSDP

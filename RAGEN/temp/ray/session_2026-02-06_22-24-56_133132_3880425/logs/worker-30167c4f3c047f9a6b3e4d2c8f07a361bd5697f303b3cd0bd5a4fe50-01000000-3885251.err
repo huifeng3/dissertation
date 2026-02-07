@@ -1,0 +1,12 @@
+:job_id:01000000
+:actor_name:WorkerDict
+Exception raised in creation task: The actor died because of an error raised in its creation task, [36mray::O69Z2QWorkerDict_0:0:WorkerDict.__init__()[39m (pid=3885251, ip=172.28.6.5, actor_id=011a5292cb64bc00e5562b7001000000, repr=<verl.single_controller.ray.base.WorkerDict object at 0x7eee92932c60>)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data1/TROJail/verl/verl/single_controller/ray/base.py", line 528, in __init__
+    self.worker_dict[key] = user_defined_cls(*init_args_dict[key].get("args", ()), **init_args_dict[key].get("kwargs", {}))
+                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data1/TROJail/ragen/workers/fsdp_workers.py", line 87, in __init__
+    gpu_ids = ray.get_gpu_ids()
+              ^^^
+NameError: name 'ray' is not defined
