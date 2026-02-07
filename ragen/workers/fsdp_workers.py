@@ -119,6 +119,10 @@ class ActorRolloutRefWorker(Worker):
                 print(f"[DEBUG] Set device to 0 (Logical device for physical GPU {local_rank})", flush=True)
             else:
                  print(f"[DEBUG] No rank info found!", flush=True)
+            
+            print(f"[DEBUG] Final Configuration - Rank: {rank}, Local Rank: {local_rank}, World Size: {world_size}", flush=True)
+            print(f"[DEBUG] Master Addr: {os.environ.get('MASTER_ADDR')}, Master Port: {os.environ.get('MASTER_PORT')}", flush=True)
+            print(f"[DEBUG] CUDA_VISIBLE_DEVICES: {os.environ.get('CUDA_VISIBLE_DEVICES')}", flush=True)
 
             if rank != -1 and world_size != -1:
                 # Set MASTER_ADDR and MASTER_PORT if not set (Ray usually handles this but let's be safe)
