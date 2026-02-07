@@ -15,6 +15,7 @@
 The main entry point to run the PPO algorithm
 """
 
+import json
 import logging
 import os
 import warnings
@@ -74,6 +75,54 @@ def convert_to_regular_types(obj):
     return obj
 
 
+def init_distributed_and_device():
+    import ray
+
+    if torch.distributed.is_initialized():
+        print(json.dumps({
+            "event": "dist_already_initialized",
+            "rank": torch.distributed.get_rank(),
+            "world_size": torch.distributed.get_world_size(),
+            "cuda_visible_devices": os.environ.get("CUDA_VISIBLE_DEVICES"),
+            "current_device": torch.cuda.current_device() if torch.cuda.is_available() else None,
+        }), flush=True)
+        return
+
+    rank = int(os.environ.get("RANK", -1))
+    local_rank = int(os.environ.get("LOCAL_RANK", -1))
+    world_size = int(os.environ.get("WORLD_SIZE", -1))
+
+    gpu_ids = ray.get_gpu_ids()
+    inferred = False
+    if rank == -1 or local_rank == -1:
+        if gpu_ids:
+            local_rank = int(gpu_ids[0])
+            rank = local_rank
+            if world_size == -1:
+                world_size = torch.cuda.device_count()
+            inferred = True
+
+    if local_rank != -1:
+        torch.cuda.set_device(local_rank)
+
+    if rank != -1 and world_size != -1:
+        torch.distributed.init_process_group(backend="nccl", rank=rank, world_size=world_size)
+    else:
+        torch.distributed.init_process_group(backend="nccl")
+
+    print(json.dumps({
+        "event": "dist_initialized",
+        "rank": rank,
+        "local_rank": local_rank,
+        "world_size": world_size,
+        "inferred_from_ray": inferred,
+        "ray_gpu_ids": gpu_ids,
+        "cuda_visible_devices": os.environ.get("CUDA_VISIBLE_DEVICES"),
+        "device_count": torch.cuda.device_count(),
+        "current_device": torch.cuda.current_device() if torch.cuda.is_available() else None,
+    }), flush=True)
+
+
 class ActorRolloutRefWorker(Worker):
     """
     This worker can be instantiated as a standalone actor or a standalone rollout or a standalone reference policy
@@ -83,10 +132,17 @@ class ActorRolloutRefWorker(Worker):
     def __init__(self, config: DictConfig, role: str):
         super().__init__()
         self.config = config
-        import torch.distributed
+        init_distributed_and_device()
 
-        if not torch.distributed.is_initialized():
-            torch.distributed.init_process_group()
+        print(json.dumps({
+            "event": "worker_init",
+            "worker": "ActorRolloutRefWorker",
+            "role": role,
+            "rank": torch.distributed.get_rank(),
+            "world_size": torch.distributed.get_world_size(),
+            "current_device": torch.cuda.current_device() if torch.cuda.is_available() else None,
+            "cuda_visible_devices": os.environ.get("CUDA_VISIBLE_DEVICES"),
+        }), flush=True)
 
         # build device mesh for FSDP
         world_size = torch.distributed.get_world_size()
@@ -194,9 +250,18 @@ class ActorRolloutRefWorker(Worker):
         if self.rank == 0:
             print(f"Model config after override: {actor_model_config}")
 
-        # NOTE(fix me): tie_word_embedding causes meta_tensor init to hang
         init_context = get_init_weight_context_manager(use_meta_tensor=not actor_model_config.tie_word_embeddings,
                                                        mesh=self.device_mesh)
+
+        print(json.dumps({
+            "event": "load_pretrained_start",
+            "role": role,
+            "rank": torch.distributed.get_rank() if torch.distributed.is_initialized() else None,
+            "world_size": torch.distributed.get_world_size() if torch.distributed.is_initialized() else None,
+            "current_device": torch.cuda.current_device() if torch.cuda.is_available() else None,
+            "cuda_visible_devices": os.environ.get("CUDA_VISIBLE_DEVICES"),
+            "model_path": str(local_path),
+        }), flush=True)
 
         with init_context(), warnings.catch_warnings():
             warnings.simplefilter("ignore")
@@ -242,7 +307,7 @@ class ActorRolloutRefWorker(Worker):
                     'bias': "none"
                 }
                 actor_module = get_peft_model(actor_module, LoraConfig(**lora_config))
-        torch.distributed.barrier(device_ids=[torch.cuda.current_device()])
+        torch.distributed.barrier()
 
         if self.rank == 0:
             print_model_size(actor_module)
@@ -785,10 +850,16 @@ class ActorRolloutRefWorker(Worker):
 class CriticWorker(Worker):
     def __init__(self, config):
         super().__init__()
-        import torch.distributed
+        init_distributed_and_device()
 
-        if not torch.distributed.is_initialized():
-            torch.distributed.init_process_group(backend="nccl")
+        print(json.dumps({
+            "event": "worker_init",
+            "worker": "CriticWorker",
+            "rank": torch.distributed.get_rank(),
+            "world_size": torch.distributed.get_world_size(),
+            "current_device": torch.cuda.current_device() if torch.cuda.is_available() else None,
+            "cuda_visible_devices": os.environ.get("CUDA_VISIBLE_DEVICES"),
+        }), flush=True)
         self.config = config
 
         # build device mesh for Ulysses Sequence Parallel
