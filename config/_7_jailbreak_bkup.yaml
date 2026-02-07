@@ -1,0 +1,112 @@
+defaults:
+  - base
+
+system:
+  CUDA_VISIBLE_DEVICES: "0,1"
+
+ppo_mini_batch_size: 8
+model_path: path/to/target_model
+experiment_name: experiment_name_2
+
+
+
+actor_rollout_ref:
+  model:
+    path: ${model_path}
+    use_remove_padding: True
+  actor:
+    ppo_mini_batch_size: ${ppo_mini_batch_size}
+    use_dynamic_bsz: True
+    ppo_max_token_len_per_gpu: 5000
+    use_kl_loss: False
+    ulysses_sequence_parallel_size: 2
+  rollout:
+    tensor_model_parallel_size: 2
+    max_model_len: 8192
+    response_length: 128 # single-turn response length
+    gpu_memory_utilization: 0.8
+    max_num_batched_tokens: 8192
+    rollout_filter_ratio: 0.5
+    tp_size_check: False
+    val_kwargs:
+      do_sample: False
+      temperature: 0.0
+      top_p: 0.9
+
+critic:
+  ppo_mini_batch_size: ${ppo_mini_batch_size}
+  model:
+    path: ${model_path}
+
+algorithm:
+  adv_estimator: grpo_heuristic
+  filter_single_turn: False
+  filter_empty_response: False
+  sample_filtering: False
+  similarity_ablation: False
+  harm_ablation: False
+  single_turn_harm_override: False
+  process_adv_lambda: 1.0
+  heuristic_process_adv_lambda: 1.0
+  lambda_harm: 2.0
+
+trainer:
+  project_name: jailbreak_grpo
+  experiment_name: ${experiment_name}
+  total_training_steps: 288
+  log_val_generations: 200
+  val_before_train: True
+  rollout_data_dir: run_logs/${experiment_name}/train_rollout
+  validation_data_dir: run_logs/${experiment_name}/val_rollout
+  n_gpus_per_node: 2
+  save_best_checkpoint: True
+  test_freq: 20
+  resume_mode: disable
+  logger: [ 'console', 'tensorboard']
+  tensorboard_dir: ../RAGEN/tensorboard_log/${experiment_name}
+
+ctx_manager:
+  add_prefix_suffix_prompt: False
+
+agent_proxy:
+  max_actions_per_turn: 1
+  max_turn: 5
+  lm_output_batch: 50
+  parse_response: False
+  enable_think: False
+  reward_normalization:
+    method: "mean_std"
+
+env_llm:
+  model_path: path/to/victim_model
+  base_url: http://localhost:8001/v1
+  temperature: 0.7
+  max_tokens: 1024
+
+judger_llm:
+  model_path: path/to/classifier_model
+  base_url: http://localhost:8002/v1
+  temperature: 0.0
+  max_tokens: 1
+  wanted_token: "Yes"
+
+es_manager:
+  format_penalty: 0.0
+  train:
+    env_groups: 4
+    group_size: 8
+    env_configs:
+      tags: ["Jailbreak"]
+      n_groups: [4]
+  val:
+    env_groups: 1
+    group_size: 3
+    env_configs:
+      tags: ["Jailbreak"]
+      n_groups: [1]
+
+
+reward_model:
+  reward_normalization:
+    grouping: "state"
+    method: "mean_std" # asym_clip / identity / mean_std
