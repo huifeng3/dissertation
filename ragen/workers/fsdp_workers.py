@@ -15,6 +15,7 @@
 The main entry point to run the PPO algorithm
 """
 
+import inspect
 import json
 import logging
 import os
@@ -96,19 +97,31 @@ def init_distributed_and_device():
     inferred = False
     if rank == -1 or local_rank == -1:
         if gpu_ids:
-            local_rank = int(gpu_ids[0])
-            rank = local_rank
-            if world_size == -1:
-                world_size = torch.cuda.device_count()
             inferred = True
+            # In Ray, CUDA_VISIBLE_DEVICES is usually already set to a single device per worker process.
+            # In that case, torch.cuda.device_count() == 1 and the only valid local device index is 0.
+            visible_count = torch.cuda.device_count()
+            local_rank = 0 if visible_count == 1 else int(gpu_ids[0])
+            rank = int(gpu_ids[0])
+            if world_size == -1:
+                world_size = visible_count
 
     if local_rank != -1:
         torch.cuda.set_device(local_rank)
 
+    init_kwargs = {"backend": "nccl"}
     if rank != -1 and world_size != -1:
-        torch.distributed.init_process_group(backend="nccl", rank=rank, world_size=world_size)
-    else:
-        torch.distributed.init_process_group(backend="nccl")
+        init_kwargs["rank"] = rank
+        init_kwargs["world_size"] = world_size
+
+    device_id = None
+    if torch.cuda.is_available() and local_rank != -1:
+        device_id = torch.device("cuda", local_rank)
+
+    if "device_id" in inspect.signature(torch.distributed.init_process_group).parameters and device_id is not None:
+        init_kwargs["device_id"] = device_id
+
+    torch.distributed.init_process_group(**init_kwargs)
 
     print(json.dumps({
         "event": "dist_initialized",
@@ -120,6 +133,8 @@ def init_distributed_and_device():
         "cuda_visible_devices": os.environ.get("CUDA_VISIBLE_DEVICES"),
         "device_count": torch.cuda.device_count(),
         "current_device": torch.cuda.current_device() if torch.cuda.is_available() else None,
+        "device_id": str(device_id) if device_id is not None else None,
+        "init_kwargs": {k: (str(v) if k == "device_id" else v) for k, v in init_kwargs.items()},
     }), flush=True)
 
 
