@@ -562,7 +562,16 @@ class ActorRolloutRefWorker(Worker):
     def init_model(self):
         from ragen.workers.actor import DataParallelPPOActor
 
-        # This is used to import external_lib into the huggingface systems
+        print(json.dumps({
+            "event": "actor_rollout_init_model_start",
+            "role": self.role,
+            "rank": torch.distributed.get_rank() if torch.distributed.is_initialized() else None,
+            "world_size": torch.distributed.get_world_size() if torch.distributed.is_initialized() else None,
+            "current_device": torch.cuda.current_device() if torch.cuda.is_available() else None,
+            "cuda_visible_devices": os.environ.get("CUDA_VISIBLE_DEVICES"),
+            "pid": os.getpid(),
+        }), flush=True)
+
         import_external_libs(self.config.model.get("external_lib", None))
 
         from omegaconf import OmegaConf
@@ -572,13 +581,20 @@ class ActorRolloutRefWorker(Worker):
         use_remove_padding = self.config.model.get("use_remove_padding", False)
 
         if self._is_actor or self._is_rollout:
-            # we need the model for actor and rollout
             if self._is_actor:
                 optim_config = self.config.actor.optim
                 fsdp_config = self.config.actor.fsdp_config
             else:
                 optim_config = None
                 fsdp_config = OmegaConf.create()
+            print(json.dumps({
+                "event": "build_actor_start",
+                "role": self.role,
+                "rank": torch.distributed.get_rank() if torch.distributed.is_initialized() else None,
+                "current_device": torch.cuda.current_device() if torch.cuda.is_available() else None,
+                "cuda_visible_devices": os.environ.get("CUDA_VISIBLE_DEVICES"),
+                "pid": os.getpid(),
+            }), flush=True)
             self.actor_module_fsdp, self.actor_optimizer, self.actor_lr_scheduler, self.actor_model_config = self._build_model_optimizer(
                 model_path=self.config.model.path,
                 fsdp_config=fsdp_config,
@@ -591,9 +607,17 @@ class ActorRolloutRefWorker(Worker):
                 role="actor",
             )
 
-            # get the original unwrapped module
             if fsdp_version(self.actor_module_fsdp) == 1:
                 self.actor_module = self.actor_module_fsdp._fsdp_wrapped_module
+
+            print(json.dumps({
+                "event": "build_actor_done",
+                "role": self.role,
+                "rank": torch.distributed.get_rank() if torch.distributed.is_initialized() else None,
+                "current_device": torch.cuda.current_device() if torch.cuda.is_available() else None,
+                "cuda_visible_devices": os.environ.get("CUDA_VISIBLE_DEVICES"),
+                "pid": os.getpid(),
+            }), flush=True)
 
             if self._is_offload_param:
                 offload_fsdp_model_to_cpu(self.actor_module_fsdp)
@@ -611,10 +635,34 @@ class ActorRolloutRefWorker(Worker):
                                               actor_optimizer=self.actor_optimizer)
 
         if self._is_rollout:
+            print(json.dumps({
+                "event": "build_rollout_start",
+                "role": self.role,
+                "rank": torch.distributed.get_rank() if torch.distributed.is_initialized() else None,
+                "current_device": torch.cuda.current_device() if torch.cuda.is_available() else None,
+                "cuda_visible_devices": os.environ.get("CUDA_VISIBLE_DEVICES"),
+                "pid": os.getpid(),
+            }), flush=True)
             self.rollout, self.rollout_sharding_manager = self._build_rollout(
                 trust_remote_code=self.config.model.get("trust_remote_code", False))
+            print(json.dumps({
+                "event": "build_rollout_done",
+                "role": self.role,
+                "rank": torch.distributed.get_rank() if torch.distributed.is_initialized() else None,
+                "current_device": torch.cuda.current_device() if torch.cuda.is_available() else None,
+                "cuda_visible_devices": os.environ.get("CUDA_VISIBLE_DEVICES"),
+                "pid": os.getpid(),
+            }), flush=True)
 
         if self._is_ref:
+            print(json.dumps({
+                "event": "build_ref_start",
+                "role": self.role,
+                "rank": torch.distributed.get_rank() if torch.distributed.is_initialized() else None,
+                "current_device": torch.cuda.current_device() if torch.cuda.is_available() else None,
+                "cuda_visible_devices": os.environ.get("CUDA_VISIBLE_DEVICES"),
+                "pid": os.getpid(),
+            }), flush=True)
             self.ref_module_fsdp = self._build_model_optimizer(
                 model_path=self.config.model.path,
                 fsdp_config=self.config.ref.fsdp_config,
@@ -625,6 +673,14 @@ class ActorRolloutRefWorker(Worker):
                 use_liger=self.config.model.get("use_liger", False),
                 role="ref",
             )[0]
+            print(json.dumps({
+                "event": "build_ref_done",
+                "role": self.role,
+                "rank": torch.distributed.get_rank() if torch.distributed.is_initialized() else None,
+                "current_device": torch.cuda.current_device() if torch.cuda.is_available() else None,
+                "cuda_visible_devices": os.environ.get("CUDA_VISIBLE_DEVICES"),
+                "pid": os.getpid(),
+            }), flush=True)
             OmegaConf.set_struct(self.config.ref, True)
             with open_dict(self.config.ref):
                 self.config.ref.use_remove_padding = use_remove_padding
@@ -639,6 +695,16 @@ class ActorRolloutRefWorker(Worker):
                 processing_class=self.processor if self.processor is not None else self.tokenizer,
                 checkpoint_contents=self.config.actor.checkpoint.contents,
             )
+
+        print(json.dumps({
+            "event": "actor_rollout_init_model_done",
+            "role": self.role,
+            "rank": torch.distributed.get_rank() if torch.distributed.is_initialized() else None,
+            "world_size": torch.distributed.get_world_size() if torch.distributed.is_initialized() else None,
+            "current_device": torch.cuda.current_device() if torch.cuda.is_available() else None,
+            "cuda_visible_devices": os.environ.get("CUDA_VISIBLE_DEVICES"),
+            "pid": os.getpid(),
+        }), flush=True)
 
     @register(dispatch_mode=Dispatch.DP_COMPUTE_PROTO)
     def update_actor(self, data: DataProto):
