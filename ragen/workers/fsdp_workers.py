@@ -460,9 +460,39 @@ class ActorRolloutRefWorker(Worker):
             from verl.workers.rollout.vllm_rollout import vllm_mode, vLLMAsyncRollout, vLLMRollout
             from ragen.workers.sharding_manager.fsdp_vllm import FSDPVLLMShardingManager
 
+            print(json.dumps({
+                "event": "build_rollout_vllm_start",
+                "role": self.role,
+                "rank": torch.distributed.get_rank() if torch.distributed.is_initialized() else None,
+                "current_device": torch.cuda.current_device() if torch.cuda.is_available() else None,
+                "cuda_visible_devices": os.environ.get("CUDA_VISIBLE_DEVICES"),
+                "pid": os.getpid(),
+                "vllm_mode": vllm_mode,
+                "rollout_mode": self.config.rollout.mode,
+                "load_format": self.config.rollout.load_format,
+                "tensor_model_parallel_size": self.config.rollout.tensor_model_parallel_size,
+            }), flush=True)
             log_gpu_memory_usage(f"Before building {rollout_name} rollout", logger=logger)
             local_path = copy_to_local(self.config.model.path)
+            print(json.dumps({
+                "event": "build_rollout_vllm_local_path_ready",
+                "role": self.role,
+                "rank": torch.distributed.get_rank() if torch.distributed.is_initialized() else None,
+                "current_device": torch.cuda.current_device() if torch.cuda.is_available() else None,
+                "cuda_visible_devices": os.environ.get("CUDA_VISIBLE_DEVICES"),
+                "pid": os.getpid(),
+                "local_path": local_path,
+            }), flush=True)
             if vllm_mode == "customized":
+                print(json.dumps({
+                    "event": "build_rollout_vllm_init_start",
+                    "role": self.role,
+                    "rank": torch.distributed.get_rank() if torch.distributed.is_initialized() else None,
+                    "current_device": torch.cuda.current_device() if torch.cuda.is_available() else None,
+                    "cuda_visible_devices": os.environ.get("CUDA_VISIBLE_DEVICES"),
+                    "pid": os.getpid(),
+                    "init_mode": "customized",
+                }), flush=True)
                 rollout = vLLMRollout(
                     actor_module=self.actor_module_fsdp,
                     config=self.config.rollout,
@@ -471,6 +501,16 @@ class ActorRolloutRefWorker(Worker):
                 )
             elif vllm_mode == "spmd":
                 vllm_rollout_cls = vLLMRollout if self.config.rollout.mode == "sync" else vLLMAsyncRollout
+                print(json.dumps({
+                    "event": "build_rollout_vllm_init_start",
+                    "role": self.role,
+                    "rank": torch.distributed.get_rank() if torch.distributed.is_initialized() else None,
+                    "current_device": torch.cuda.current_device() if torch.cuda.is_available() else None,
+                    "cuda_visible_devices": os.environ.get("CUDA_VISIBLE_DEVICES"),
+                    "pid": os.getpid(),
+                    "init_mode": "spmd",
+                    "rollout_cls": vllm_rollout_cls.__name__,
+                }), flush=True)
                 rollout = vllm_rollout_cls(
                     model_path=local_path,
                     config=self.config.rollout,
@@ -482,9 +522,27 @@ class ActorRolloutRefWorker(Worker):
             else:
                 raise NotImplementedError("vllm_mode must be 'customized' or 'spmd'")
 
+            print(json.dumps({
+                "event": "build_rollout_vllm_init_done",
+                "role": self.role,
+                "rank": torch.distributed.get_rank() if torch.distributed.is_initialized() else None,
+                "current_device": torch.cuda.current_device() if torch.cuda.is_available() else None,
+                "cuda_visible_devices": os.environ.get("CUDA_VISIBLE_DEVICES"),
+                "pid": os.getpid(),
+            }), flush=True)
             log_gpu_memory_usage(f"After building {rollout_name} rollout", logger=logger)
             if torch.distributed.get_world_size() == 1:
                 self.config.rollout.load_format = "dummy_hf"
+            print(json.dumps({
+                "event": "build_rollout_vllm_sharding_manager_start",
+                "role": self.role,
+                "rank": torch.distributed.get_rank() if torch.distributed.is_initialized() else None,
+                "current_device": torch.cuda.current_device() if torch.cuda.is_available() else None,
+                "cuda_visible_devices": os.environ.get("CUDA_VISIBLE_DEVICES"),
+                "pid": os.getpid(),
+                "full_params": "hf" in self.config.rollout.load_format,
+                "offload_param": self._is_offload_param,
+            }), flush=True)
             rollout_sharding_manager = FSDPVLLMShardingManager(
                 module=self.actor_module_fsdp,
                 inference_engine=rollout.inference_engine,
@@ -493,6 +551,14 @@ class ActorRolloutRefWorker(Worker):
                 device_mesh=rollout_device_mesh,
                 offload_param=self._is_offload_param,
             )
+            print(json.dumps({
+                "event": "build_rollout_vllm_sharding_manager_done",
+                "role": self.role,
+                "rank": torch.distributed.get_rank() if torch.distributed.is_initialized() else None,
+                "current_device": torch.cuda.current_device() if torch.cuda.is_available() else None,
+                "cuda_visible_devices": os.environ.get("CUDA_VISIBLE_DEVICES"),
+                "pid": os.getpid(),
+            }), flush=True)
             log_gpu_memory_usage("After building sharding manager", logger=logger)
 
         elif rollout_name == "sglang":

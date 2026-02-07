@@ -25,6 +25,7 @@ When working with Megatron:
 - After inference, all the parameters that doesn't belong to this pp rank is freed.
 """
 
+import json
 import logging
 import os
 from contextlib import contextmanager
@@ -107,13 +108,23 @@ class vLLMRollout(BaseRollout):
                              please increase max_num_batched_tokens or disable chunked prefill"
             )
 
-        # copy it to avoid secretly modifying the engine config
         engine_kwargs = {} if "engine_kwargs" not in config else OmegaConf.to_container(deepcopy(config.engine_kwargs))
-        # For each vLLM engine parameter,
-        # - `None` means not setting it, so we pop it, and leave it to vLLM default value
-        #    (which can vary across different vLLM versions);
-        # - Otherwise it's the desired value we want to explicitly set.
         engine_kwargs = {key: val for key, val in engine_kwargs.items() if val is not None}
+        print(json.dumps({
+            "event": "vllm_rollout_llm_init_start",
+            "rank": torch.distributed.get_rank() if torch.distributed.is_initialized() else None,
+            "current_device": torch.cuda.current_device() if torch.cuda.is_available() else None,
+            "cuda_visible_devices": os.environ.get("CUDA_VISIBLE_DEVICES"),
+            "tensor_parallel_size": tensor_parallel_size,
+            "max_num_batched_tokens": max_num_batched_tokens,
+            "max_model_len": max_model_len,
+            "load_format": config.load_format,
+            "dtype": str(config.dtype),
+            "enforce_eager": config.enforce_eager,
+            "gpu_memory_utilization": config.gpu_memory_utilization,
+            "enable_chunked_prefill": config.enable_chunked_prefill,
+            "engine_kwargs_keys": sorted(engine_kwargs.keys()),
+        }), flush=True)
         self.inference_engine = LLM(
             actor_module,
             tokenizer=tokenizer,
@@ -130,9 +141,26 @@ class vLLMRollout(BaseRollout):
             enable_chunked_prefill=config.enable_chunked_prefill,
             **engine_kwargs,
         )
+        print(json.dumps({
+            "event": "vllm_rollout_llm_init_done",
+            "rank": torch.distributed.get_rank() if torch.distributed.is_initialized() else None,
+            "current_device": torch.cuda.current_device() if torch.cuda.is_available() else None,
+            "cuda_visible_devices": os.environ.get("CUDA_VISIBLE_DEVICES"),
+        }), flush=True)
 
-        # Offload vllm model to reduce peak memory usage
+        print(json.dumps({
+            "event": "vllm_rollout_offload_start",
+            "rank": torch.distributed.get_rank() if torch.distributed.is_initialized() else None,
+            "current_device": torch.cuda.current_device() if torch.cuda.is_available() else None,
+            "cuda_visible_devices": os.environ.get("CUDA_VISIBLE_DEVICES"),
+        }), flush=True)
         self.inference_engine.offload_model_weights()
+        print(json.dumps({
+            "event": "vllm_rollout_offload_done",
+            "rank": torch.distributed.get_rank() if torch.distributed.is_initialized() else None,
+            "current_device": torch.cuda.current_device() if torch.cuda.is_available() else None,
+            "cuda_visible_devices": os.environ.get("CUDA_VISIBLE_DEVICES"),
+        }), flush=True)
 
         kwargs = dict(
             n=1,
