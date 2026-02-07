@@ -105,7 +105,7 @@ class ActorRolloutRefWorker(Worker):
                         # Assuming we are using all visible GPUs as world size
                         # This is a heuristic guess for your specific 2-GPU setup
                         if world_size == -1:
-                            world_size = torch.cuda.device_count() # This might be 1 inside the container
+                            world_size = torch.cuda.device_count()  # This might be 1 inside the container
                             # Better guess: Check config
                             world_size = self.config.get("trainer", {}).get("n_gpus_per_node", 2)
                         
