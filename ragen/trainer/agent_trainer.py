@@ -678,8 +678,17 @@ class RayAgentTrainer(VerlRayPPOTrainer):
             "val_group_size": int(self.config.es_manager.val.group_size),
         }), flush=True)
         for step in range(self.config.trainer.validation_steps):
+            print(json.dumps({
+                "event": "validate_step_enter",
+                "step": int(step),
+            }), flush=True)
             # Store original inputs
             input_texts = ["" for _ in range(self.config.es_manager.val.env_groups * self.config.es_manager.val.group_size)]
+            print(json.dumps({
+                "event": "validate_input_texts_ready",
+                "step": int(step),
+                "input_texts_len": int(len(input_texts)),
+            }), flush=True)
             sample_inputs.extend(input_texts)
             
             meta_info = {
