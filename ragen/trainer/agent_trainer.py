@@ -1731,7 +1731,12 @@ class RayAgentTrainer(VerlRayPPOTrainer):
 
         # perform validation before training
         # currently, we only support validation using the reward_function.
-        print(f"[DEBUG] Checking validation config...", flush=True)
+        print(json.dumps({
+            "event": "fit_validation_gate",
+            "val_reward_fn_is_none": self.val_reward_fn is None,
+            "val_before_train": bool(self.config.trainer.get("val_before_train", True)),
+            "validation_steps": int(self.config.trainer.get("validation_steps", -1)) if self.config.trainer.get("validation_steps", None) is not None else None,
+        }), flush=True)
         if self.val_reward_fn is not None and self.config.trainer.get("val_before_train", True):
             print(json.dumps({
                 "event": "validate_before_call",

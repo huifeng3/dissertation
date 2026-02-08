@@ -8,6 +8,7 @@ from ragen.trainer.agent_trainer import RayAgentTrainer
 import ray
 import hydra
 import os
+import json
 from verl import DataProto
 import torch
 import numpy as np
@@ -163,23 +164,32 @@ def main(config):
 
 
 def run_ppo(config) -> None:
-    # TODO(linjunrong.ocss884): this ENV is left for resolving SGLang conflict with ray devices
-    # isolation, will solve in the future
     os.environ["CUDA_VISIBLE_DEVICES"] = str(config.system.CUDA_VISIBLE_DEVICES)
-    print(f"CUDA_VISIBLE_DEVICES: {os.environ['CUDA_VISIBLE_DEVICES']}")
+    print(json.dumps({
+        "event": "driver_run_ppo_start",
+        "cuda_visible_devices": os.environ.get("CUDA_VISIBLE_DEVICES"),
+    }), flush=True)
     os.environ["ENSURE_CUDA_VISIBLE_DEVICES"] = os.environ.get('CUDA_VISIBLE_DEVICES', '')
     if not ray.is_initialized():
-        # this is for local ray cluster
+        print(json.dumps({
+            "event": "driver_ray_init_start",
+        }), flush=True)
         ray.init(runtime_env={
             'env_vars': {
                 'TOKENIZERS_PARALLELISM': 'true',
                 'NCCL_DEBUG': 'WARN',
                 'VLLM_LOGGING_LEVEL': 'WARN',
-                "RAY_DEBUG": "legacy", # used here for simpler breakpoint()
+                "RAY_DEBUG": "legacy",
                 "TENSORBOARD_DIR": config.trainer.tensorboard_dir
             }
         }, _temp_dir=os.environ.get("RAY_TEMP_PATH", "./RAGEN/temp/ray"))
+        print(json.dumps({
+            "event": "driver_ray_init_done",
+        }), flush=True)
 
+    print(json.dumps({
+        "event": "driver_taskrunner_submit",
+    }), flush=True)
     runner = TaskRunner.remote()
     ray.get(runner.run.remote(config))
 
@@ -188,17 +198,27 @@ def run_ppo(config) -> None:
 class TaskRunner:
 
     def run(self, config):
+        print(json.dumps({
+            "event": "taskrunner_start",
+            "experiment_name": str(config.trainer.experiment_name),
+        }), flush=True)
         from verl.utils.fs import copy_to_local
-        # print initial config
         from pprint import pprint
 
-        # download the checkpoint from hdfs
         local_path = copy_to_local(config.actor_rollout_ref.model.path)
+        print(json.dumps({
+            "event": "taskrunner_copy_to_local_done",
+            "local_path": str(local_path),
+        }), flush=True)
 
-        # instantiate tokenizer
         from verl.utils import hf_tokenizer, hf_processor
         tokenizer = hf_tokenizer(local_path)
-        processor = hf_processor(local_path, use_fast=True)  # used for multimodal LLM, could be none
+        processor = hf_processor(local_path, use_fast=True)
+        print(json.dumps({
+            "event": "taskrunner_tokenizer_ready",
+            "tokenizer_type": str(type(tokenizer)),
+            "processor_is_none": processor is None,
+        }), flush=True)
 
         # define worker classes
         if config.actor_rollout_ref.actor.strategy == 'fsdp':
