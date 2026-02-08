@@ -675,6 +675,7 @@ class RayAgentTrainer(VerlRayPPOTrainer):
             "event": "validate_start",
             "validation_steps": int(self.config.trainer.validation_steps),
             "val_env_groups": int(self.config.es_manager.val.env_groups),
+            "total_validation_steps": int(self.config.trainer.total_training_steps),
             "val_group_size": int(self.config.es_manager.val.group_size),
         }), flush=True)
         for step in range(self.config.trainer.validation_steps):
