@@ -689,7 +689,16 @@ class RayAgentTrainer(VerlRayPPOTrainer):
                 "do_sample": self.config.actor_rollout_ref.rollout.val_kwargs.do_sample,
                 "validate": True,
             }
+            print(json.dumps({
+                "event": "validate_create_dataproto_start",
+                "step": int(step),
+            }), flush=True)
             test_gen_batch = DataProto(batch=None, non_tensor_batch=None, meta_info=meta_info)
+            print(json.dumps({
+                "event": "validate_create_dataproto_done",
+                "step": int(step),
+                "meta_info_keys": sorted(list(test_gen_batch.meta_info.keys())),
+            }), flush=True)
             print(json.dumps({
                 "event": "validate_step_start",
                 "step": int(step),
@@ -1715,7 +1724,16 @@ class RayAgentTrainer(VerlRayPPOTrainer):
         # currently, we only support validation using the reward_function.
         print(f"[DEBUG] Checking validation config...", flush=True)
         if self.val_reward_fn is not None and self.config.trainer.get("val_before_train", True):
+            print(json.dumps({
+                "event": "validate_before_call",
+                "global_steps": int(self.global_steps),
+            }), flush=True)
             val_metrics = self._validate()
+            print(json.dumps({
+                "event": "validate_after_call",
+                "global_steps": int(self.global_steps),
+                "val_metric_keys": sorted(list(val_metrics.keys())) if isinstance(val_metrics, dict) else None,
+            }), flush=True)
             pprint(f"Initial validation metrics: {val_metrics}")
             logger.log(data=val_metrics, step=self.global_steps)
             if self.config.trainer.get("val_only", False):
