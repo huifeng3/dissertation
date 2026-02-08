@@ -245,12 +245,32 @@ class vLLMRollout(BaseRollout):
 
         # users can customize different sampling_params at different run
         with self.update_sampling_params(**kwargs):
+            print(json.dumps({
+                "event": "vllm_rollout_generate_start",
+                "rank": torch.distributed.get_rank() if torch.distributed.is_initialized() else None,
+                "current_device": torch.cuda.current_device() if torch.cuda.is_available() else None,
+                "cuda_visible_devices": os.environ.get("CUDA_VISIBLE_DEVICES"),
+                "batch_size": int(batch_size),
+                "prompt_len": int(idx.size(1)),
+                "do_sample": do_sample,
+                "validate": is_validate,
+            }), flush=True)
             output = self.inference_engine.generate(
                 prompts=None,  # because we have already convert it to prompt token id
                 sampling_params=self.sampling_params,
                 prompt_token_ids=idx_list,
                 use_tqdm=False,
             )
+            print(json.dumps({
+                "event": "vllm_rollout_generate_done",
+                "rank": torch.distributed.get_rank() if torch.distributed.is_initialized() else None,
+                "current_device": torch.cuda.current_device() if torch.cuda.is_available() else None,
+                "cuda_visible_devices": os.environ.get("CUDA_VISIBLE_DEVICES"),
+                "batch_size": int(batch_size),
+                "prompt_len": int(idx.size(1)),
+                "do_sample": do_sample,
+                "validate": is_validate,
+            }), flush=True)
 
             # TODO(sgm): disable logprob when recompute_log_prob is enable
             # if n = 1: (bs, response_length) ; if n > 1: (bs * n, response_length)

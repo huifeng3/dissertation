@@ -151,27 +151,92 @@ class LLMAgentProxy:
 		
 		for i in range(self.config.agent_proxy.max_turn):
 			print(f"Rollout step: {i}")
+			print(json.dumps({
+				"event": "rollout_get_lm_inputs_start",
+				"step": i,
+				"val": val,
+				"env_outputs_len": len(env_outputs) if env_outputs is not None else None,
+			}), flush=True)
 			# pdb.set_trace()
 			lm_inputs: DataProto = ctx_manager.get_lm_inputs(env_outputs, prepare_for_update=False)
+			try:
+				lm_inputs_len = len(lm_inputs)
+			except Exception:
+				lm_inputs_len = None
+			print(json.dumps({
+				"event": "rollout_get_lm_inputs_done",
+				"step": i,
+				"val": val,
+				"lm_inputs_len": lm_inputs_len,
+				"meta_keys": sorted(list(dataproto.meta_info.keys())) if dataproto and dataproto.meta_info else None,
+			}), flush=True)
 			lm_inputs.meta_info = dataproto.meta_info # TODO: setup vllm early stop when max length is reached. make sure this can be done
 
 			# lm_outputs: DataProto = self.generate_sequences(lm_inputs)
-			# 计算需要切多少次
 			total_len = len(lm_inputs)
-			chunks = (total_len + batch_size - 1) // batch_size  # 向上取整
-			# 使用 slice API 切分
+			chunks = (total_len + batch_size - 1) // batch_size
+			print(json.dumps({
+				"event": "rollout_chunking_start",
+				"step": i,
+				"val": val,
+				"total_len": total_len,
+				"batch_size": batch_size,
+				"chunks": chunks,
+			}), flush=True)
 			sub_inputs_list = [lm_inputs.slice(start, min(start + batch_size, total_len)) for start in range(0, total_len, batch_size)]
-			# 分批生成
 			sub_outputs_list = []
-			for sub_inputs in sub_inputs_list:
+			for chunk_idx, sub_inputs in enumerate(sub_inputs_list):
+				print(json.dumps({
+					"event": "rollout_chunk_generate_start",
+					"step": i,
+					"val": val,
+					"chunk_idx": chunk_idx,
+					"chunk_len": len(sub_inputs),
+				}), flush=True)
 				sub_outputs = self.generate_sequences(sub_inputs)
+				print(json.dumps({
+					"event": "rollout_chunk_generate_done",
+					"step": i,
+					"val": val,
+					"chunk_idx": chunk_idx,
+					"chunk_len": len(sub_inputs),
+				}), flush=True)
 				sub_outputs_list.append(sub_outputs)
-			# 合并结果
 			lm_outputs = DataProto.concat(sub_outputs_list)
+			print(json.dumps({
+				"event": "rollout_generate_done",
+				"step": i,
+				"val": val,
+				"output_len": len(lm_outputs),
+			}), flush=True)
 
+			print(json.dumps({
+				"event": "rollout_get_env_inputs_start",
+				"step": i,
+				"val": val,
+				"output_len": len(lm_outputs),
+			}), flush=True)
 			env_inputs: List[Dict] = ctx_manager.get_env_inputs(lm_outputs)
+			print(json.dumps({
+				"event": "rollout_get_env_inputs_done",
+				"step": i,
+				"val": val,
+				"env_inputs_len": len(env_inputs) if env_inputs is not None else None,
+			}), flush=True)
 			# pdb.set_trace()
+			print(json.dumps({
+				"event": "rollout_env_step_start",
+				"step": i,
+				"val": val,
+				"env_inputs_len": len(env_inputs) if env_inputs is not None else None,
+			}), flush=True)
 			env_outputs: List[Dict] = es_manager.step(env_inputs)
+			print(json.dumps({
+				"event": "rollout_env_step_done",
+				"step": i,
+				"val": val,
+				"env_outputs_len": len(env_outputs) if env_outputs is not None else None,
+			}), flush=True)
 			if len(env_outputs) == 0: # all finished
 				break
 		rollout_states = es_manager.get_rollout_states() 

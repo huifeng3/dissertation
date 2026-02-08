@@ -860,6 +860,19 @@ class ActorRolloutRefWorker(Worker):
 
         assert self._is_rollout
 
+        try:
+            prompt_len = len(prompts)
+        except Exception:
+            prompt_len = None
+        print(json.dumps({
+            "event": "rollout_worker_generate_enter",
+            "role": self.role,
+            "rank": torch.distributed.get_rank() if torch.distributed.is_initialized() else None,
+            "current_device": torch.cuda.current_device() if torch.cuda.is_available() else None,
+            "cuda_visible_devices": os.environ.get("CUDA_VISIBLE_DEVICES"),
+            "prompt_len": prompt_len,
+        }), flush=True)
+
         meta_info = {
             "eos_token_id": self.generation_config.eos_token_id if self.generation_config is not None else self.tokenizer.eos_token_id,
             "pad_token_id": self.generation_config.pad_token_id if self.generation_config is not None else self.tokenizer.pad_token_id,
@@ -868,21 +881,73 @@ class ActorRolloutRefWorker(Worker):
         with self.rollout_sharding_manager:
             log_gpu_memory_usage("After entering rollout sharding manager", logger=logger)
 
+            print(json.dumps({
+                "event": "rollout_worker_preprocess_start",
+                "role": self.role,
+                "rank": torch.distributed.get_rank() if torch.distributed.is_initialized() else None,
+                "current_device": torch.cuda.current_device() if torch.cuda.is_available() else None,
+                "cuda_visible_devices": os.environ.get("CUDA_VISIBLE_DEVICES"),
+            }), flush=True)
             prompts = self.rollout_sharding_manager.preprocess_data(prompts)
+            print(json.dumps({
+                "event": "rollout_worker_preprocess_done",
+                "role": self.role,
+                "rank": torch.distributed.get_rank() if torch.distributed.is_initialized() else None,
+                "current_device": torch.cuda.current_device() if torch.cuda.is_available() else None,
+                "cuda_visible_devices": os.environ.get("CUDA_VISIBLE_DEVICES"),
+            }), flush=True)
 
             if self.config.rollout.name == "sglang_async":
                 from verl.workers.rollout.sglang_rollout import AsyncSGLangRollout
 
+                print(json.dumps({
+                    "event": "rollout_worker_generate_start",
+                    "role": self.role,
+                    "rank": torch.distributed.get_rank() if torch.distributed.is_initialized() else None,
+                    "current_device": torch.cuda.current_device() if torch.cuda.is_available() else None,
+                    "cuda_visible_devices": os.environ.get("CUDA_VISIBLE_DEVICES"),
+                    "rollout_name": self.config.rollout.name,
+                }), flush=True)
                 if isinstance(self.rollout, AsyncSGLangRollout) and hasattr(self.rollout, "_tool_schemas") and len(
                         self.rollout._tool_schemas) > 0:
                     output = self.rollout.generate_sequences_with_tools(prompts=prompts)
                 else:
                     output = self.rollout.generate_sequences(prompts=prompts)
             else:
+                print(json.dumps({
+                    "event": "rollout_worker_generate_start",
+                    "role": self.role,
+                    "rank": torch.distributed.get_rank() if torch.distributed.is_initialized() else None,
+                    "current_device": torch.cuda.current_device() if torch.cuda.is_available() else None,
+                    "cuda_visible_devices": os.environ.get("CUDA_VISIBLE_DEVICES"),
+                    "rollout_name": self.config.rollout.name,
+                }), flush=True)
                 output = self.rollout.generate_sequences(prompts=prompts)
+            print(json.dumps({
+                "event": "rollout_worker_generate_done",
+                "role": self.role,
+                "rank": torch.distributed.get_rank() if torch.distributed.is_initialized() else None,
+                "current_device": torch.cuda.current_device() if torch.cuda.is_available() else None,
+                "cuda_visible_devices": os.environ.get("CUDA_VISIBLE_DEVICES"),
+                "rollout_name": self.config.rollout.name,
+            }), flush=True)
             log_gpu_memory_usage("After rollout generation", logger=logger)
 
+            print(json.dumps({
+                "event": "rollout_worker_postprocess_start",
+                "role": self.role,
+                "rank": torch.distributed.get_rank() if torch.distributed.is_initialized() else None,
+                "current_device": torch.cuda.current_device() if torch.cuda.is_available() else None,
+                "cuda_visible_devices": os.environ.get("CUDA_VISIBLE_DEVICES"),
+            }), flush=True)
             output = self.rollout_sharding_manager.postprocess_data(output)
+            print(json.dumps({
+                "event": "rollout_worker_postprocess_done",
+                "role": self.role,
+                "rank": torch.distributed.get_rank() if torch.distributed.is_initialized() else None,
+                "current_device": torch.cuda.current_device() if torch.cuda.is_available() else None,
+                "cuda_visible_devices": os.environ.get("CUDA_VISIBLE_DEVICES"),
+            }), flush=True)
 
         output = output.to("cpu")
 
