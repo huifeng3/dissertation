@@ -664,7 +664,6 @@ class RayAgentTrainer(VerlRayPPOTrainer):
         data_source_lst = []
         reward_extra_infos_dict: dict[str, list] = defaultdict(list)
 
-        # Lists to collect samples for the table
         sample_inputs = []
         sample_outputs = []
         sample_scores = []
@@ -672,6 +671,12 @@ class RayAgentTrainer(VerlRayPPOTrainer):
         sample_dialogue_histories = []
 
         env_metric_dict = {}
+        print(json.dumps({
+            "event": "validate_start",
+            "validation_steps": int(self.config.trainer.validation_steps),
+            "val_env_groups": int(self.config.es_manager.val.env_groups),
+            "val_group_size": int(self.config.es_manager.val.group_size),
+        }), flush=True)
         for step in range(self.config.trainer.validation_steps):
             # Store original inputs
             input_texts = ["" for _ in range(self.config.es_manager.val.env_groups * self.config.es_manager.val.group_size)]
@@ -685,20 +690,41 @@ class RayAgentTrainer(VerlRayPPOTrainer):
                 "validate": True,
             }
             test_gen_batch = DataProto(batch=None, non_tensor_batch=None, meta_info=meta_info)
-            print(f"test_gen_batch meta info: {test_gen_batch.meta_info}")
+            print(json.dumps({
+                "event": "validate_step_start",
+                "step": int(step),
+                "meta_info_keys": sorted(list(test_gen_batch.meta_info.keys())),
+            }), flush=True)
+            print(f"test_gen_batch meta info: {test_gen_batch.meta_info}", flush=True)
 
-            # pad to be divisible by dp_size
             import time
             start_time = time.time()
-            # pdb.set_trace()
+            print(json.dumps({
+                "event": "validate_rollout_start",
+                "step": int(step),
+            }), flush=True)
             test_batch = self.agent_proxy.rollout(test_gen_batch, val=True)
-            # Extract dialogue_history from rollout states (env_outputs)
+            print(json.dumps({
+                "event": "validate_rollout_done",
+                "step": int(step),
+                "meta_info_keys": sorted(list(test_batch.meta_info.keys())) if test_batch is not None and test_batch.meta_info else None,
+            }), flush=True)
             if hasattr(self.agent_proxy.val_es_manager, 'get_rollout_states'):
                 rollout_states = self.agent_proxy.val_es_manager.get_rollout_states()
                 sample_dialogue_histories.extend([env.get('dialogue_history', []) for env in rollout_states])
                 sample_turn_scores.extend([env.get('turn_scores', []) for env in rollout_states])
             end_time = time.time()
-            print(f"validation generation time: {end_time - start_time} seconds")
+            print(f"validation generation time: {end_time - start_time} seconds", flush=True)
+            print(json.dumps({
+                "event": "validate_reward_start",
+                "step": int(step),
+            }), flush=True)
+            result = self.val_reward_fn(test_batch, return_dict=True)
+            print(json.dumps({
+                "event": "validate_reward_done",
+                "step": int(step),
+                "result_keys": sorted(list(result.keys())) if isinstance(result, dict) else None,
+            }), flush=True)
             # tag = self.config.es_manager.val.env_configs.tags[0]
             for key, value in test_batch.meta_info["metrics"].items():
                 if "val-env/" + key not in env_metric_dict:
@@ -711,7 +737,16 @@ class RayAgentTrainer(VerlRayPPOTrainer):
             sample_outputs.extend(output_texts)
 
             # evaluate using reward_function
+            print(json.dumps({
+                "event": "validate_reward_start",
+                "step": int(step),
+            }), flush=True)
             result = self.val_reward_fn(test_batch, return_dict=True)
+            print(json.dumps({
+                "event": "validate_reward_done",
+                "step": int(step),
+                "result_keys": sorted(list(result.keys())) if isinstance(result, dict) else None,
+            }), flush=True)
             reward_tensor = result["reward_tensor"]
             scores = reward_tensor.sum(-1).cpu().tolist()
             sample_scores.extend(scores)
