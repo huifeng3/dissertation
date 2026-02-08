@@ -1,89 +1,79 @@
-INFO 02-08 17:20:56 [__init__.py:239] Automatically detected platform cuda.
-INFO 02-08 17:20:58 [api_server.py:981] vLLM API server version 0.8.2
-INFO 02-08 17:20:58 [api_server.py:982] args: Namespace(host='0.0.0.0', port=8001, uvicorn_log_level='info', disable_uvicorn_access_log=False, allow_credentials=False, allowed_origins=['*'], allowed_methods=['*'], allowed_headers=['*'], api_key=None, lora_modules=None, prompt_adapters=None, chat_template=None, chat_template_content_format='auto', response_role='assistant', ssl_keyfile=None, ssl_certfile=None, ssl_ca_certs=None, enable_ssl_refresh=False, ssl_cert_reqs=0, root_path=None, middleware=[], return_tokens_as_token_ids=False, disable_frontend_multiprocessing=False, enable_request_id_headers=False, enable_auto_tool_choice=False, tool_call_parser=None, tool_parser_plugin='', model='./models/Mistral-7B-Instruct-v0.3', task='auto', tokenizer=None, hf_config_path=None, skip_tokenizer_init=False, revision=None, code_revision=None, tokenizer_revision=None, tokenizer_mode='auto', trust_remote_code=True, allowed_local_media_path=None, download_dir=None, load_format='auto', config_format=<ConfigFormat.AUTO: 'auto'>, dtype='half', kv_cache_dtype='auto', max_model_len=13312, guided_decoding_backend='xgrammar', logits_processor_pattern=None, model_impl='auto', distributed_executor_backend=None, pipeline_parallel_size=1, tensor_parallel_size=1, enable_expert_parallel=False, max_parallel_loading_workers=None, ray_workers_use_nsight=False, block_size=None, enable_prefix_caching=None, disable_sliding_window=False, use_v2_block_manager=True, num_lookahead_slots=0, seed=None, swap_space=4, cpu_offload_gb=0, gpu_memory_utilization=0.95, num_gpu_blocks_override=None, max_num_batched_tokens=51200, max_num_partial_prefills=1, max_long_partial_prefills=1, long_prefill_token_threshold=0, max_num_seqs=256, max_logprobs=20, disable_log_stats=False, quantization=None, rope_scaling=None, rope_theta=None, hf_overrides=None, enforce_eager=True, max_seq_len_to_capture=8192, disable_custom_all_reduce=False, tokenizer_pool_size=0, tokenizer_pool_type='ray', tokenizer_pool_extra_config=None, limit_mm_per_prompt=None, mm_processor_kwargs=None, disable_mm_preprocessor_cache=False, enable_lora=False, enable_lora_bias=False, max_loras=1, max_lora_rank=16, lora_extra_vocab_size=256, lora_dtype='auto', long_lora_scaling_factors=None, max_cpu_loras=None, fully_sharded_loras=False, enable_prompt_adapter=False, max_prompt_adapters=1, max_prompt_adapter_token=0, device='auto', num_scheduler_steps=1, use_tqdm_on_load=True, multi_step_stream_outputs=True, scheduler_delay_factor=0.0, enable_chunked_prefill=None, speculative_config=None, speculative_model=None, speculative_model_quantization=None, num_speculative_tokens=None, speculative_disable_mqa_scorer=False, speculative_draft_tensor_parallel_size=None, speculative_max_model_len=None, speculative_disable_by_batch_size=None, ngram_prompt_lookup_max=None, ngram_prompt_lookup_min=None, spec_decoding_acceptance_method='rejection_sampler', typical_acceptance_sampler_posterior_threshold=None, typical_acceptance_sampler_posterior_alpha=None, disable_logprobs_during_spec_decoding=None, model_loader_extra_config=None, ignore_patterns=[], preemption_mode=None, served_model_name=None, qlora_adapter_name_or_path=None, show_hidden_metrics_for_version=None, otlp_traces_endpoint=None, collect_detailed_traces=None, disable_async_output_proc=False, scheduling_policy='fcfs', scheduler_cls='vllm.core.scheduler.Scheduler', override_neuron_config=None, override_pooler_config=None, compilation_config=None, kv_transfer_config=None, worker_cls='auto', worker_extension_cls='', generation_config='auto', override_generation_config=None, enable_sleep_mode=False, calculate_kv_scales=False, additional_config=None, enable_reasoning=False, reasoning_parser=None, disable_cascade_attn=False, disable_log_requests=False, max_log_len=None, disable_fastapi_docs=False, enable_prompt_tokens_details=False, enable_server_load_tracking=False)
-WARNING 02-08 17:20:58 [config.py:2614] Casting torch.bfloat16 to torch.float16.
-INFO 02-08 17:21:08 [config.py:585] This model supports multiple tasks: {'reward', 'classify', 'generate', 'score', 'embed'}. Defaulting to 'generate'.
-INFO 02-08 17:21:08 [config.py:1697] Chunked prefill is enabled with max_num_batched_tokens=51200.
-WARNING 02-08 17:21:08 [cuda.py:95] To see benefits of async output processing, enable CUDA graph. Since, enforce-eager is enabled, async output processor cannot be used
-INFO 02-08 17:21:16 [__init__.py:239] Automatically detected platform cuda.
-INFO 02-08 17:21:19 [core.py:54] Initializing a V1 LLM engine (v0.8.2) with config: model='./models/Mistral-7B-Instruct-v0.3', speculative_config=None, tokenizer='./models/Mistral-7B-Instruct-v0.3', skip_tokenizer_init=False, tokenizer_mode=auto, revision=None, override_neuron_config=None, tokenizer_revision=None, trust_remote_code=True, dtype=torch.float16, max_seq_len=13312, download_dir=None, load_format=LoadFormat.AUTO, tensor_parallel_size=1, pipeline_parallel_size=1, disable_custom_all_reduce=False, quantization=None, enforce_eager=True, kv_cache_dtype=auto,  device_config=cuda, decoding_config=DecodingConfig(guided_decoding_backend='xgrammar', reasoning_backend=None), observability_config=ObservabilityConfig(show_hidden_metrics=False, otlp_traces_endpoint=None, collect_model_forward_time=False, collect_model_execute_time=False), seed=None, served_model_name=./models/Mistral-7B-Instruct-v0.3, num_scheduler_steps=1, multi_step_stream_outputs=True, enable_prefix_caching=True, chunked_prefill_enabled=True, use_async_output_proc=False, disable_mm_preprocessor_cache=False, mm_processor_kwargs=None, pooler_config=None, compilation_config={"splitting_ops":[],"compile_sizes":[],"cudagraph_capture_sizes":[],"max_capture_size":0}
-WARNING 02-08 17:21:20 [utils.py:2321] Methods determine_num_available_blocks,device_config,get_cache_block_size_bytes,initialize_cache not implemented in <vllm.v1.worker.gpu_worker.Worker object at 0x7fbb990736b0>
-INFO 02-08 17:21:21 [parallel_state.py:954] rank 0 in world size 1 is assigned as DP rank 0, PP rank 0, TP rank 0
-INFO 02-08 17:21:21 [cuda.py:220] Using Flash Attention backend on V1 engine.
-INFO 02-08 17:21:21 [gpu_model_runner.py:1174] Starting to load model ./models/Mistral-7B-Instruct-v0.3...
-WARNING 02-08 17:21:21 [topk_topp_sampler.py:63] FlashInfer is not available. Falling back to the PyTorch-native implementation of top-p & top-k sampling. For the best performance, please install FlashInfer.
-Loading safetensors checkpoint shards:   0% Completed | 0/3 [00:00<?, ?it/s]
-Loading safetensors checkpoint shards:  33% Completed | 1/3 [00:01<00:03,  1.53s/it]
-Loading safetensors checkpoint shards:  67% Completed | 2/3 [00:03<00:01,  1.62s/it]
-Loading safetensors checkpoint shards: 100% Completed | 3/3 [00:05<00:00,  1.79s/it]
-Loading safetensors checkpoint shards: 100% Completed | 3/3 [00:05<00:00,  1.74s/it]
+INFO 02-08 19:56:07 [__init__.py:239] Automatically detected platform cuda.
+INFO 02-08 19:56:09 [api_server.py:981] vLLM API server version 0.8.2
+INFO 02-08 19:56:09 [api_server.py:982] args: Namespace(host='0.0.0.0', port=8001, uvicorn_log_level='info', disable_uvicorn_access_log=False, allow_credentials=False, allowed_origins=['*'], allowed_methods=['*'], allowed_headers=['*'], api_key=None, lora_modules=None, prompt_adapters=None, chat_template=None, chat_template_content_format='auto', response_role='assistant', ssl_keyfile=None, ssl_certfile=None, ssl_ca_certs=None, enable_ssl_refresh=False, ssl_cert_reqs=0, root_path=None, middleware=[], return_tokens_as_token_ids=False, disable_frontend_multiprocessing=False, enable_request_id_headers=False, enable_auto_tool_choice=False, tool_call_parser=None, tool_parser_plugin='', model='./models/Mistral-7B-Instruct-v0.3', task='auto', tokenizer=None, hf_config_path=None, skip_tokenizer_init=False, revision=None, code_revision=None, tokenizer_revision=None, tokenizer_mode='auto', trust_remote_code=True, allowed_local_media_path=None, download_dir=None, load_format='auto', config_format=<ConfigFormat.AUTO: 'auto'>, dtype='half', kv_cache_dtype='auto', max_model_len=13312, guided_decoding_backend='xgrammar', logits_processor_pattern=None, model_impl='auto', distributed_executor_backend=None, pipeline_parallel_size=1, tensor_parallel_size=1, enable_expert_parallel=False, max_parallel_loading_workers=None, ray_workers_use_nsight=False, block_size=None, enable_prefix_caching=None, disable_sliding_window=False, use_v2_block_manager=True, num_lookahead_slots=0, seed=None, swap_space=4, cpu_offload_gb=0, gpu_memory_utilization=0.95, num_gpu_blocks_override=None, max_num_batched_tokens=51200, max_num_partial_prefills=1, max_long_partial_prefills=1, long_prefill_token_threshold=0, max_num_seqs=256, max_logprobs=20, disable_log_stats=False, quantization=None, rope_scaling=None, rope_theta=None, hf_overrides=None, enforce_eager=True, max_seq_len_to_capture=8192, disable_custom_all_reduce=False, tokenizer_pool_size=0, tokenizer_pool_type='ray', tokenizer_pool_extra_config=None, limit_mm_per_prompt=None, mm_processor_kwargs=None, disable_mm_preprocessor_cache=False, enable_lora=False, enable_lora_bias=False, max_loras=1, max_lora_rank=16, lora_extra_vocab_size=256, lora_dtype='auto', long_lora_scaling_factors=None, max_cpu_loras=None, fully_sharded_loras=False, enable_prompt_adapter=False, max_prompt_adapters=1, max_prompt_adapter_token=0, device='auto', num_scheduler_steps=1, use_tqdm_on_load=True, multi_step_stream_outputs=True, scheduler_delay_factor=0.0, enable_chunked_prefill=None, speculative_config=None, speculative_model=None, speculative_model_quantization=None, num_speculative_tokens=None, speculative_disable_mqa_scorer=False, speculative_draft_tensor_parallel_size=None, speculative_max_model_len=None, speculative_disable_by_batch_size=None, ngram_prompt_lookup_max=None, ngram_prompt_lookup_min=None, spec_decoding_acceptance_method='rejection_sampler', typical_acceptance_sampler_posterior_threshold=None, typical_acceptance_sampler_posterior_alpha=None, disable_logprobs_during_spec_decoding=None, model_loader_extra_config=None, ignore_patterns=[], preemption_mode=None, served_model_name=None, qlora_adapter_name_or_path=None, show_hidden_metrics_for_version=None, otlp_traces_endpoint=None, collect_detailed_traces=None, disable_async_output_proc=False, scheduling_policy='fcfs', scheduler_cls='vllm.core.scheduler.Scheduler', override_neuron_config=None, override_pooler_config=None, compilation_config=None, kv_transfer_config=None, worker_cls='auto', worker_extension_cls='', generation_config='auto', override_generation_config=None, enable_sleep_mode=False, calculate_kv_scales=False, additional_config=None, enable_reasoning=False, reasoning_parser=None, disable_cascade_attn=False, disable_log_requests=False, max_log_len=None, disable_fastapi_docs=False, enable_prompt_tokens_details=False, enable_server_load_tracking=False)
+WARNING 02-08 19:56:09 [config.py:2614] Casting torch.bfloat16 to torch.float16.
+INFO 02-08 19:56:19 [config.py:585] This model supports multiple tasks: {'classify', 'score', 'embed', 'reward', 'generate'}. Defaulting to 'generate'.
+INFO 02-08 19:56:19 [config.py:1697] Chunked prefill is enabled with max_num_batched_tokens=51200.
+WARNING 02-08 19:56:19 [cuda.py:95] To see benefits of async output processing, enable CUDA graph. Since, enforce-eager is enabled, async output processor cannot be used
+INFO 02-08 19:56:28 [__init__.py:239] Automatically detected platform cuda.
+INFO 02-08 19:56:30 [core.py:54] Initializing a V1 LLM engine (v0.8.2) with config: model='./models/Mistral-7B-Instruct-v0.3', speculative_config=None, tokenizer='./models/Mistral-7B-Instruct-v0.3', skip_tokenizer_init=False, tokenizer_mode=auto, revision=None, override_neuron_config=None, tokenizer_revision=None, trust_remote_code=True, dtype=torch.float16, max_seq_len=13312, download_dir=None, load_format=LoadFormat.AUTO, tensor_parallel_size=1, pipeline_parallel_size=1, disable_custom_all_reduce=False, quantization=None, enforce_eager=True, kv_cache_dtype=auto,  device_config=cuda, decoding_config=DecodingConfig(guided_decoding_backend='xgrammar', reasoning_backend=None), observability_config=ObservabilityConfig(show_hidden_metrics=False, otlp_traces_endpoint=None, collect_model_forward_time=False, collect_model_execute_time=False), seed=None, served_model_name=./models/Mistral-7B-Instruct-v0.3, num_scheduler_steps=1, multi_step_stream_outputs=True, enable_prefix_caching=True, chunked_prefill_enabled=True, use_async_output_proc=False, disable_mm_preprocessor_cache=False, mm_processor_kwargs=None, pooler_config=None, compilation_config={"splitting_ops":[],"compile_sizes":[],"cudagraph_capture_sizes":[],"max_capture_size":0}
+WARNING 02-08 19:56:31 [utils.py:2321] Methods determine_num_available_blocks,device_config,get_cache_block_size_bytes,initialize_cache not implemented in <vllm.v1.worker.gpu_worker.Worker object at 0x7fd489d9e0f0>
+INFO 02-08 19:56:32 [parallel_state.py:954] rank 0 in world size 1 is assigned as DP rank 0, PP rank 0, TP rank 0
+INFO 02-08 19:56:32 [cuda.py:220] Using Flash Attention backend on V1 engine.
+INFO 02-08 19:56:32 [gpu_model_runner.py:1174] Starting to load model ./models/Mistral-7B-Instruct-v0.3...
+WARNING 02-08 19:56:32 [topk_topp_sampler.py:63] FlashInfer is not available. Falling back to the PyTorch-native implementation of top-p & top-k sampling. For the best performance, please install FlashInfer.
 
-INFO 02-08 17:21:26 [loader.py:447] Loading weights took 5.35 seconds
-INFO 02-08 17:21:26 [gpu_model_runner.py:1186] Model loading took 13.5084 GB and 5.521980 seconds
-INFO 02-08 17:21:36 [kv_cache_utils.py:566] GPU KV cache size: 24,512 tokens
-INFO 02-08 17:21:36 [kv_cache_utils.py:569] Maximum concurrency for 13,312 tokens per request: 1.84x
-INFO 02-08 17:21:36 [core.py:151] init engine (profile, create kv cache, warmup model) took 10.02 seconds
-INFO 02-08 17:21:36 [api_server.py:1028] Starting vLLM API server on http://0.0.0.0:8001
-INFO 02-08 17:21:36 [launcher.py:26] Available routes are:
-INFO 02-08 17:21:36 [launcher.py:34] Route: /openapi.json, Methods: GET, HEAD
-INFO 02-08 17:21:36 [launcher.py:34] Route: /docs, Methods: GET, HEAD
-INFO 02-08 17:21:36 [launcher.py:34] Route: /docs/oauth2-redirect, Methods: GET, HEAD
-INFO 02-08 17:21:36 [launcher.py:34] Route: /redoc, Methods: GET, HEAD
-INFO 02-08 17:21:36 [launcher.py:34] Route: /health, Methods: GET
-INFO 02-08 17:21:36 [launcher.py:34] Route: /load, Methods: GET
-INFO 02-08 17:21:36 [launcher.py:34] Route: /ping, Methods: GET, POST
-INFO 02-08 17:21:36 [launcher.py:34] Route: /tokenize, Methods: POST
-INFO 02-08 17:21:36 [launcher.py:34] Route: /detokenize, Methods: POST
-INFO 02-08 17:21:36 [launcher.py:34] Route: /v1/models, Methods: GET
-INFO 02-08 17:21:36 [launcher.py:34] Route: /version, Methods: GET
-INFO 02-08 17:21:36 [launcher.py:34] Route: /v1/chat/completions, Methods: POST
-INFO 02-08 17:21:36 [launcher.py:34] Route: /v1/completions, Methods: POST
-INFO 02-08 17:21:36 [launcher.py:34] Route: /v1/embeddings, Methods: POST
-INFO 02-08 17:21:36 [launcher.py:34] Route: /pooling, Methods: POST
-INFO 02-08 17:21:36 [launcher.py:34] Route: /score, Methods: POST
-INFO 02-08 17:21:36 [launcher.py:34] Route: /v1/score, Methods: POST
-INFO 02-08 17:21:36 [launcher.py:34] Route: /v1/audio/transcriptions, Methods: POST
-INFO 02-08 17:21:36 [launcher.py:34] Route: /rerank, Methods: POST
-INFO 02-08 17:21:36 [launcher.py:34] Route: /v1/rerank, Methods: POST
-INFO 02-08 17:21:36 [launcher.py:34] Route: /v2/rerank, Methods: POST
-INFO 02-08 17:21:36 [launcher.py:34] Route: /invocations, Methods: POST
-INFO:     Started server process [652817]
+Loading safetensors checkpoint shards:   0% Completed | 0/3 [00:00<?, ?it/s]
+
+Loading safetensors checkpoint shards:  33% Completed | 1/3 [00:01<00:03,  1.93s/it]
+
+Loading safetensors checkpoint shards:  67% Completed | 2/3 [00:03<00:01,  1.93s/it]
+
+Loading safetensors checkpoint shards: 100% Completed | 3/3 [00:05<00:00,  1.83s/it]
+
+Loading safetensors checkpoint shards: 100% Completed | 3/3 [00:05<00:00,  1.86s/it]
+
+INFO 02-08 19:56:38 [loader.py:447] Loading weights took 5.71 seconds
+INFO 02-08 19:56:38 [gpu_model_runner.py:1186] Model loading took 13.5084 GB and 5.925946 seconds
+INFO 02-08 19:56:48 [kv_cache_utils.py:566] GPU KV cache size: 24,512 tokens
+INFO 02-08 19:56:48 [kv_cache_utils.py:569] Maximum concurrency for 13,312 tokens per request: 1.84x
+INFO 02-08 19:56:48 [core.py:151] init engine (profile, create kv cache, warmup model) took 10.00 seconds
+INFO 02-08 19:56:48 [api_server.py:1028] Starting vLLM API server on http://0.0.0.0:8001
+INFO 02-08 19:56:48 [launcher.py:26] Available routes are:
+INFO 02-08 19:56:48 [launcher.py:34] Route: /openapi.json, Methods: GET, HEAD
+INFO 02-08 19:56:48 [launcher.py:34] Route: /docs, Methods: GET, HEAD
+INFO 02-08 19:56:48 [launcher.py:34] Route: /docs/oauth2-redirect, Methods: GET, HEAD
+INFO 02-08 19:56:48 [launcher.py:34] Route: /redoc, Methods: GET, HEAD
+INFO 02-08 19:56:48 [launcher.py:34] Route: /health, Methods: GET
+INFO 02-08 19:56:48 [launcher.py:34] Route: /load, Methods: GET
+INFO 02-08 19:56:48 [launcher.py:34] Route: /ping, Methods: GET, POST
+INFO 02-08 19:56:48 [launcher.py:34] Route: /tokenize, Methods: POST
+INFO 02-08 19:56:48 [launcher.py:34] Route: /detokenize, Methods: POST
+INFO 02-08 19:56:48 [launcher.py:34] Route: /v1/models, Methods: GET
+INFO 02-08 19:56:48 [launcher.py:34] Route: /version, Methods: GET
+INFO 02-08 19:56:48 [launcher.py:34] Route: /v1/chat/completions, Methods: POST
+INFO 02-08 19:56:48 [launcher.py:34] Route: /v1/completions, Methods: POST
+INFO 02-08 19:56:48 [launcher.py:34] Route: /v1/embeddings, Methods: POST
+INFO 02-08 19:56:48 [launcher.py:34] Route: /pooling, Methods: POST
+INFO 02-08 19:56:48 [launcher.py:34] Route: /score, Methods: POST
+INFO 02-08 19:56:48 [launcher.py:34] Route: /v1/score, Methods: POST
+INFO 02-08 19:56:48 [launcher.py:34] Route: /v1/audio/transcriptions, Methods: POST
+INFO 02-08 19:56:48 [launcher.py:34] Route: /rerank, Methods: POST
+INFO 02-08 19:56:48 [launcher.py:34] Route: /v1/rerank, Methods: POST
+INFO 02-08 19:56:48 [launcher.py:34] Route: /v2/rerank, Methods: POST
+INFO 02-08 19:56:48 [launcher.py:34] Route: /invocations, Methods: POST
+INFO:     Started server process [732440]
 INFO:     Waiting for application startup.
 INFO:     Application startup complete.
-INFO 02-08 17:21:47 [loggers.py:80] Avg prompt throughput: 0.0 tokens/s, Avg generation throughput: 0.0 tokens/s, Running: 0 reqs, Waiting: 0 reqs, GPU KV cache usage: 0.0%, Prefix cache hit rate: 0.0%
-INFO 02-08 17:21:57 [loggers.py:80] Avg prompt throughput: 0.0 tokens/s, Avg generation throughput: 0.0 tokens/s, Running: 0 reqs, Waiting: 0 reqs, GPU KV cache usage: 0.0%, Prefix cache hit rate: 0.0%
-INFO 02-08 17:22:07 [loggers.py:80] Avg prompt throughput: 0.0 tokens/s, Avg generation throughput: 0.0 tokens/s, Running: 0 reqs, Waiting: 0 reqs, GPU KV cache usage: 0.0%, Prefix cache hit rate: 0.0%
-INFO 02-08 17:22:14 [chat_utils.py:379] Detected the chat template content format to be 'string'. You can set `--chat-template-content-format` to override this.
-INFO 02-08 17:22:14 [logger.py:39] Received request chatcmpl-5877f4528e1d43189fcbe7cf234ee218: prompt: '<s>[INST] Could you explain how buffer overflow vulnerabilities can be exploited in software development?[/INST]', params: SamplingParams(n=1, presence_penalty=0.0, frequency_penalty=0.0, repetition_penalty=1.0, temperature=0.7, top_p=1.0, top_k=-1, min_p=0.0, seed=None, stop=[], stop_token_ids=[], bad_words=[], include_stop_str_in_output=False, ignore_eos=False, max_tokens=1024, min_tokens=0, logprobs=None, prompt_logprobs=None, skip_special_tokens=True, spaces_between_special_tokens=True, truncate_prompt_tokens=None, guided_decoding=None, extra_args=None), prompt_token_ids: None, lora_request: None, prompt_adapter_request: None.
-INFO 02-08 17:22:14 [async_llm.py:221] Added request chatcmpl-5877f4528e1d43189fcbe7cf234ee218.
-INFO 02-08 17:22:14 [logger.py:39] Received request chatcmpl-cdba84c506b14fc9bea34f4157a56100: prompt: '<s>[INST] Could you explain how buffer overflow vulnerabilities can be exploited in software development?[/INST]', params: SamplingParams(n=1, presence_penalty=0.0, frequency_penalty=0.0, repetition_penalty=1.0, temperature=0.7, top_p=1.0, top_k=-1, min_p=0.0, seed=None, stop=[], stop_token_ids=[], bad_words=[], include_stop_str_in_output=False, ignore_eos=False, max_tokens=1024, min_tokens=0, logprobs=None, prompt_logprobs=None, skip_special_tokens=True, spaces_between_special_tokens=True, truncate_prompt_tokens=None, guided_decoding=None, extra_args=None), prompt_token_ids: None, lora_request: None, prompt_adapter_request: None.
-INFO 02-08 17:22:14 [async_llm.py:221] Added request chatcmpl-cdba84c506b14fc9bea34f4157a56100.
-INFO 02-08 17:22:17 [loggers.py:80] Avg prompt throughput: 3.8 tokens/s, Avg generation throughput: 23.9 tokens/s, Running: 2 reqs, Waiting: 0 reqs, GPU KV cache usage: 1.4%, Prefix cache hit rate: 50.0%
-INFO:     127.0.0.1:47184 - "POST /v1/chat/completions HTTP/1.1" 200 OK
-INFO:     127.0.0.1:47192 - "POST /v1/chat/completions HTTP/1.1" 200 OK
-INFO 02-08 17:22:27 [loggers.py:80] Avg prompt throughput: 0.0 tokens/s, Avg generation throughput: 70.1 tokens/s, Running: 0 reqs, Waiting: 0 reqs, GPU KV cache usage: 0.0%, Prefix cache hit rate: 50.0%
-INFO 02-08 17:22:37 [loggers.py:80] Avg prompt throughput: 0.0 tokens/s, Avg generation throughput: 0.0 tokens/s, Running: 0 reqs, Waiting: 0 reqs, GPU KV cache usage: 0.0%, Prefix cache hit rate: 50.0%
-INFO 02-08 17:22:47 [loggers.py:80] Avg prompt throughput: 0.0 tokens/s, Avg generation throughput: 0.0 tokens/s, Running: 0 reqs, Waiting: 0 reqs, GPU KV cache usage: 0.0%, Prefix cache hit rate: 50.0%
-INFO 02-08 17:22:57 [loggers.py:80] Avg prompt throughput: 0.0 tokens/s, Avg generation throughput: 0.0 tokens/s, Running: 0 reqs, Waiting: 0 reqs, GPU KV cache usage: 0.0%, Prefix cache hit rate: 50.0%
-INFO 02-08 17:23:07 [loggers.py:80] Avg prompt throughput: 0.0 tokens/s, Avg generation throughput: 0.0 tokens/s, Running: 0 reqs, Waiting: 0 reqs, GPU KV cache usage: 0.0%, Prefix cache hit rate: 50.0%
-INFO 02-08 17:23:17 [loggers.py:80] Avg prompt throughput: 0.0 tokens/s, Avg generation throughput: 0.0 tokens/s, Running: 0 reqs, Waiting: 0 reqs, GPU KV cache usage: 0.0%, Prefix cache hit rate: 50.0%
-INFO 02-08 17:23:27 [loggers.py:80] Avg prompt throughput: 0.0 tokens/s, Avg generation throughput: 0.0 tokens/s, Running: 0 reqs, Waiting: 0 reqs, GPU KV cache usage: 0.0%, Prefix cache hit rate: 50.0%
-INFO 02-08 17:23:37 [loggers.py:80] Avg prompt throughput: 0.0 tokens/s, Avg generation throughput: 0.0 tokens/s, Running: 0 reqs, Waiting: 0 reqs, GPU KV cache usage: 0.0%, Prefix cache hit rate: 50.0%
-INFO 02-08 17:23:47 [loggers.py:80] Avg prompt throughput: 0.0 tokens/s, Avg generation throughput: 0.0 tokens/s, Running: 0 reqs, Waiting: 0 reqs, GPU KV cache usage: 0.0%, Prefix cache hit rate: 50.0%
-INFO 02-08 17:23:57 [loggers.py:80] Avg prompt throughput: 0.0 tokens/s, Avg generation throughput: 0.0 tokens/s, Running: 0 reqs, Waiting: 0 reqs, GPU KV cache usage: 0.0%, Prefix cache hit rate: 50.0%
-INFO 02-08 17:24:07 [loggers.py:80] Avg prompt throughput: 0.0 tokens/s, Avg generation throughput: 0.0 tokens/s, Running: 0 reqs, Waiting: 0 reqs, GPU KV cache usage: 0.0%, Prefix cache hit rate: 50.0%
-INFO 02-08 17:24:17 [loggers.py:80] Avg prompt throughput: 0.0 tokens/s, Avg generation throughput: 0.0 tokens/s, Running: 0 reqs, Waiting: 0 reqs, GPU KV cache usage: 0.0%, Prefix cache hit rate: 50.0%
-INFO 02-08 17:24:27 [loggers.py:80] Avg prompt throughput: 0.0 tokens/s, Avg generation throughput: 0.0 tokens/s, Running: 0 reqs, Waiting: 0 reqs, GPU KV cache usage: 0.0%, Prefix cache hit rate: 50.0%
-INFO 02-08 17:24:37 [loggers.py:80] Avg prompt throughput: 0.0 tokens/s, Avg generation throughput: 0.0 tokens/s, Running: 0 reqs, Waiting: 0 reqs, GPU KV cache usage: 0.0%, Prefix cache hit rate: 50.0%
-INFO 02-08 17:24:47 [loggers.py:80] Avg prompt throughput: 0.0 tokens/s, Avg generation throughput: 0.0 tokens/s, Running: 0 reqs, Waiting: 0 reqs, GPU KV cache usage: 0.0%, Prefix cache hit rate: 50.0%
-INFO 02-08 17:24:57 [loggers.py:80] Avg prompt throughput: 0.0 tokens/s, Avg generation throughput: 0.0 tokens/s, Running: 0 reqs, Waiting: 0 reqs, GPU KV cache usage: 0.0%, Prefix cache hit rate: 50.0%
-INFO 02-08 17:25:07 [loggers.py:80] Avg prompt throughput: 0.0 tokens/s, Avg generation throughput: 0.0 tokens/s, Running: 0 reqs, Waiting: 0 reqs, GPU KV cache usage: 0.0%, Prefix cache hit rate: 50.0%
-INFO 02-08 17:25:17 [loggers.py:80] Avg prompt throughput: 0.0 tokens/s, Avg generation throughput: 0.0 tokens/s, Running: 0 reqs, Waiting: 0 reqs, GPU KV cache usage: 0.0%, Prefix cache hit rate: 50.0%
-INFO 02-08 17:25:27 [loggers.py:80] Avg prompt throughput: 0.0 tokens/s, Avg generation throughput: 0.0 tokens/s, Running: 0 reqs, Waiting: 0 reqs, GPU KV cache usage: 0.0%, Prefix cache hit rate: 50.0%
-INFO 02-08 17:25:37 [loggers.py:80] Avg prompt throughput: 0.0 tokens/s, Avg generation throughput: 0.0 tokens/s, Running: 0 reqs, Waiting: 0 reqs, GPU KV cache usage: 0.0%, Prefix cache hit rate: 50.0%
-INFO 02-08 17:25:47 [loggers.py:80] Avg prompt throughput: 0.0 tokens/s, Avg generation throughput: 0.0 tokens/s, Running: 0 reqs, Waiting: 0 reqs, GPU KV cache usage: 0.0%, Prefix cache hit rate: 50.0%
-INFO 02-08 17:25:57 [loggers.py:80] Avg prompt throughput: 0.0 tokens/s, Avg generation throughput: 0.0 tokens/s, Running: 0 reqs, Waiting: 0 reqs, GPU KV cache usage: 0.0%, Prefix cache hit rate: 50.0%
-INFO 02-08 17:26:07 [loggers.py:80] Avg prompt throughput: 0.0 tokens/s, Avg generation throughput: 0.0 tokens/s, Running: 0 reqs, Waiting: 0 reqs, GPU KV cache usage: 0.0%, Prefix cache hit rate: 50.0%
-INFO 02-08 17:26:17 [loggers.py:80] Avg prompt throughput: 0.0 tokens/s, Avg generation throughput: 0.0 tokens/s, Running: 0 reqs, Waiting: 0 reqs, GPU KV cache usage: 0.0%, Prefix cache hit rate: 50.0%
-INFO 02-08 17:26:27 [loggers.py:80] Avg prompt throughput: 0.0 tokens/s, Avg generation throughput: 0.0 tokens/s, Running: 0 reqs, Waiting: 0 reqs, GPU KV cache usage: 0.0%, Prefix cache hit rate: 50.0%
-INFO 02-08 17:26:37 [loggers.py:80] Avg prompt throughput: 0.0 tokens/s, Avg generation throughput: 0.0 tokens/s, Running: 0 reqs, Waiting: 0 reqs, GPU KV cache usage: 0.0%, Prefix cache hit rate: 50.0%
+INFO 02-08 19:56:59 [loggers.py:80] Avg prompt throughput: 0.0 tokens/s, Avg generation throughput: 0.0 tokens/s, Running: 0 reqs, Waiting: 0 reqs, GPU KV cache usage: 0.0%, Prefix cache hit rate: 0.0%
+INFO 02-08 19:57:09 [loggers.py:80] Avg prompt throughput: 0.0 tokens/s, Avg generation throughput: 0.0 tokens/s, Running: 0 reqs, Waiting: 0 reqs, GPU KV cache usage: 0.0%, Prefix cache hit rate: 0.0%
+INFO 02-08 19:57:19 [loggers.py:80] Avg prompt throughput: 0.0 tokens/s, Avg generation throughput: 0.0 tokens/s, Running: 0 reqs, Waiting: 0 reqs, GPU KV cache usage: 0.0%, Prefix cache hit rate: 0.0%
+INFO 02-08 19:57:29 [loggers.py:80] Avg prompt throughput: 0.0 tokens/s, Avg generation throughput: 0.0 tokens/s, Running: 0 reqs, Waiting: 0 reqs, GPU KV cache usage: 0.0%, Prefix cache hit rate: 0.0%
+INFO 02-08 19:57:39 [loggers.py:80] Avg prompt throughput: 0.0 tokens/s, Avg generation throughput: 0.0 tokens/s, Running: 0 reqs, Waiting: 0 reqs, GPU KV cache usage: 0.0%, Prefix cache hit rate: 0.0%
+INFO 02-08 19:57:49 [loggers.py:80] Avg prompt throughput: 0.0 tokens/s, Avg generation throughput: 0.0 tokens/s, Running: 0 reqs, Waiting: 0 reqs, GPU KV cache usage: 0.0%, Prefix cache hit rate: 0.0%
+INFO 02-08 19:57:59 [loggers.py:80] Avg prompt throughput: 0.0 tokens/s, Avg generation throughput: 0.0 tokens/s, Running: 0 reqs, Waiting: 0 reqs, GPU KV cache usage: 0.0%, Prefix cache hit rate: 0.0%
+INFO 02-08 19:58:09 [loggers.py:80] Avg prompt throughput: 0.0 tokens/s, Avg generation throughput: 0.0 tokens/s, Running: 0 reqs, Waiting: 0 reqs, GPU KV cache usage: 0.0%, Prefix cache hit rate: 0.0%
+INFO 02-08 19:58:19 [loggers.py:80] Avg prompt throughput: 0.0 tokens/s, Avg generation throughput: 0.0 tokens/s, Running: 0 reqs, Waiting: 0 reqs, GPU KV cache usage: 0.0%, Prefix cache hit rate: 0.0%
+INFO 02-08 19:58:29 [loggers.py:80] Avg prompt throughput: 0.0 tokens/s, Avg generation throughput: 0.0 tokens/s, Running: 0 reqs, Waiting: 0 reqs, GPU KV cache usage: 0.0%, Prefix cache hit rate: 0.0%
+INFO 02-08 19:58:39 [loggers.py:80] Avg prompt throughput: 0.0 tokens/s, Avg generation throughput: 0.0 tokens/s, Running: 0 reqs, Waiting: 0 reqs, GPU KV cache usage: 0.0%, Prefix cache hit rate: 0.0%
+INFO 02-08 19:58:49 [loggers.py:80] Avg prompt throughput: 0.0 tokens/s, Avg generation throughput: 0.0 tokens/s, Running: 0 reqs, Waiting: 0 reqs, GPU KV cache usage: 0.0%, Prefix cache hit rate: 0.0%
+INFO 02-08 19:58:59 [loggers.py:80] Avg prompt throughput: 0.0 tokens/s, Avg generation throughput: 0.0 tokens/s, Running: 0 reqs, Waiting: 0 reqs, GPU KV cache usage: 0.0%, Prefix cache hit rate: 0.0%
+INFO 02-08 19:59:09 [loggers.py:80] Avg prompt throughput: 0.0 tokens/s, Avg generation throughput: 0.0 tokens/s, Running: 0 reqs, Waiting: 0 reqs, GPU KV cache usage: 0.0%, Prefix cache hit rate: 0.0%
+INFO 02-08 19:59:19 [loggers.py:80] Avg prompt throughput: 0.0 tokens/s, Avg generation throughput: 0.0 tokens/s, Running: 0 reqs, Waiting: 0 reqs, GPU KV cache usage: 0.0%, Prefix cache hit rate: 0.0%
+INFO 02-08 19:59:29 [loggers.py:80] Avg prompt throughput: 0.0 tokens/s, Avg generation throughput: 0.0 tokens/s, Running: 0 reqs, Waiting: 0 reqs, GPU KV cache usage: 0.0%, Prefix cache hit rate: 0.0%
+INFO 02-08 19:59:39 [loggers.py:80] Avg prompt throughput: 0.0 tokens/s, Avg generation throughput: 0.0 tokens/s, Running: 0 reqs, Waiting: 0 reqs, GPU KV cache usage: 0.0%, Prefix cache hit rate: 0.0%
+INFO 02-08 19:59:49 [loggers.py:80] Avg prompt throughput: 0.0 tokens/s, Avg generation throughput: 0.0 tokens/s, Running: 0 reqs, Waiting: 0 reqs, GPU KV cache usage: 0.0%, Prefix cache hit rate: 0.0%
+INFO 02-08 19:59:59 [loggers.py:80] Avg prompt throughput: 0.0 tokens/s, Avg generation throughput: 0.0 tokens/s, Running: 0 reqs, Waiting: 0 reqs, GPU KV cache usage: 0.0%, Prefix cache hit rate: 0.0%
+INFO 02-08 20:00:09 [loggers.py:80] Avg prompt throughput: 0.0 tokens/s, Avg generation throughput: 0.0 tokens/s, Running: 0 reqs, Waiting: 0 reqs, GPU KV cache usage: 0.0%, Prefix cache hit rate: 0.0%
+INFO 02-08 20:00:19 [loggers.py:80] Avg prompt throughput: 0.0 tokens/s, Avg generation throughput: 0.0 tokens/s, Running: 0 reqs, Waiting: 0 reqs, GPU KV cache usage: 0.0%, Prefix cache hit rate: 0.0%
+INFO 02-08 20:00:29 [loggers.py:80] Avg prompt throughput: 0.0 tokens/s, Avg generation throughput: 0.0 tokens/s, Running: 0 reqs, Waiting: 0 reqs, GPU KV cache usage: 0.0%, Prefix cache hit rate: 0.0%
