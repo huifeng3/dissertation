@@ -15,6 +15,7 @@ from ragen.llm_agent.vllm_local_client import VllmLocalClient
 
 from tqdm import tqdm
 import pdb
+import json
 
 from ragen.env import REGISTERED_ENVS, REGISTERED_ENV_CONFIGS
 from ragen.utils import register_resolvers
@@ -261,6 +262,14 @@ class EnvStateManager:
         Reset the environments and get initial observation
         build up rollout cache like [{"env_id": int, "history": List[Dict], "group_id": int}, ...]
         """
+        print(json.dumps({
+            "event": "es_manager_reset_start",
+            "mode": self.mode,
+            "seed_arg": seed,
+            "env_groups": self.env_groups,
+            "group_size": self.group_size,
+            "num_envs": len(self.envs) if hasattr(self, "envs") else None,
+        }), flush=True)
         def _expand_seed(seed: int):
             seeds = [[seed + i] * self.group_size for i in range(self.env_groups)] # [[seed, ..., seed], [seed+1, ..., seed+1], ...]
             return sum(seeds, [])
@@ -295,8 +304,24 @@ class EnvStateManager:
                 harmful_target = self.val_targets[(self.harmful_target_base_idx + group_id) % total_targets]
             else:
                 harmful_target = self.targets[(self.harmful_target_base_idx + group_id) % total_targets]
+            print(json.dumps({
+                "event": "env_reset_start",
+                "mode": self.mode,
+                "env_id": entry['env_id'],
+                "group_id": group_id,
+                "tag": entry.get('tag'),
+                "seed": seed,
+            }), flush=True)
             entry['env'].reset(seed=seed, mode=self.mode, harmful_target=harmful_target)
             entry['status'] = EnvStatus(seed=seed)
+            print(json.dumps({
+                "event": "env_reset_done",
+                "mode": self.mode,
+                "env_id": entry['env_id'],
+                "group_id": group_id,
+                "tag": entry.get('tag'),
+                "seed": seed,
+            }), flush=True)
             
         for cache in rollout_cache:
             cache['init_prompt'] = envs[cache['env_id']]['env'].init_prompt
@@ -312,6 +337,12 @@ class EnvStateManager:
         else:
             self.harmful_target_base_idx = 0
         self.rollout_cache = rollout_cache if rollout_cache else []
+        print(json.dumps({
+            "event": "es_manager_reset_done",
+            "mode": self.mode,
+            "seed": seed,
+            "rollout_cache_len": len(self.rollout_cache),
+        }), flush=True)
         # pdb.set_trace()
         return self.rollout_cache
 

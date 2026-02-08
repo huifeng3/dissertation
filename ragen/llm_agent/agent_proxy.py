@@ -146,7 +146,16 @@ class LLMAgentProxy:
 	def rollout(self, dataproto: DataProto, val=False):
 		es_manager = self.val_es_manager if val else self.train_es_manager
 		ctx_manager = self.val_ctx_manager if val else self.train_ctx_manager
+		print(json.dumps({
+			"event": "rollout_reset_start",
+			"val": val,
+		}), flush=True)
 		env_outputs = es_manager.reset()
+		print(json.dumps({
+			"event": "rollout_reset_done",
+			"val": val,
+			"env_outputs_len": len(env_outputs) if env_outputs is not None else None,
+		}), flush=True)
 		batch_size = self.config.agent_proxy.lm_output_batch
 		
 		for i in range(self.config.agent_proxy.max_turn):
