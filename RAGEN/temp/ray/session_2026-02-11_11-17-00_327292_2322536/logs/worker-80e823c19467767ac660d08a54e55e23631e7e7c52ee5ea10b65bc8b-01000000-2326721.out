@@ -1,0 +1,56 @@
+:job_id:01000000
+:actor_name:TaskRunner
+{"event": "taskrunner_start", "experiment_name": "train_demo"}
+{"event": "taskrunner_copy_to_local_done", "local_path": "./models/Qwen2.5-3B-Instruct"}
+{"event": "taskrunner_tokenizer_ready", "tokenizer_type": "<class 'transformers.models.qwen2.tokenization_qwen2_fast.Qwen2TokenizerFast'>", "processor_is_none": true}
+reward_manager_name: naive
+using dummy reward manager
+[validate_config] All configuration checks passed successfully!
+Total training steps: 260
+[DEBUG] init_workers: Creating resource pool...
+[DEBUG] init_workers: Spawning worker group for pool <verl.single_controller.ray.base.RayResourcePool object at 0x7f4ab7a6bfb0>...
+colocated worker base class <class 'verl.single_controller.base.worker.Worker'>
+[DEBUG] init_workers: Initializing reference policy model...
+[DEBUG] init_workers: Reference policy model initialized.
+[DEBUG] init_workers: Initializing rollout model...
+[DEBUG] init_workers: Rollout model initialized.
+[DEBUG]Trainer initialized
+./data/AdvBench/data/train-00000-of-00001.parquet data length:  520
+./data/AdvBench/data/train-00000-of-00001.parquet data length:  520
+./data/AdvBench/data/train-00000-of-00001.parquet data length:  520
+./data/AdvBench/data/train-00000-of-00001.parquet data length:  520
+[DEBUG]Agent proxy initialized
+[DEBUG] Starting fit() method...
+Saving tensorboard log to ./tensorboard_log/train_demo.
+Using LocalLogger is deprecated. The constructor API will change 
+[DEBUG] Loading checkpoint...
+{"event": "fit_validation_gate", "val_reward_fn_is_none": false, "val_before_train": true, "validation_steps": 1}
+{"event": "validate_before_call", "global_steps": 0}
+{"event": "validate_start", "validation_steps": 1, "val_env_groups": 1, "total_validation_steps": 260, "val_group_size": 3}
+{"event": "validate_step_enter", "step": 0}
+{"event": "validate_input_texts_ready", "step": 0, "input_texts_len": 3}
+{"event": "validate_create_dataproto_start", "step": 0}
+{"event": "validate_create_dataproto_done", "step": 0, "meta_info_keys": ["do_sample", "eos_token_id", "pad_token_id", "recompute_log_prob", "validate"]}
+{"event": "validate_step_start", "step": 0, "meta_info_keys": ["do_sample", "eos_token_id", "pad_token_id", "recompute_log_prob", "validate"]}
+test_gen_batch meta info: {'eos_token_id': 151645, 'pad_token_id': 151643, 'recompute_log_prob': False, 'do_sample': False, 'validate': True}
+{"event": "validate_rollout_start", "step": 0}
+{"event": "rollout_reset_start", "val": true}
+{"event": "es_manager_reset_start", "mode": "val", "seed_arg": null, "env_groups": 1, "group_size": 3, "num_envs": 3}
+{"event": "env_reset_start", "mode": "val", "env_id": 0, "group_id": 0, "tag": "Jailbreak", "seed": 123}
+{"event": "env_reset_done", "mode": "val", "env_id": 0, "group_id": 0, "tag": "Jailbreak", "seed": 123}
+{"event": "env_reset_start", "mode": "val", "env_id": 1, "group_id": 0, "tag": "Jailbreak", "seed": 123}
+{"event": "env_reset_done", "mode": "val", "env_id": 1, "group_id": 0, "tag": "Jailbreak", "seed": 123}
+{"event": "env_reset_start", "mode": "val", "env_id": 2, "group_id": 0, "tag": "Jailbreak", "seed": 123}
+{"event": "env_reset_done", "mode": "val", "env_id": 2, "group_id": 0, "tag": "Jailbreak", "seed": 123}
+{"event": "es_manager_reset_done", "mode": "val", "seed": 123, "rollout_cache_len": 3}
+{"event": "rollout_reset_done", "val": true, "env_outputs_len": 3}
+Rollout step: 0
+{"event": "rollout_get_lm_inputs_start", "step": 0, "val": true, "env_outputs_len": 3}
+{"event": "rollout_get_lm_inputs_done", "step": 0, "val": true, "lm_inputs_len": 3, "meta_keys": null}
+{"event": "rollout_chunking_start", "step": 0, "val": true, "total_len": 3, "batch_size": 50, "chunks": 1}
+{"event": "rollout_chunk_generate_start", "step": 0, "val": true, "chunk_idx": 0, "chunk_len": 3}
+{"event": "rollout_chunk_generate_done", "step": 0, "val": true, "chunk_idx": 0, "chunk_len": 3}
+{"event": "rollout_generate_done", "step": 0, "val": true, "output_len": 3}
+{"event": "rollout_get_env_inputs_start", "step": 0, "val": true, "output_len": 3}
+{"event": "rollout_get_env_inputs_done", "step": 0, "val": true, "env_inputs_len": 3}
+{"event": "rollout_env_step_start", "step": 0, "val": true, "env_inputs_len": 3}
