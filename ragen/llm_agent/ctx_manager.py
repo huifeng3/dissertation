@@ -7,6 +7,7 @@ from itertools import zip_longest
 
 import torch
 import numpy as np
+import json
 from typing import List, Dict, Any, Optional, Union
 from dataclasses import dataclass
 import re
@@ -255,8 +256,35 @@ class ContextManager:
         ]
         prefix_lookup - from env_id to initial prompt
         """
+        if env_outputs is None or len(env_outputs) == 0:
+            print(json.dumps({
+                "event": "get_lm_inputs_empty_env_outputs",
+                "prepare_for_update": bool(prepare_for_update),
+            }), flush=True)
+            empty_batch = TensorDict({
+                "input_ids": torch.empty((0, 0), dtype=torch.long),
+                "attention_mask": torch.empty((0, 0), dtype=torch.long),
+                "position_ids": torch.empty((0, 0), dtype=torch.long),
+                "responses": torch.empty((0, 0), dtype=torch.long),
+            }, batch_size=[0])
+            llm_inputs = DataProto()
+            llm_inputs.batch = empty_batch
+            llm_inputs.non_tensor_batch = {
+                "env_ids": np.array([], dtype=object),
+                "group_ids": np.array([], dtype=object),
+                "messages_list": np.array([], dtype=object),
+                "harmful_targets": np.array([], dtype=object),
+                "turn_scores": np.array([], dtype=object),
+            }
+            if prepare_for_update:
+                llm_inputs.batch["loss_mask"] = torch.empty((0, 0), dtype=torch.long)
+                llm_inputs.batch["rm_scores"] = torch.empty((0, 0), dtype=torch.float32)
+                llm_inputs.batch["original_rm_scores"] = torch.empty((0, 0), dtype=torch.float32)
+                llm_inputs.non_tensor_batch["judger_scores"] = np.array([], dtype=object)
+                llm_inputs.meta_info = {"metrics": {"response_length": 0.0}}
+            return llm_inputs
         llm_input_texts = []
-        messages_list = [] # for api calling
+        messages_list = []
         for env_output in env_outputs:
             if 'state' in env_output['history'][-1] and prepare_for_update:
                 env_output['history'] = env_output['history'][:-1] # when prepare for update, we do not add the state from the n+1 turn to the trajectory

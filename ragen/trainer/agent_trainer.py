@@ -1780,10 +1780,30 @@ class RayAgentTrainer(VerlRayPPOTrainer):
             if rollout_filter_ratio == 1:
                 return batch, {"rollout/in_group_std": in_group_std.mean(), "rollout/in_group_max": in_group_max.mean(), "rollout/in_group_mean": in_group_mean.mean(), "rollout/chosen_in_group_std": in_group_std.mean(), "rollout/chosen_in_group_max": in_group_max.mean(), "rollout/chosen_in_group_mean": in_group_mean.mean()}
 
+            if num_groups <= 0:
+                print(json.dumps({
+                    "event": "rollout_filter_no_groups",
+                    "num_groups": int(num_groups),
+                    "group_size": int(group_size),
+                    "rollout_filter_ratio": float(rollout_filter_ratio),
+                }), flush=True)
+                return batch, {"rollout/in_group_std": in_group_std.mean(), "rollout/in_group_max": in_group_max.mean(), "rollout/in_group_mean": in_group_mean.mean(), "rollout/chosen_in_group_std": in_group_std.mean(), "rollout/chosen_in_group_max": in_group_max.mean(), "rollout/chosen_in_group_mean": in_group_mean.mean()}
+
+            requested_groups = int(rollout_filter_ratio * num_groups)
+            topk_groups = max(requested_groups, 1)
+            if topk_groups != requested_groups:
+                print(json.dumps({
+                    "event": "rollout_filter_adjust_topk",
+                    "requested_groups": int(requested_groups),
+                    "topk_groups": int(topk_groups),
+                    "num_groups": int(num_groups),
+                    "rollout_filter_ratio": float(rollout_filter_ratio),
+                }), flush=True)
+
             if self.config.actor_rollout_ref.rollout.rollout_filter_type == "std_rev":
-                top_groups = (-in_group_std).topk(int(rollout_filter_ratio * num_groups)).indices
+                top_groups = (-in_group_std).topk(topk_groups).indices
             elif self.config.actor_rollout_ref.rollout.rollout_filter_type == "std":
-                top_groups = in_group_std.topk(int(rollout_filter_ratio * num_groups)).indices
+                top_groups = in_group_std.topk(topk_groups).indices
             else:
                 raise ValueError(f"Invalid rollout filter type: {self.config.actor_rollout_ref.rollout.rollout_filter_type}")
 
@@ -1798,6 +1818,16 @@ class RayAgentTrainer(VerlRayPPOTrainer):
                     batch.non_tensor_batch[key] = value[mask]
                 else:
                     batch.non_tensor_batch[key] = [v for v, m in zip(value, mask) if m]
+
+            filtered_batch_size = int(batch.batch.batch_size[0]) if batch.batch is not None else 0
+            if filtered_batch_size == 0:
+                print(json.dumps({
+                    "event": "rollout_filter_empty_batch",
+                    "filtered_batch_size": int(filtered_batch_size),
+                    "num_groups": int(num_groups),
+                    "group_size": int(group_size),
+                    "rollout_filter_ratio": float(rollout_filter_ratio),
+                }), flush=True)
 
             metrics = {
                 "rollout/in_group_std": in_group_std.mean(),

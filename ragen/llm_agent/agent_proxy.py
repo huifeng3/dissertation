@@ -156,6 +156,13 @@ class LLMAgentProxy:
 			"val": val,
 			"env_outputs_len": len(env_outputs) if env_outputs is not None else None,
 		}), flush=True)
+		if env_outputs is None or len(env_outputs) == 0:
+			print(json.dumps({
+				"event": "rollout_empty_env_outputs_after_reset",
+				"val": val,
+			}), flush=True)
+			rollout_states = es_manager.get_rollout_states()
+			return ctx_manager.formulate_rollouts(rollout_states)
 		batch_size = self.config.agent_proxy.lm_output_batch
 		
 		for i in range(self.config.agent_proxy.max_turn):
@@ -183,6 +190,14 @@ class LLMAgentProxy:
 
 			# lm_outputs: DataProto = self.generate_sequences(lm_inputs)
 			total_len = len(lm_inputs)
+			if total_len == 0:
+				print(json.dumps({
+					"event": "rollout_empty_lm_inputs",
+					"step": i,
+					"val": val,
+					"env_outputs_len": len(env_outputs) if env_outputs is not None else None,
+				}), flush=True)
+				break
 			chunks = (total_len + batch_size - 1) // batch_size
 			print(json.dumps({
 				"event": "rollout_chunking_start",

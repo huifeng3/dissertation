@@ -357,6 +357,12 @@ class EnvStateManager:
         env_outputs: List[Dict]
             {env_id: int, history: List[Dict][{state: str, actions: List[str], reward: float, info: Dict, llm_response: str, llm_raw_response: str, (Optional)images: List[PIL.Image.Image]}]}
         """
+        if all_env_inputs is None or len(all_env_inputs) == 0:
+            print(json.dumps({
+                "event": "es_manager_step_empty_inputs",
+                "mode": self.mode,
+            }), flush=True)
+            return []
         def _execute_actions(env, actions):
             acc_reward, turn_info, turn_done = 0, {}, False
             executed_actions = []
