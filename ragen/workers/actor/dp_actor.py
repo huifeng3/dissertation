@@ -209,6 +209,14 @@ class DataParallelPPOActor(BasePPOActor):
         batch = data.select(batch_keys=select_keys).batch
         has_multi_modal_inputs = "multi_modal_inputs" in data.non_tensor_batch.keys()
 
+        response_length = batch["responses"].size(-1) if "responses" in batch.keys() else 0
+        batch_size = int(batch.batch_size[0]) if batch.batch_size is not None else 0
+        if batch_size == 0:
+            empty = torch.empty((0, response_length), device=batch["input_ids"].device, dtype=torch.float32)
+            if calculate_entropy:
+                return empty, empty
+            return empty, None
+
         if has_multi_modal_inputs:
             num_micro_batches = data.batch.batch_size[0] // micro_batch_size
             non_tensor_select_keys = ["multi_modal_inputs"]
@@ -233,11 +241,21 @@ class DataParallelPPOActor(BasePPOActor):
         for micro_batch in micro_batches:
             if isinstance(micro_batch, DataProto):
                 micro_batch = {**micro_batch.batch, **micro_batch.non_tensor_batch}
+            attention_mask = micro_batch.get("attention_mask", None)
+            if attention_mask is None or attention_mask.numel() == 0 or int(attention_mask.sum().item()) == 0:
+                print("[WARN] compute_log_prob skip empty micro_batch", flush=True)
+                continue
             with torch.no_grad():
                 entropy, log_probs = self._forward_micro_batch(micro_batch, temperature=temperature, calculate_entropy=calculate_entropy)
             log_probs_lst.append(log_probs)
             if calculate_entropy:
                 entropy_lst.append(entropy)
+
+        if len(log_probs_lst) == 0:
+            empty = torch.empty((0, response_length), device=batch["input_ids"].device, dtype=torch.float32)
+            if calculate_entropy:
+                return empty, empty
+            return empty, None
 
         log_probs = torch.concat(log_probs_lst, dim=0)
 

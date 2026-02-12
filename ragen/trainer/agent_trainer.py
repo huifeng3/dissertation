@@ -1833,6 +1833,20 @@ class RayAgentTrainer(VerlRayPPOTrainer):
                         batch, metrics = _filter_rollout(batch)
                         metrics.update({"train/" + key: value for key, value in batch.meta_info["metrics"].items()})
 
+                    batch_size = int(batch.batch.batch_size[0]) if batch.batch is not None else 0
+                    attention_mask = batch.batch["attention_mask"] if batch.batch is not None and "attention_mask" in batch.batch.keys() else None
+                    valid_tokens = int(attention_mask.sum().item()) if attention_mask is not None else None
+                    if batch_size == 0 or (valid_tokens is not None and valid_tokens == 0):
+                        print(json.dumps({
+                            "event": "train_skip_empty_batch",
+                            "global_steps": int(self.global_steps),
+                            "batch_size": batch_size,
+                            "valid_tokens": valid_tokens,
+                        }), flush=True)
+                        progress_bar.update(1)
+                        self.global_steps += 1
+                        continue
+
                     inputs, outputs, scores = _process_batch_for_logging(batch)
                     # self._maybe_log_generations(inputs=inputs, outputs=outputs, scores=scores, _type="train")
 
