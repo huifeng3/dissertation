@@ -264,11 +264,31 @@ class LLMAgentProxy:
 			if len(env_outputs) == 0: # all finished
 				break
 		rollout_states = es_manager.get_rollout_states() 
+		try:
+			rollout_states_len = len(rollout_states)
+		except Exception:
+			rollout_states_len = None
+		rollout_state_ids = []
+		rollout_state_history_lens = []
+		if rollout_states is not None:
+			for state in rollout_states:
+				rollout_state_ids.append(state.get("env_id"))
+				history = state.get("history", []) if isinstance(state, dict) else []
+				rollout_state_history_lens.append(len(history))
+		print(json.dumps({
+			"event": "rollout_states_summary",
+			"val": val,
+			"rollout_states_len": rollout_states_len,
+			"rollout_state_ids": rollout_state_ids,
+			"rollout_state_history_lens": rollout_state_history_lens,
+		}), flush=True)
 		rollouts = ctx_manager.formulate_rollouts(rollout_states)
+
 		# pdb.set_trace()
 		# rollouts.batch["rm_scores"], rollouts.batch["original_rm_scores"]
 		# rollout_states[2]["history"][-1]['reward']
 		# self.tokenizer.batch_decode(rollouts.batch['input_ids'], skip_special_tokens=False) # see all the trajectories
+
 		return rollouts
 
 @hydra.main(version_base=None, config_path="../../config", config_name="base")

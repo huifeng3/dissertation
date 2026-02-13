@@ -336,11 +336,21 @@ class ContextManager:
         }, batch_size=input_ids.shape[0])
 
         if prepare_for_update:
-            llm_inputs.batch["loss_mask"] = loss_mask # remove the first token
-            llm_inputs.batch["rm_scores"] = normalized_score_tensor # remove the first token
-            llm_inputs.batch["original_rm_scores"] = score_tensor # remove the first token
-            # llm_inputs.batch["judger_scores"] = judger_scores # remove the first token
-        # pdb.set_trace()
+            llm_inputs.batch["loss_mask"] = loss_mask
+            llm_inputs.batch["rm_scores"] = normalized_score_tensor
+            llm_inputs.batch["original_rm_scores"] = score_tensor
+            try:
+                attention_sum = int(attention_mask.sum().item())
+            except Exception:
+                attention_sum = None
+            response_len = llm_inputs.batch["responses"].size(-1) if "responses" in llm_inputs.batch.keys() else None
+            print(json.dumps({
+                "event": "prepare_for_update_inputs",
+                "batch_size": int(input_ids.shape[0]),
+                "seq_len": int(input_ids.shape[1]) if input_ids.dim() > 1 else None,
+                "response_len": int(response_len) if response_len is not None else None,
+                "attention_sum": attention_sum,
+            }), flush=True)
         llm_inputs.non_tensor_batch = {
             "env_ids": np.array([env_output["env_id"] for env_output in env_outputs], dtype=object),
             "group_ids": np.array([env_output["group_id"] for env_output in env_outputs], dtype=object),

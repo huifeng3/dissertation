@@ -407,6 +407,11 @@ class EnvStateManager:
             env_id, env = entry['env_id'], entry['env']
             
             if env.done:
+                print(json.dumps({
+                    "event": "env_done_skip",
+                    "mode": self.mode,
+                    "env_id": env_id,
+                }), flush=True)
                 continue
                 
             env_messages = env.get_env_llm_messages(env_input['actions'][0])

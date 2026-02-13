@@ -1749,7 +1749,7 @@ class RayAgentTrainer(VerlRayPPOTrainer):
                 "global_steps": int(self.global_steps),
                 "val_metric_keys": sorted(list(val_metrics.keys())) if isinstance(val_metrics, dict) else None,
             }), flush=True)
-            pprint(f"Initial validation metrics: {val_metrics}")
+            print(f"Initial validation metrics: {val_metrics}")
             logger.log(data=val_metrics, step=self.global_steps)
             if self.config.trainer.get("val_only", False):
                 return
@@ -1866,6 +1866,14 @@ class RayAgentTrainer(VerlRayPPOTrainer):
                     batch_size = int(batch.batch.batch_size[0]) if batch.batch is not None else 0
                     attention_mask = batch.batch["attention_mask"] if batch.batch is not None and "attention_mask" in batch.batch.keys() else None
                     valid_tokens = int(attention_mask.sum().item()) if attention_mask is not None else None
+                    response_len = int(batch.batch["responses"].size(-1)) if batch.batch is not None and "responses" in batch.batch.keys() else None
+                    print(json.dumps({
+                        "event": "train_batch_summary",
+                        "global_steps": int(self.global_steps),
+                        "batch_size": batch_size,
+                        "valid_tokens": valid_tokens,
+                        "response_len": response_len,
+                    }), flush=True)
                     if batch_size == 0 or (valid_tokens is not None and valid_tokens == 0):
                         print(json.dumps({
                             "event": "train_skip_empty_batch",
