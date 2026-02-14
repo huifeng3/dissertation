@@ -18,6 +18,7 @@ Single Process Actor
 import itertools
 import logging
 import os
+import json
 from typing import Tuple
 
 import torch
@@ -247,6 +248,36 @@ class DataParallelPPOActor(BasePPOActor):
             attn_sum = int(attention_mask.sum().item()) if attention_mask is not None and attention_mask.numel() > 0 else 0
             input_shape = tuple(input_ids.shape) if input_ids is not None else None
             response_len = int(responses.size(-1)) if responses is not None and responses.numel() > 0 else 0
+            input_head = None
+            input_tail = None
+            response_head = None
+            response_tail = None
+            try:
+                if input_ids is not None and input_ids.numel() > 0:
+                    seq_len = input_ids.size(-1)
+                    head_len = min(8, seq_len)
+                    tail_len = min(8, seq_len)
+                    input_head = input_ids[0, :head_len].detach().cpu().tolist()
+                    input_tail = input_ids[0, -tail_len:].detach().cpu().tolist()
+                if responses is not None and responses.numel() > 0:
+                    resp_len = responses.size(-1)
+                    resp_head_len = min(8, resp_len)
+                    resp_tail_len = min(8, resp_len)
+                    response_head = responses[0, :resp_head_len].detach().cpu().tolist()
+                    response_tail = responses[0, -resp_tail_len:].detach().cpu().tolist()
+            except Exception:
+                pass
+            print(json.dumps({
+                "event": "micro_batch_summary",
+                "index": micro_batch_index,
+                "attn_sum": attn_sum,
+                "input_shape": input_shape,
+                "response_len": response_len,
+                "input_head": input_head,
+                "input_tail": input_tail,
+                "response_head": response_head,
+                "response_tail": response_tail,
+            }), flush=True)
             if attention_mask is None or attention_mask.numel() == 0 or attn_sum == 0 or input_ids is None or input_ids.numel() == 0 or response_len == 0:
                 print(
                     f"[WARN] compute_log_prob skip empty micro_batch index={micro_batch_index} "
