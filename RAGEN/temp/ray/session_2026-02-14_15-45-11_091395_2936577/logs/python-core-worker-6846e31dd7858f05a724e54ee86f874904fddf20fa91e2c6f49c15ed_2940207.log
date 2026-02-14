@@ -1,0 +1,711 @@
+[2026-02-14 15:45:16,164 I 2940207 2940207] core_worker_process.cc:777: Constructing CoreWorkerProcess. pid: 2940207
+[2026-02-14 15:45:16,166 I 2940207 2940207] event.cc:499: Ray Event initialized for CORE_WORKER
+[2026-02-14 15:45:16,166 I 2940207 2940207] event.cc:499: Ray Event initialized for EXPORT_TASK
+[2026-02-14 15:45:16,166 I 2940207 2940207] event.cc:332: Set ray event level to warning
+[2026-02-14 15:45:16,166 I 2940207 2940207] event_aggregator_client.h:50: Initiating the local event aggregator client with port: 61947
+[2026-02-14 15:45:16,168 I 2940207 2940207] grpc_server.cc:143: worker server started, listening on port 39491.
+[2026-02-14 15:45:16,177 I 2940207 2940207] core_worker_process.cc:262: Initializing worker at address: 172.28.6.3:39491 worker_id=6846e31dd7858f05a724e54ee86f874904fddf20fa91e2c6f49c15ed node_id=6b4bc9c445641d70e5b5f4e083ec829892911c0dcf6bfa6f7f8ace0c
+[2026-02-14 15:45:16,178 I 2940207 2940207] task_event_buffer.cc:480: Reporting task events to GCS every 1000ms.
+[2026-02-14 15:45:16,179 I 2940207 2940207] core_worker.cc:515: Adjusted worker niceness to 15
+[2026-02-14 15:45:16,179 I 2940207 2940207] metrics_agent_client.cc:45: Initializing exporter ...
+[2026-02-14 15:45:16,179 I 2940207 2940263] core_worker.cc:455: Event stats:
+
+
+Global stats: 12 total (10 active)
+Queueing time: mean = 0.00ms, max = 0.04ms, min = 0.01ms, total = 0.05ms
+Execution time:  mean = 0.00ms, total = 0.04ms
+Event stats:
+	PeriodicalRunner.RunFnPeriodically - 7 total (5 active, 1 running), Execution time: mean = 0.01ms, total = 0.04ms, Queueing time: mean = 0.01ms, max = 0.04ms, min = 0.01ms, total = 0.05ms
+	Publisher.CheckDeadSubscribers - 1 total (1 active), Execution time: mean = 0.00ms, total = 0.00ms, Queueing time: mean = 0.00ms, max = -0.00ms, min = 9223372036854.78ms, total = 0.00ms
+	ray::rpc::WorkerInfoGcsService.grpc_client.AddWorkerInfo - 1 total (1 active), Execution time: mean = 0.00ms, total = 0.00ms, Queueing time: mean = 0.00ms, max = -0.00ms, min = 9223372036854.78ms, total = 0.00ms
+	ray::rpc::InternalPubSubGcsService.grpc_client.GcsSubscriberPoll - 1 total (1 active), Execution time: mean = 0.00ms, total = 0.00ms, Queueing time: mean = 0.00ms, max = -0.00ms, min = 9223372036854.78ms, total = 0.00ms
+	CoreWorker.ExitIfParentRayletDies - 1 total (1 active), Execution time: mean = 0.00ms, total = 0.00ms, Queueing time: mean = 0.00ms, max = -0.00ms, min = 9223372036854.78ms, total = 0.00ms
+	ray::rpc::InternalPubSubGcsService.grpc_client.GcsSubscriberCommandBatch - 1 total (1 active), Execution time: mean = 0.00ms, total = 0.00ms, Queueing time: mean = 0.00ms, max = -0.00ms, min = 9223372036854.78ms, total = 0.00ms
+
+-----------------
+Task execution event stats:
+
+Global stats: 0 total (0 active)
+Queueing time: mean = -nanms, max = -0.00ms, min = 9223372036854.78ms, total = 0.00ms
+Execution time:  mean = -nanms, total = 0.00ms
+Event stats:
+
+-----------------
+Task Event stats:
+
+IO Service Stats:
+
+Global stats: 4 total (1 active)
+Queueing time: mean = 0.01ms, max = 0.04ms, min = 0.01ms, total = 0.06ms
+Execution time:  mean = 0.24ms, total = 0.96ms
+Event stats:
+	PeriodicalRunner.RunFnPeriodically - 1 total (0 active), Execution time: mean = 0.25ms, total = 0.25ms, Queueing time: mean = 0.01ms, max = 0.01ms, min = 0.01ms, total = 0.01ms
+	ray::rpc::TaskInfoGcsService.grpc_client.AddTaskEventData - 1 total (0 active), Execution time: mean = 0.68ms, total = 0.68ms, Queueing time: mean = 0.00ms, max = -0.00ms, min = 9223372036854.78ms, total = 0.00ms
+	ray::rpc::TaskInfoGcsService.grpc_client.AddTaskEventData.OnReplyReceived - 1 total (0 active), Execution time: mean = 0.02ms, total = 0.02ms, Queueing time: mean = 0.04ms, max = 0.04ms, min = 0.04ms, total = 0.04ms
+	CoreWorker.deadline_timer.flush_task_events - 1 total (1 active), Execution time: mean = 0.00ms, total = 0.00ms, Queueing time: mean = 0.00ms, max = -0.00ms, min = 9223372036854.78ms, total = 0.00ms
+Other Stats:
+	gcs_grpc_in_progress:0
+	event_aggregator_grpc_in_progress:0
+	current number of task status events in buffer: 0
+	current number of profile events in buffer: 0
+	current number of dropped task attempts tracked: 0
+	total task events sent: 0 MiB
+	total number of task attempts sent: 0
+	total number of task attempts dropped reported: 0
+	total number of sent failure: 0
+	num status task events dropped: 0
+	num profile task events dropped: 0
+	num ray task events reported to aggregator: 0
+	num ray task events failed to report to aggregator: 0
+	num of task attempts dropped reported to aggregator: 0
+	num of failed requests to aggregator: 0
+
+[2026-02-14 15:45:16,180 I 2940207 2940263] metrics_agent_client.cc:59: Exporter initialized.
+[2026-02-14 15:45:16,180 I 2940207 2940263] accessor.cc:433: Received address and liveness notification for node, IsAlive = 1 node_id=6b4bc9c445641d70e5b5f4e083ec829892911c0dcf6bfa6f7f8ace0c
+[2026-02-14 15:45:16,180 I 2940207 2940263] normal_task_submitter.cc:840: Number of alive nodes:1
+[2026-02-14 15:45:16,181 I 2940207 2940207] actor_task_submitter.cc:75: Set actor max pending calls to -1 actor_id=da76ad8321b34ed48faea3a001000000
+[2026-02-14 15:45:16,181 I 2940207 2940207] core_worker.cc:2904: Creating actor actor_id=da76ad8321b34ed48faea3a001000000
+[2026-02-14 15:45:25,044 I 2940207 2940207] task_receiver.cc:142: Actor creation task finished, task_id: ffffffffffffffffda76ad8321b34ed48faea3a001000000, actor_id: da76ad8321b34ed48faea3a001000000, actor_repr_name: 
+[2026-02-14 15:45:25,764 I 2940207 2940207] core_worker.cc:2301: Submitting Placement Group creation to GCS placement_group_id=0c0d8dd203759f39d58161c3383f01000000
+[2026-02-14 15:45:26,795 W 2940207 2940207] actor_manager.cc:110: Failed to look up actor with name 'kbWEInWorkerDict_0:0'. This could because 1. You are trying to look up a named actor you didn't create. 2. The named actor died. 3. You did not use a namespace matching the namespace of the actor.
+[2026-02-14 15:45:26,843 I 2940207 2940207] actor_task_submitter.cc:75: Set actor max pending calls to -1 actor_id=c3e9c4f3cdee5c7ad59d6dfa01000000
+[2026-02-14 15:45:34,857 I 2940207 2940207] actor_task_submitter.cc:75: Set actor max pending calls to 0 actor_id=cb90b2bca94f2afdf5ddbfd901000000
+[2026-02-14 15:45:34,864 I 2940207 2940263] actor_manager.cc:236: received notification on actor, state: PENDING_CREATION, ip address: 172.28.6.3, port: 36805, num_restarts: 0, death context type=CONTEXT_NOT_SET actor_id=cb90b2bca94f2afdf5ddbfd901000000 worker_id=11892485eeac33a5f19ca9bd1b84d5bdae9bcc25e0cbab6fa30a72af node_id=6b4bc9c445641d70e5b5f4e083ec829892911c0dcf6bfa6f7f8ace0c
+[2026-02-14 15:45:34,949 I 2940207 2940263] actor_manager.cc:236: received notification on actor, state: ALIVE, ip address: 172.28.6.3, port: 36805, num_restarts: 0, death context type=CONTEXT_NOT_SET actor_id=cb90b2bca94f2afdf5ddbfd901000000 worker_id=11892485eeac33a5f19ca9bd1b84d5bdae9bcc25e0cbab6fa30a72af node_id=6b4bc9c445641d70e5b5f4e083ec829892911c0dcf6bfa6f7f8ace0c
+[2026-02-14 15:45:34,954 W 2940207 2940207] actor_manager.cc:110: Failed to look up actor with name 'kbWEInWorkerDict_0:1'. This could because 1. You are trying to look up a named actor you didn't create. 2. The named actor died. 3. You did not use a namespace matching the namespace of the actor.
+[2026-02-14 15:45:34,955 I 2940207 2940207] actor_task_submitter.cc:75: Set actor max pending calls to -1 actor_id=94754b18e37fb01dc60c803801000000
+[2026-02-14 15:45:34,981 I 2940207 2940263] actor_manager.cc:236: received notification on actor, state: PENDING_CREATION, ip address: 172.28.6.3, port: 34595, num_restarts: 0, death context type=CONTEXT_NOT_SET actor_id=c3e9c4f3cdee5c7ad59d6dfa01000000 worker_id=3fe253a50e9106828879430757194ba8770b12f086c56f7a7b55bc92 node_id=6b4bc9c445641d70e5b5f4e083ec829892911c0dcf6bfa6f7f8ace0c
+[2026-02-14 15:45:34,982 I 2940207 2940263] actor_manager.cc:236: received notification on actor, state: PENDING_CREATION, ip address: , port: 0, num_restarts: 0, death context type=CONTEXT_NOT_SET actor_id=94754b18e37fb01dc60c803801000000 worker_id=NIL_ID node_id=6b4bc9c445641d70e5b5f4e083ec829892911c0dcf6bfa6f7f8ace0c
+[2026-02-14 15:45:43,257 I 2940207 2940263] actor_manager.cc:236: received notification on actor, state: ALIVE, ip address: 172.28.6.3, port: 39435, num_restarts: 0, death context type=CONTEXT_NOT_SET actor_id=94754b18e37fb01dc60c803801000000 worker_id=983d5edacdf13715f95d8ed14d585871072c540f464a4bfcd3f260eb node_id=6b4bc9c445641d70e5b5f4e083ec829892911c0dcf6bfa6f7f8ace0c
+[2026-02-14 15:45:43,258 I 2940207 2940263] actor_manager.cc:236: received notification on actor, state: ALIVE, ip address: 172.28.6.3, port: 34595, num_restarts: 0, death context type=CONTEXT_NOT_SET actor_id=c3e9c4f3cdee5c7ad59d6dfa01000000 worker_id=3fe253a50e9106828879430757194ba8770b12f086c56f7a7b55bc92 node_id=6b4bc9c445641d70e5b5f4e083ec829892911c0dcf6bfa6f7f8ace0c
+[2026-02-14 15:46:16,180 I 2940207 2940263] core_worker.cc:455: Event stats:
+
+
+Global stats: 979 total (11 active)
+Queueing time: mean = 0.06ms, max = 1.42ms, min = 0.01ms, total = 55.71ms
+Execution time:  mean = 128.32ms, total = 125623.48ms
+Event stats:
+	CoreWorker.RecoverObjects - 600 total (1 active), Execution time: mean = 0.01ms, total = 5.87ms, Queueing time: mean = 0.06ms, max = 0.14ms, min = 0.01ms, total = 37.84ms
+	NodeManagerService.grpc_client.ReportWorkerBacklog - 60 total (0 active), Execution time: mean = 0.77ms, total = 46.39ms, Queueing time: mean = 0.00ms, max = -0.00ms, min = 9223372036854.78ms, total = 0.00ms
+	CoreWorker.ExitIfParentRayletDies - 60 total (1 active), Execution time: mean = 0.01ms, total = 0.73ms, Queueing time: mean = 0.06ms, max = 0.11ms, min = 0.02ms, total = 3.59ms
+	CoreWorker.InternalHeartbeat - 60 total (1 active), Execution time: mean = 0.20ms, total = 12.08ms, Queueing time: mean = 0.07ms, max = 1.42ms, min = 0.01ms, total = 4.30ms
+	NodeManagerService.grpc_client.ReportWorkerBacklog.OnReplyReceived - 60 total (0 active), Execution time: mean = 0.03ms, total = 1.69ms, Queueing time: mean = 0.04ms, max = 0.07ms, min = 0.01ms, total = 2.52ms
+	CoreWorker.RecordMetrics - 12 total (1 active), Execution time: mean = 0.31ms, total = 3.70ms, Queueing time: mean = 0.04ms, max = 0.08ms, min = 0.02ms, total = 0.50ms
+	ray::rpc::ActorInfoGcsService.grpc_client.ListNamedActors.OnReplyReceived - 9 total (0 active), Execution time: mean = 0.06ms, total = 0.52ms, Queueing time: mean = 0.06ms, max = 0.09ms, min = 0.03ms, total = 0.51ms
+	ray::rpc::ActorInfoGcsService.grpc_client.ListNamedActors - 9 total (0 active), Execution time: mean = 0.99ms, total = 8.90ms, Queueing time: mean = 0.00ms, max = -0.00ms, min = 9223372036854.78ms, total = 0.00ms
+	PeriodicalRunner.RunFnPeriodically - 7 total (0 active), Execution time: mean = 0.07ms, total = 0.49ms, Queueing time: mean = 0.18ms, max = 0.46ms, min = 0.01ms, total = 1.29ms
+	ray::rpc::ActorInfoGcsService.grpc_client.GetNamedActorInfo.OnReplyReceived - 7 total (0 active), Execution time: mean = 0.09ms, total = 0.61ms, Queueing time: mean = 0.03ms, max = 0.06ms, min = 0.02ms, total = 0.24ms
+	ray::rpc::ActorInfoGcsService.grpc_client.GetNamedActorInfo - 7 total (0 active), Execution time: mean = 0.89ms, total = 6.21ms, Queueing time: mean = 0.00ms, max = -0.00ms, min = 9223372036854.78ms, total = 0.00ms
+	CoreWorkerService.grpc_client.PushTask.OnReplyReceived - 6 total (0 active), Execution time: mean = 0.18ms, total = 1.05ms, Queueing time: mean = 0.05ms, max = 0.07ms, min = 0.02ms, total = 0.30ms
+	CoreWorkerService.grpc_client.PushTask - 6 total (0 active), Execution time: mean = 10669.22ms, total = 64015.31ms, Queueing time: mean = 0.00ms, max = -0.00ms, min = 9223372036854.78ms, total = 0.00ms
+	CoreWorker.TryDelPendingObjectRefStreams - 6 total (1 active), Execution time: mean = 0.01ms, total = 0.03ms, Queueing time: mean = 0.05ms, max = 0.08ms, min = 0.03ms, total = 0.33ms
+	ActorTaskSubmitter::SubmitTask - 5 total (0 active), Execution time: mean = 0.10ms, total = 0.51ms, Queueing time: mean = 0.04ms, max = 0.06ms, min = 0.02ms, total = 0.22ms
+	ray::rpc::InternalPubSubGcsService.grpc_client.GcsSubscriberPoll - 4 total (1 active), Execution time: mean = 6769.61ms, total = 27078.45ms, Queueing time: mean = 0.00ms, max = -0.00ms, min = 9223372036854.78ms, total = 0.00ms
+	CoreWorkerService.grpc_server.GetCoreWorkerStats.HandleRequestImpl - 4 total (0 active), Execution time: mean = 0.09ms, total = 0.36ms, Queueing time: mean = 0.04ms, max = 0.06ms, min = 0.03ms, total = 0.15ms
+	ray::rpc::InternalPubSubGcsService.grpc_client.GcsSubscriberCommandBatch.OnReplyReceived - 4 total (0 active), Execution time: mean = 0.26ms, total = 1.05ms, Queueing time: mean = 0.09ms, max = 0.19ms, min = 0.02ms, total = 0.36ms
+	CoreWorkerService.grpc_server.GetCoreWorkerStats - 4 total (0 active), Execution time: mean = 0.40ms, total = 1.59ms, Queueing time: mean = 0.00ms, max = -0.00ms, min = 9223372036854.78ms, total = 0.00ms
+	ray::rpc::InternalPubSubGcsService.grpc_client.GcsSubscriberCommandBatch - 4 total (0 active), Execution time: mean = 0.70ms, total = 2.81ms, Queueing time: mean = 0.00ms, max = -0.00ms, min = 9223372036854.78ms, total = 0.00ms
+	ray::rpc::ActorInfoGcsService.grpc_client.GetActorInfo - 3 total (0 active), Execution time: mean = 0.86ms, total = 2.59ms, Queueing time: mean = 0.00ms, max = -0.00ms, min = 9223372036854.78ms, total = 0.00ms
+	CoreWorker.SubmitTask - 3 total (0 active), Execution time: mean = 0.41ms, total = 1.22ms, Queueing time: mean = 0.03ms, max = 0.05ms, min = 0.02ms, total = 0.10ms
+	Subscriber.HandlePublishedMessage_GCS_ACTOR_CHANNEL - 3 total (0 active), Execution time: mean = 0.96ms, total = 2.87ms, Queueing time: mean = 0.28ms, max = 0.33ms, min = 0.20ms, total = 0.85ms
+	ray::rpc::InternalPubSubGcsService.grpc_client.GcsSubscriberPoll.OnReplyReceived - 3 total (0 active), Execution time: mean = 0.37ms, total = 1.12ms, Queueing time: mean = 0.21ms, max = 0.50ms, min = 0.06ms, total = 0.63ms
+	ray::rpc::ActorInfoGcsService.grpc_client.GetActorInfo.OnReplyReceived - 3 total (0 active), Execution time: mean = 0.66ms, total = 1.98ms, Queueing time: mean = 0.04ms, max = 0.06ms, min = 0.03ms, total = 0.13ms
+	CoreWorkerService.grpc_server.WaitForActorRefDeleted.HandleRequestImpl - 2 total (0 active), Execution time: mean = 0.07ms, total = 0.13ms, Queueing time: mean = 0.07ms, max = 0.08ms, min = 0.06ms, total = 0.14ms
+	ray::rpc::ActorInfoGcsService.grpc_client.RegisterActor - 2 total (0 active), Execution time: mean = 1.62ms, total = 3.24ms, Queueing time: mean = 0.00ms, max = -0.00ms, min = 9223372036854.78ms, total = 0.00ms
+	ray::rpc::ActorInfoGcsService.grpc_client.CreateActor - 2 total (0 active), Execution time: mean = 12356.51ms, total = 24713.02ms, Queueing time: mean = 0.00ms, max = -0.00ms, min = 9223372036854.78ms, total = 0.00ms
+	ray::rpc::ActorInfoGcsService.grpc_client.RegisterActor.OnReplyReceived - 2 total (0 active), Execution time: mean = 0.06ms, total = 0.13ms, Queueing time: mean = 0.06ms, max = 0.06ms, min = 0.06ms, total = 0.12ms
+	CoreWorkerService.grpc_server.WaitForActorRefDeleted - 2 total (2 active), Execution time: mean = 0.00ms, total = 0.00ms, Queueing time: mean = 0.00ms, max = -0.00ms, min = 9223372036854.78ms, total = 0.00ms
+	CoreWorkerService.grpc_server.PushTask.HandleRequestImpl - 2 total (0 active), Execution time: mean = 0.09ms, total = 0.19ms, Queueing time: mean = 0.02ms, max = 0.03ms, min = 0.01ms, total = 0.05ms
+	CoreWorkerService.grpc_server.PushTask - 2 total (1 active), Execution time: mean = 4431.83ms, total = 8863.67ms, Queueing time: mean = 0.00ms, max = -0.00ms, min = 9223372036854.78ms, total = 0.00ms
+	ray::rpc::ActorInfoGcsService.grpc_client.CreateActor.OnReplyReceived - 2 total (0 active), Execution time: mean = 0.09ms, total = 0.19ms, Queueing time: mean = 0.43ms, max = 0.58ms, min = 0.28ms, total = 0.86ms
+	ray::rpc::NodeInfoGcsService.grpc_client.GetAllNodeAddressAndLiveness - 1 total (0 active), Execution time: mean = 0.88ms, total = 0.88ms, Queueing time: mean = 0.00ms, max = -0.00ms, min = 9223372036854.78ms, total = 0.00ms
+	NodeManagerService.grpc_client.ReturnWorkerLease.OnReplyReceived - 1 total (0 active), Execution time: mean = 0.03ms, total = 0.03ms, Queueing time: mean = 0.06ms, max = 0.06ms, min = 0.06ms, total = 0.06ms
+	NodeManagerService.grpc_client.ReturnWorkerLease - 1 total (0 active), Execution time: mean = 1.05ms, total = 1.05ms, Queueing time: mean = 0.00ms, max = -0.00ms, min = 9223372036854.78ms, total = 0.00ms
+	ray::rpc::PlacementGroupInfoGcsService.grpc_client.CreatePlacementGroup.OnReplyReceived - 1 total (0 active), Execution time: mean = 0.06ms, total = 0.06ms, Queueing time: mean = 0.06ms, max = 0.06ms, min = 0.06ms, total = 0.06ms
+	Publisher.CheckDeadSubscribers - 1 total (1 active), Execution time: mean = 0.00ms, total = 0.00ms, Queueing time: mean = 0.00ms, max = -0.00ms, min = 9223372036854.78ms, total = 0.00ms
+	ray::rpc::PlacementGroupInfoGcsService.grpc_client.CreatePlacementGroup - 1 total (0 active), Execution time: mean = 0.99ms, total = 0.99ms, Queueing time: mean = 0.00ms, max = -0.00ms, min = 9223372036854.78ms, total = 0.00ms
+	ray::rpc::WorkerInfoGcsService.grpc_client.AddWorkerInfo - 1 total (0 active), Execution time: mean = 0.55ms, total = 0.55ms, Queueing time: mean = 0.00ms, max = -0.00ms, min = 9223372036854.78ms, total = 0.00ms
+	NodeManagerService.grpc_client.RequestWorkerLease.OnReplyReceived - 1 total (0 active), Execution time: mean = 0.85ms, total = 0.85ms, Queueing time: mean = 0.05ms, max = 0.05ms, min = 0.05ms, total = 0.05ms
+	ReporterService.grpc_client.HealthCheck - 1 total (0 active), Execution time: mean = 1.16ms, total = 1.16ms, Queueing time: mean = 0.00ms, max = -0.00ms, min = 9223372036854.78ms, total = 0.00ms
+	ReporterService.grpc_client.HealthCheck.OnReplyReceived - 1 total (0 active), Execution time: mean = 0.24ms, total = 0.24ms, Queueing time: mean = 0.02ms, max = 0.02ms, min = 0.02ms, total = 0.02ms
+	ray::rpc::WorkerInfoGcsService.grpc_client.AddWorkerInfo.OnReplyReceived - 1 total (0 active), Execution time: mean = 0.02ms, total = 0.02ms, Queueing time: mean = 0.31ms, max = 0.31ms, min = 0.31ms, total = 0.31ms
+	NodeManagerService.grpc_client.RequestWorkerLease - 1 total (0 active), Execution time: mean = 838.90ms, total = 838.90ms, Queueing time: mean = 0.00ms, max = -0.00ms, min = 9223372036854.78ms, total = 0.00ms
+	CoreWorker.PrintEventStats - 1 total (1 active, 1 running), Execution time: mean = 0.00ms, total = 0.00ms, Queueing time: mean = 0.00ms, max = -0.00ms, min = 9223372036854.78ms, total = 0.00ms
+	ray::rpc::NodeInfoGcsService.grpc_client.GetAllNodeAddressAndLiveness.OnReplyReceived - 1 total (0 active), Execution time: mean = 0.04ms, total = 0.04ms, Queueing time: mean = 0.17ms, max = 0.17ms, min = 0.17ms, total = 0.17ms
+
+-----------------
+Task execution event stats:
+
+Global stats: 5 total (2 active)
+Queueing time: mean = 1770.63ms, max = 8853.15ms, min = 0.00ms, total = 8853.17ms
+Execution time:  mean = 1772.63ms, total = 8863.14ms
+Event stats:
+	CoreWorker.CheckSignal - 2 total (1 active), Execution time: mean = 0.00ms, total = 0.01ms, Queueing time: mean = 4426.58ms, max = 8853.15ms, min = 8853.15ms, total = 8853.15ms
+	PeriodicalRunner.RunFnPeriodically - 1 total (0 active), Execution time: mean = 0.01ms, total = 0.01ms, Queueing time: mean = 0.00ms, max = 0.00ms, min = 0.00ms, total = 0.00ms
+	CoreWorker.HandlePushTaskActor - 1 total (1 active, 1 running), Execution time: mean = 0.00ms, total = 0.00ms, Queueing time: mean = 0.00ms, max = -0.00ms, min = 9223372036854.78ms, total = 0.00ms
+	CoreWorker.HandlePushTask - 1 total (0 active), Execution time: mean = 8863.12ms, total = 8863.12ms, Queueing time: mean = 0.01ms, max = 0.01ms, min = 0.01ms, total = 0.01ms
+
+-----------------
+Task Event stats:
+
+IO Service Stats:
+
+Global stats: 181 total (1 active)
+Queueing time: mean = 0.03ms, max = 0.15ms, min = 0.01ms, total = 5.90ms
+Execution time:  mean = 0.36ms, total = 64.60ms
+Event stats:
+	ray::rpc::TaskInfoGcsService.grpc_client.AddTaskEventData - 60 total (0 active), Execution time: mean = 0.78ms, total = 46.91ms, Queueing time: mean = 0.00ms, max = -0.00ms, min = 9223372036854.78ms, total = 0.00ms
+	ray::rpc::TaskInfoGcsService.grpc_client.AddTaskEventData.OnReplyReceived - 60 total (0 active), Execution time: mean = 0.04ms, total = 2.38ms, Queueing time: mean = 0.04ms, max = 0.08ms, min = 0.01ms, total = 2.40ms
+	CoreWorker.deadline_timer.flush_task_events - 60 total (1 active), Execution time: mean = 0.25ms, total = 15.06ms, Queueing time: mean = 0.06ms, max = 0.15ms, min = 0.03ms, total = 3.49ms
+	PeriodicalRunner.RunFnPeriodically - 1 total (0 active), Execution time: mean = 0.25ms, total = 0.25ms, Queueing time: mean = 0.01ms, max = 0.01ms, min = 0.01ms, total = 0.01ms
+Other Stats:
+	gcs_grpc_in_progress:0
+	event_aggregator_grpc_in_progress:0
+	current number of task status events in buffer: 2
+	current number of profile events in buffer: 0
+	current number of dropped task attempts tracked: 0
+	total task events sent: 0.00606823 MiB
+	total number of task attempts sent: 22
+	total number of task attempts dropped reported: 0
+	total number of sent failure: 0
+	num status task events dropped: 0
+	num profile task events dropped: 0
+	num ray task events reported to aggregator: 0
+	num ray task events failed to report to aggregator: 0
+	num of task attempts dropped reported to aggregator: 0
+	num of failed requests to aggregator: 0
+
+[2026-02-14 15:47:16,181 I 2940207 2940263] core_worker.cc:455: Event stats:
+
+
+Global stats: 1944 total (12 active)
+Queueing time: mean = 0.05ms, max = 1.42ms, min = 0.01ms, total = 106.06ms
+Execution time:  mean = 89.32ms, total = 173631.73ms
+Event stats:
+	CoreWorker.RecoverObjects - 1200 total (1 active), Execution time: mean = 0.01ms, total = 11.33ms, Queueing time: mean = 0.06ms, max = 0.14ms, min = 0.01ms, total = 74.81ms
+	CoreWorker.InternalHeartbeat - 120 total (1 active), Execution time: mean = 0.20ms, total = 23.81ms, Queueing time: mean = 0.06ms, max = 1.42ms, min = 0.01ms, total = 7.63ms
+	CoreWorker.ExitIfParentRayletDies - 120 total (1 active), Execution time: mean = 0.01ms, total = 1.37ms, Queueing time: mean = 0.05ms, max = 0.11ms, min = 0.02ms, total = 6.57ms
+	NodeManagerService.grpc_client.ReportWorkerBacklog.OnReplyReceived - 120 total (0 active), Execution time: mean = 0.03ms, total = 3.39ms, Queueing time: mean = 0.04ms, max = 0.10ms, min = 0.01ms, total = 5.28ms
+	NodeManagerService.grpc_client.ReportWorkerBacklog - 120 total (0 active), Execution time: mean = 0.76ms, total = 91.62ms, Queueing time: mean = 0.00ms, max = -0.00ms, min = 9223372036854.78ms, total = 0.00ms
+	CoreWorker.RecordMetrics - 24 total (1 active), Execution time: mean = 0.22ms, total = 5.17ms, Queueing time: mean = 0.05ms, max = 0.11ms, min = 0.02ms, total = 1.10ms
+	CoreWorkerService.grpc_server.PubsubCommandBatch.HandleRequestImpl - 17 total (0 active), Execution time: mean = 0.06ms, total = 0.95ms, Queueing time: mean = 0.03ms, max = 0.07ms, min = 0.01ms, total = 0.43ms
+	CoreWorkerService.grpc_server.PubsubCommandBatch - 17 total (0 active), Execution time: mean = 0.30ms, total = 5.11ms, Queueing time: mean = 0.00ms, max = -0.00ms, min = 9223372036854.78ms, total = 0.00ms
+	CoreWorkerService.grpc_client.PushTask.OnReplyReceived - 14 total (0 active), Execution time: mean = 0.17ms, total = 2.41ms, Queueing time: mean = 0.05ms, max = 0.08ms, min = 0.02ms, total = 0.72ms
+	CoreWorkerService.grpc_client.PushTask - 14 total (0 active), Execution time: mean = 6834.69ms, total = 95685.64ms, Queueing time: mean = 0.00ms, max = -0.00ms, min = 9223372036854.78ms, total = 0.00ms
+	ActorTaskSubmitter::SubmitTask - 13 total (0 active), Execution time: mean = 0.24ms, total = 3.17ms, Queueing time: mean = 0.05ms, max = 0.08ms, min = 0.02ms, total = 0.60ms
+	CoreWorker.TryDelPendingObjectRefStreams - 12 total (1 active), Execution time: mean = 0.01ms, total = 0.06ms, Queueing time: mean = 0.12ms, max = 0.75ms, min = 0.03ms, total = 1.40ms
+	CoreWorkerService.grpc_server.PubsubLongPolling - 11 total (1 active), Execution time: mean = 1477.47ms, total = 16252.18ms, Queueing time: mean = 0.00ms, max = -0.00ms, min = 9223372036854.78ms, total = 0.00ms
+	CoreWorkerService.grpc_server.PubsubLongPolling.HandleRequestImpl - 11 total (0 active), Execution time: mean = 0.05ms, total = 0.56ms, Queueing time: mean = 0.05ms, max = 0.10ms, min = 0.02ms, total = 0.54ms
+	ray::rpc::ActorInfoGcsService.grpc_client.ListNamedActors - 9 total (0 active), Execution time: mean = 0.99ms, total = 8.90ms, Queueing time: mean = 0.00ms, max = -0.00ms, min = 9223372036854.78ms, total = 0.00ms
+	ray::rpc::ActorInfoGcsService.grpc_client.ListNamedActors.OnReplyReceived - 9 total (0 active), Execution time: mean = 0.06ms, total = 0.52ms, Queueing time: mean = 0.06ms, max = 0.09ms, min = 0.03ms, total = 0.51ms
+	CoreWorkerService.grpc_server.GetCoreWorkerStats.HandleRequestImpl - 8 total (0 active), Execution time: mean = 0.09ms, total = 0.74ms, Queueing time: mean = 0.04ms, max = 0.06ms, min = 0.02ms, total = 0.28ms
+	CoreWorkerService.grpc_server.GetCoreWorkerStats - 8 total (0 active), Execution time: mean = 0.36ms, total = 2.92ms, Queueing time: mean = 0.00ms, max = -0.00ms, min = 9223372036854.78ms, total = 0.00ms
+	ray::rpc::ActorInfoGcsService.grpc_client.GetNamedActorInfo.OnReplyReceived - 7 total (0 active), Execution time: mean = 0.09ms, total = 0.61ms, Queueing time: mean = 0.03ms, max = 0.06ms, min = 0.02ms, total = 0.24ms
+	PeriodicalRunner.RunFnPeriodically - 7 total (0 active), Execution time: mean = 0.07ms, total = 0.49ms, Queueing time: mean = 0.18ms, max = 0.46ms, min = 0.01ms, total = 1.29ms
+	ray::rpc::ActorInfoGcsService.grpc_client.GetNamedActorInfo - 7 total (0 active), Execution time: mean = 0.89ms, total = 6.21ms, Queueing time: mean = 0.00ms, max = -0.00ms, min = 9223372036854.78ms, total = 0.00ms
+	CoreWorkerService.grpc_server.UpdateObjectLocationBatch - 6 total (0 active), Execution time: mean = 0.42ms, total = 2.52ms, Queueing time: mean = 0.00ms, max = -0.00ms, min = 9223372036854.78ms, total = 0.00ms
+	CoreWorkerService.grpc_server.UpdateObjectLocationBatch.HandleRequestImpl - 6 total (0 active), Execution time: mean = 0.07ms, total = 0.45ms, Queueing time: mean = 0.10ms, max = 0.23ms, min = 0.06ms, total = 0.62ms
+	ray::rpc::InternalPubSubGcsService.grpc_client.GcsSubscriberCommandBatch.OnReplyReceived - 4 total (0 active), Execution time: mean = 0.26ms, total = 1.05ms, Queueing time: mean = 0.09ms, max = 0.19ms, min = 0.02ms, total = 0.36ms
+	ray::rpc::InternalPubSubGcsService.grpc_client.GcsSubscriberPoll - 4 total (1 active), Execution time: mean = 6769.61ms, total = 27078.45ms, Queueing time: mean = 0.00ms, max = -0.00ms, min = 9223372036854.78ms, total = 0.00ms
+	ray::rpc::InternalPubSubGcsService.grpc_client.GcsSubscriberCommandBatch - 4 total (0 active), Execution time: mean = 0.70ms, total = 2.81ms, Queueing time: mean = 0.00ms, max = -0.00ms, min = 9223372036854.78ms, total = 0.00ms
+	ray::rpc::ActorInfoGcsService.grpc_client.GetActorInfo - 3 total (0 active), Execution time: mean = 0.86ms, total = 2.59ms, Queueing time: mean = 0.00ms, max = -0.00ms, min = 9223372036854.78ms, total = 0.00ms
+	ray::rpc::ActorInfoGcsService.grpc_client.GetActorInfo.OnReplyReceived - 3 total (0 active), Execution time: mean = 0.66ms, total = 1.98ms, Queueing time: mean = 0.04ms, max = 0.06ms, min = 0.03ms, total = 0.13ms
+	Subscriber.HandlePublishedMessage_GCS_ACTOR_CHANNEL - 3 total (0 active), Execution time: mean = 0.96ms, total = 2.87ms, Queueing time: mean = 0.28ms, max = 0.33ms, min = 0.20ms, total = 0.85ms
+	ray::rpc::InternalPubSubGcsService.grpc_client.GcsSubscriberPoll.OnReplyReceived - 3 total (0 active), Execution time: mean = 0.37ms, total = 1.12ms, Queueing time: mean = 0.21ms, max = 0.50ms, min = 0.06ms, total = 0.63ms
+	CoreWorker.SubmitTask - 3 total (0 active), Execution time: mean = 0.41ms, total = 1.22ms, Queueing time: mean = 0.03ms, max = 0.05ms, min = 0.02ms, total = 0.10ms
+	CoreWorkerMemoryStore.GetAsync.Callback - 2 total (0 active), Execution time: mean = 0.25ms, total = 0.51ms, Queueing time: mean = 0.01ms, max = 0.01ms, min = 0.01ms, total = 0.02ms
+	CoreWorkerService.grpc_server.WaitForActorRefDeleted - 2 total (2 active), Execution time: mean = 0.00ms, total = 0.00ms, Queueing time: mean = 0.00ms, max = -0.00ms, min = 9223372036854.78ms, total = 0.00ms
+	ray::rpc::ActorInfoGcsService.grpc_client.RegisterActor.OnReplyReceived - 2 total (0 active), Execution time: mean = 0.06ms, total = 0.13ms, Queueing time: mean = 0.06ms, max = 0.06ms, min = 0.06ms, total = 0.12ms
+	CoreWorker.PrintEventStats - 2 total (1 active, 1 running), Execution time: mean = 0.65ms, total = 1.31ms, Queueing time: mean = 0.05ms, max = 0.09ms, min = 0.09ms, total = 0.09ms
+	CoreWorkerService.grpc_server.PushTask - 2 total (1 active), Execution time: mean = 4431.83ms, total = 8863.67ms, Queueing time: mean = 0.00ms, max = -0.00ms, min = 9223372036854.78ms, total = 0.00ms
+	NodeManagerService.grpc_client.PinObjectIDs - 2 total (0 active), Execution time: mean = 1.12ms, total = 2.24ms, Queueing time: mean = 0.00ms, max = -0.00ms, min = 9223372036854.78ms, total = 0.00ms
+	ray::rpc::ActorInfoGcsService.grpc_client.CreateActor.OnReplyReceived - 2 total (0 active), Execution time: mean = 0.09ms, total = 0.19ms, Queueing time: mean = 0.43ms, max = 0.58ms, min = 0.28ms, total = 0.86ms
+	NodeManagerService.grpc_client.PinObjectIDs.OnReplyReceived - 2 total (0 active), Execution time: mean = 0.06ms, total = 0.13ms, Queueing time: mean = 0.01ms, max = 0.02ms, min = 0.01ms, total = 0.03ms
+	ray::rpc::ActorInfoGcsService.grpc_client.CreateActor - 2 total (0 active), Execution time: mean = 12356.51ms, total = 24713.02ms, Queueing time: mean = 0.00ms, max = -0.00ms, min = 9223372036854.78ms, total = 0.00ms
+	CoreWorkerService.grpc_server.PushTask.HandleRequestImpl - 2 total (0 active), Execution time: mean = 0.09ms, total = 0.19ms, Queueing time: mean = 0.02ms, max = 0.03ms, min = 0.01ms, total = 0.05ms
+	CoreWorkerService.grpc_server.WaitForActorRefDeleted.HandleRequestImpl - 2 total (0 active), Execution time: mean = 0.07ms, total = 0.13ms, Queueing time: mean = 0.07ms, max = 0.08ms, min = 0.06ms, total = 0.14ms
+	ray::rpc::ActorInfoGcsService.grpc_client.RegisterActor - 2 total (0 active), Execution time: mean = 1.62ms, total = 3.24ms, Queueing time: mean = 0.00ms, max = -0.00ms, min = 9223372036854.78ms, total = 0.00ms
+	ReporterService.grpc_client.HealthCheck - 1 total (0 active), Execution time: mean = 1.16ms, total = 1.16ms, Queueing time: mean = 0.00ms, max = -0.00ms, min = 9223372036854.78ms, total = 0.00ms
+	ray::rpc::PlacementGroupInfoGcsService.grpc_client.CreatePlacementGroup.OnReplyReceived - 1 total (0 active), Execution time: mean = 0.06ms, total = 0.06ms, Queueing time: mean = 0.06ms, max = 0.06ms, min = 0.06ms, total = 0.06ms
+	NodeManagerService.grpc_client.ReturnWorkerLease - 1 total (0 active), Execution time: mean = 1.05ms, total = 1.05ms, Queueing time: mean = 0.00ms, max = -0.00ms, min = 9223372036854.78ms, total = 0.00ms
+	NodeManagerService.grpc_client.ReturnWorkerLease.OnReplyReceived - 1 total (0 active), Execution time: mean = 0.03ms, total = 0.03ms, Queueing time: mean = 0.06ms, max = 0.06ms, min = 0.06ms, total = 0.06ms
+	ray::rpc::WorkerInfoGcsService.grpc_client.AddWorkerInfo - 1 total (0 active), Execution time: mean = 0.55ms, total = 0.55ms, Queueing time: mean = 0.00ms, max = -0.00ms, min = 9223372036854.78ms, total = 0.00ms
+	Publisher.CheckDeadSubscribers - 1 total (1 active), Execution time: mean = 0.00ms, total = 0.00ms, Queueing time: mean = 0.00ms, max = -0.00ms, min = 9223372036854.78ms, total = 0.00ms
+	ray::rpc::NodeInfoGcsService.grpc_client.GetAllNodeAddressAndLiveness - 1 total (0 active), Execution time: mean = 0.88ms, total = 0.88ms, Queueing time: mean = 0.00ms, max = -0.00ms, min = 9223372036854.78ms, total = 0.00ms
+	NodeManagerService.grpc_client.RequestWorkerLease.OnReplyReceived - 1 total (0 active), Execution time: mean = 0.85ms, total = 0.85ms, Queueing time: mean = 0.05ms, max = 0.05ms, min = 0.05ms, total = 0.05ms
+	ReporterService.grpc_client.HealthCheck.OnReplyReceived - 1 total (0 active), Execution time: mean = 0.24ms, total = 0.24ms, Queueing time: mean = 0.02ms, max = 0.02ms, min = 0.02ms, total = 0.02ms
+	ray::rpc::WorkerInfoGcsService.grpc_client.AddWorkerInfo.OnReplyReceived - 1 total (0 active), Execution time: mean = 0.02ms, total = 0.02ms, Queueing time: mean = 0.31ms, max = 0.31ms, min = 0.31ms, total = 0.31ms
+	ray::rpc::PlacementGroupInfoGcsService.grpc_client.CreatePlacementGroup - 1 total (0 active), Execution time: mean = 0.99ms, total = 0.99ms, Queueing time: mean = 0.00ms, max = -0.00ms, min = 9223372036854.78ms, total = 0.00ms
+	ray::rpc::NodeInfoGcsService.grpc_client.GetAllNodeAddressAndLiveness.OnReplyReceived - 1 total (0 active), Execution time: mean = 0.04ms, total = 0.04ms, Queueing time: mean = 0.17ms, max = 0.17ms, min = 0.17ms, total = 0.17ms
+	NodeManagerService.grpc_client.RequestWorkerLease - 1 total (0 active), Execution time: mean = 838.90ms, total = 838.90ms, Queueing time: mean = 0.00ms, max = -0.00ms, min = 9223372036854.78ms, total = 0.00ms
+
+-----------------
+Task execution event stats:
+
+Global stats: 5 total (2 active)
+Queueing time: mean = 1770.63ms, max = 8853.15ms, min = 0.00ms, total = 8853.17ms
+Execution time:  mean = 1772.63ms, total = 8863.14ms
+Event stats:
+	CoreWorker.CheckSignal - 2 total (1 active), Execution time: mean = 0.00ms, total = 0.01ms, Queueing time: mean = 4426.58ms, max = 8853.15ms, min = 8853.15ms, total = 8853.15ms
+	PeriodicalRunner.RunFnPeriodically - 1 total (0 active), Execution time: mean = 0.01ms, total = 0.01ms, Queueing time: mean = 0.00ms, max = 0.00ms, min = 0.00ms, total = 0.00ms
+	CoreWorker.HandlePushTaskActor - 1 total (1 active, 1 running), Execution time: mean = 0.00ms, total = 0.00ms, Queueing time: mean = 0.00ms, max = -0.00ms, min = 9223372036854.78ms, total = 0.00ms
+	CoreWorker.HandlePushTask - 1 total (0 active), Execution time: mean = 8863.12ms, total = 8863.12ms, Queueing time: mean = 0.01ms, max = 0.01ms, min = 0.01ms, total = 0.01ms
+
+-----------------
+Task Event stats:
+
+IO Service Stats:
+
+Global stats: 361 total (1 active)
+Queueing time: mean = 0.03ms, max = 0.15ms, min = 0.01ms, total = 11.48ms
+Execution time:  mean = 0.35ms, total = 127.80ms
+Event stats:
+	ray::rpc::TaskInfoGcsService.grpc_client.AddTaskEventData - 120 total (0 active), Execution time: mean = 0.78ms, total = 93.48ms, Queueing time: mean = 0.00ms, max = -0.00ms, min = 9223372036854.78ms, total = 0.00ms
+	ray::rpc::TaskInfoGcsService.grpc_client.AddTaskEventData.OnReplyReceived - 120 total (0 active), Execution time: mean = 0.04ms, total = 4.69ms, Queueing time: mean = 0.04ms, max = 0.08ms, min = 0.01ms, total = 4.74ms
+	CoreWorker.deadline_timer.flush_task_events - 120 total (1 active), Execution time: mean = 0.24ms, total = 29.38ms, Queueing time: mean = 0.06ms, max = 0.15ms, min = 0.03ms, total = 6.73ms
+	PeriodicalRunner.RunFnPeriodically - 1 total (0 active), Execution time: mean = 0.25ms, total = 0.25ms, Queueing time: mean = 0.01ms, max = 0.01ms, min = 0.01ms, total = 0.01ms
+Other Stats:
+	gcs_grpc_in_progress:0
+	event_aggregator_grpc_in_progress:0
+	current number of task status events in buffer: 2
+	current number of profile events in buffer: 0
+	current number of dropped task attempts tracked: 0
+	total task events sent: 0.01089 MiB
+	total number of task attempts sent: 42
+	total number of task attempts dropped reported: 0
+	total number of sent failure: 0
+	num status task events dropped: 0
+	num profile task events dropped: 0
+	num ray task events reported to aggregator: 0
+	num ray task events failed to report to aggregator: 0
+	num of task attempts dropped reported to aggregator: 0
+	num of failed requests to aggregator: 0
+
+[2026-02-14 15:48:16,183 I 2940207 2940263] core_worker.cc:455: Event stats:
+
+
+Global stats: 2944 total (12 active)
+Queueing time: mean = 0.05ms, max = 1.42ms, min = 0.01ms, total = 150.11ms
+Execution time:  mean = 88.82ms, total = 261479.75ms
+Event stats:
+	CoreWorker.RecoverObjects - 1799 total (1 active), Execution time: mean = 0.01ms, total = 16.29ms, Queueing time: mean = 0.06ms, max = 0.14ms, min = 0.01ms, total = 105.38ms
+	NodeManagerService.grpc_client.ReportWorkerBacklog - 180 total (0 active), Execution time: mean = 0.76ms, total = 136.17ms, Queueing time: mean = 0.00ms, max = -0.00ms, min = 9223372036854.78ms, total = 0.00ms
+	CoreWorker.InternalHeartbeat - 180 total (1 active), Execution time: mean = 0.19ms, total = 34.89ms, Queueing time: mean = 0.06ms, max = 1.42ms, min = 0.01ms, total = 10.32ms
+	NodeManagerService.grpc_client.ReportWorkerBacklog.OnReplyReceived - 180 total (0 active), Execution time: mean = 0.03ms, total = 5.10ms, Queueing time: mean = 0.04ms, max = 0.10ms, min = 0.01ms, total = 7.96ms
+	CoreWorker.ExitIfParentRayletDies - 180 total (1 active), Execution time: mean = 0.01ms, total = 2.02ms, Queueing time: mean = 0.05ms, max = 0.11ms, min = 0.01ms, total = 9.57ms
+	CoreWorkerService.grpc_server.PubsubCommandBatch - 43 total (0 active), Execution time: mean = 0.30ms, total = 12.94ms, Queueing time: mean = 0.00ms, max = -0.00ms, min = 9223372036854.78ms, total = 0.00ms
+	CoreWorkerService.grpc_server.PubsubCommandBatch.HandleRequestImpl - 43 total (0 active), Execution time: mean = 0.06ms, total = 2.72ms, Queueing time: mean = 0.03ms, max = 0.16ms, min = 0.01ms, total = 1.20ms
+	CoreWorker.RecordMetrics - 36 total (1 active), Execution time: mean = 0.18ms, total = 6.35ms, Queueing time: mean = 0.05ms, max = 0.11ms, min = 0.02ms, total = 1.73ms
+	CoreWorkerService.grpc_server.PubsubLongPolling - 26 total (1 active), Execution time: mean = 2837.94ms, total = 73786.34ms, Queueing time: mean = 0.00ms, max = -0.00ms, min = 9223372036854.78ms, total = 0.00ms
+	CoreWorkerService.grpc_server.PubsubLongPolling.HandleRequestImpl - 26 total (0 active), Execution time: mean = 0.05ms, total = 1.32ms, Queueing time: mean = 0.04ms, max = 0.10ms, min = 0.01ms, total = 1.04ms
+	CoreWorkerService.grpc_server.UpdateObjectLocationBatch - 20 total (0 active), Execution time: mean = 0.39ms, total = 7.77ms, Queueing time: mean = 0.00ms, max = -0.00ms, min = 9223372036854.78ms, total = 0.00ms
+	CoreWorkerService.grpc_server.UpdateObjectLocationBatch.HandleRequestImpl - 20 total (0 active), Execution time: mean = 0.07ms, total = 1.35ms, Queueing time: mean = 0.09ms, max = 0.32ms, min = 0.01ms, total = 1.85ms
+	CoreWorker.TryDelPendingObjectRefStreams - 18 total (1 active), Execution time: mean = 0.01ms, total = 0.10ms, Queueing time: mean = 0.15ms, max = 1.02ms, min = 0.03ms, total = 2.65ms
+	CoreWorkerService.grpc_client.PushTask - 18 total (0 active), Execution time: mean = 6994.94ms, total = 125908.98ms, Queueing time: mean = 0.00ms, max = -0.00ms, min = 9223372036854.78ms, total = 0.00ms
+	CoreWorkerService.grpc_client.PushTask.OnReplyReceived - 18 total (0 active), Execution time: mean = 0.17ms, total = 3.01ms, Queueing time: mean = 0.05ms, max = 0.08ms, min = 0.02ms, total = 0.87ms
+	ActorTaskSubmitter::SubmitTask - 17 total (0 active), Execution time: mean = 0.19ms, total = 3.22ms, Queueing time: mean = 0.04ms, max = 0.08ms, min = 0.02ms, total = 0.73ms
+	CoreWorkerService.grpc_server.GetCoreWorkerStats.HandleRequestImpl - 12 total (0 active), Execution time: mean = 0.09ms, total = 1.13ms, Queueing time: mean = 0.03ms, max = 0.06ms, min = 0.02ms, total = 0.42ms
+	CoreWorkerService.grpc_server.GetCoreWorkerStats - 12 total (0 active), Execution time: mean = 0.36ms, total = 4.32ms, Queueing time: mean = 0.00ms, max = -0.00ms, min = 9223372036854.78ms, total = 0.00ms
+	ray::rpc::ActorInfoGcsService.grpc_client.ListNamedActors.OnReplyReceived - 9 total (0 active), Execution time: mean = 0.06ms, total = 0.52ms, Queueing time: mean = 0.06ms, max = 0.09ms, min = 0.03ms, total = 0.51ms
+	ray::rpc::ActorInfoGcsService.grpc_client.ListNamedActors - 9 total (0 active), Execution time: mean = 0.99ms, total = 8.90ms, Queueing time: mean = 0.00ms, max = -0.00ms, min = 9223372036854.78ms, total = 0.00ms
+	ray::rpc::ActorInfoGcsService.grpc_client.GetNamedActorInfo.OnReplyReceived - 7 total (0 active), Execution time: mean = 0.09ms, total = 0.61ms, Queueing time: mean = 0.03ms, max = 0.06ms, min = 0.02ms, total = 0.24ms
+	ray::rpc::ActorInfoGcsService.grpc_client.GetNamedActorInfo - 7 total (0 active), Execution time: mean = 0.89ms, total = 6.21ms, Queueing time: mean = 0.00ms, max = -0.00ms, min = 9223372036854.78ms, total = 0.00ms
+	PeriodicalRunner.RunFnPeriodically - 7 total (0 active), Execution time: mean = 0.07ms, total = 0.49ms, Queueing time: mean = 0.18ms, max = 0.46ms, min = 0.01ms, total = 1.29ms
+	CoreWorkerMemoryStore.GetAsync.Callback - 6 total (0 active), Execution time: mean = 0.27ms, total = 1.63ms, Queueing time: mean = 0.02ms, max = 0.05ms, min = 0.01ms, total = 0.09ms
+	NodeManagerService.grpc_client.PinObjectIDs.OnReplyReceived - 6 total (0 active), Execution time: mean = 0.07ms, total = 0.41ms, Queueing time: mean = 0.03ms, max = 0.10ms, min = 0.01ms, total = 0.20ms
+	NodeManagerService.grpc_client.PinObjectIDs - 6 total (0 active), Execution time: mean = 1.16ms, total = 6.93ms, Queueing time: mean = 0.00ms, max = -0.00ms, min = 9223372036854.78ms, total = 0.00ms
+	ray::rpc::InternalPubSubGcsService.grpc_client.GcsSubscriberCommandBatch.OnReplyReceived - 4 total (0 active), Execution time: mean = 0.26ms, total = 1.05ms, Queueing time: mean = 0.09ms, max = 0.19ms, min = 0.02ms, total = 0.36ms
+	ray::rpc::InternalPubSubGcsService.grpc_client.GcsSubscriberPoll - 4 total (1 active), Execution time: mean = 6769.61ms, total = 27078.45ms, Queueing time: mean = 0.00ms, max = -0.00ms, min = 9223372036854.78ms, total = 0.00ms
+	ray::rpc::InternalPubSubGcsService.grpc_client.GcsSubscriberCommandBatch - 4 total (0 active), Execution time: mean = 0.70ms, total = 2.81ms, Queueing time: mean = 0.00ms, max = -0.00ms, min = 9223372036854.78ms, total = 0.00ms
+	ray::rpc::ActorInfoGcsService.grpc_client.GetActorInfo - 3 total (0 active), Execution time: mean = 0.86ms, total = 2.59ms, Queueing time: mean = 0.00ms, max = -0.00ms, min = 9223372036854.78ms, total = 0.00ms
+	Subscriber.HandlePublishedMessage_GCS_ACTOR_CHANNEL - 3 total (0 active), Execution time: mean = 0.96ms, total = 2.87ms, Queueing time: mean = 0.28ms, max = 0.33ms, min = 0.20ms, total = 0.85ms
+	ray::rpc::InternalPubSubGcsService.grpc_client.GcsSubscriberPoll.OnReplyReceived - 3 total (0 active), Execution time: mean = 0.37ms, total = 1.12ms, Queueing time: mean = 0.21ms, max = 0.50ms, min = 0.06ms, total = 0.63ms
+	ray::rpc::ActorInfoGcsService.grpc_client.GetActorInfo.OnReplyReceived - 3 total (0 active), Execution time: mean = 0.66ms, total = 1.98ms, Queueing time: mean = 0.04ms, max = 0.06ms, min = 0.03ms, total = 0.13ms
+	CoreWorker.PrintEventStats - 3 total (1 active, 1 running), Execution time: mean = 0.87ms, total = 2.60ms, Queueing time: mean = 0.05ms, max = 0.09ms, min = 0.07ms, total = 0.16ms
+	CoreWorker.SubmitTask - 3 total (0 active), Execution time: mean = 0.41ms, total = 1.22ms, Queueing time: mean = 0.03ms, max = 0.05ms, min = 0.02ms, total = 0.10ms
+	CoreWorkerService.grpc_server.WaitForActorRefDeleted - 2 total (2 active), Execution time: mean = 0.00ms, total = 0.00ms, Queueing time: mean = 0.00ms, max = -0.00ms, min = 9223372036854.78ms, total = 0.00ms
+	ray::rpc::ActorInfoGcsService.grpc_client.RegisterActor.OnReplyReceived - 2 total (0 active), Execution time: mean = 0.06ms, total = 0.13ms, Queueing time: mean = 0.06ms, max = 0.06ms, min = 0.06ms, total = 0.12ms
+	CoreWorkerService.grpc_server.WaitForActorRefDeleted.HandleRequestImpl - 2 total (0 active), Execution time: mean = 0.07ms, total = 0.13ms, Queueing time: mean = 0.07ms, max = 0.08ms, min = 0.06ms, total = 0.14ms
+	CoreWorkerService.grpc_server.PushTask - 2 total (1 active), Execution time: mean = 4431.83ms, total = 8863.67ms, Queueing time: mean = 0.00ms, max = -0.00ms, min = 9223372036854.78ms, total = 0.00ms
+	ray::rpc::ActorInfoGcsService.grpc_client.CreateActor.OnReplyReceived - 2 total (0 active), Execution time: mean = 0.09ms, total = 0.19ms, Queueing time: mean = 0.43ms, max = 0.58ms, min = 0.28ms, total = 0.86ms
+	CoreWorkerService.grpc_server.PushTask.HandleRequestImpl - 2 total (0 active), Execution time: mean = 0.09ms, total = 0.19ms, Queueing time: mean = 0.02ms, max = 0.03ms, min = 0.01ms, total = 0.05ms
+	ray::rpc::ActorInfoGcsService.grpc_client.RegisterActor - 2 total (0 active), Execution time: mean = 1.62ms, total = 3.24ms, Queueing time: mean = 0.00ms, max = -0.00ms, min = 9223372036854.78ms, total = 0.00ms
+	ray::rpc::ActorInfoGcsService.grpc_client.CreateActor - 2 total (0 active), Execution time: mean = 12356.51ms, total = 24713.02ms, Queueing time: mean = 0.00ms, max = -0.00ms, min = 9223372036854.78ms, total = 0.00ms
+	ray::rpc::PlacementGroupInfoGcsService.grpc_client.CreatePlacementGroup.OnReplyReceived - 1 total (0 active), Execution time: mean = 0.06ms, total = 0.06ms, Queueing time: mean = 0.06ms, max = 0.06ms, min = 0.06ms, total = 0.06ms
+	NodeManagerService.grpc_client.ReturnWorkerLease - 1 total (0 active), Execution time: mean = 1.05ms, total = 1.05ms, Queueing time: mean = 0.00ms, max = -0.00ms, min = 9223372036854.78ms, total = 0.00ms
+	NodeManagerService.grpc_client.ReturnWorkerLease.OnReplyReceived - 1 total (0 active), Execution time: mean = 0.03ms, total = 0.03ms, Queueing time: mean = 0.06ms, max = 0.06ms, min = 0.06ms, total = 0.06ms
+	ray::rpc::WorkerInfoGcsService.grpc_client.AddWorkerInfo - 1 total (0 active), Execution time: mean = 0.55ms, total = 0.55ms, Queueing time: mean = 0.00ms, max = -0.00ms, min = 9223372036854.78ms, total = 0.00ms
+	NodeManagerService.grpc_client.RequestWorkerLease.OnReplyReceived - 1 total (0 active), Execution time: mean = 0.85ms, total = 0.85ms, Queueing time: mean = 0.05ms, max = 0.05ms, min = 0.05ms, total = 0.05ms
+	Publisher.CheckDeadSubscribers - 1 total (1 active), Execution time: mean = 0.00ms, total = 0.00ms, Queueing time: mean = 0.00ms, max = -0.00ms, min = 9223372036854.78ms, total = 0.00ms
+	ray::rpc::NodeInfoGcsService.grpc_client.GetAllNodeAddressAndLiveness - 1 total (0 active), Execution time: mean = 0.88ms, total = 0.88ms, Queueing time: mean = 0.00ms, max = -0.00ms, min = 9223372036854.78ms, total = 0.00ms
+	ReporterService.grpc_client.HealthCheck - 1 total (0 active), Execution time: mean = 1.16ms, total = 1.16ms, Queueing time: mean = 0.00ms, max = -0.00ms, min = 9223372036854.78ms, total = 0.00ms
+	ReporterService.grpc_client.HealthCheck.OnReplyReceived - 1 total (0 active), Execution time: mean = 0.24ms, total = 0.24ms, Queueing time: mean = 0.02ms, max = 0.02ms, min = 0.02ms, total = 0.02ms
+	ray::rpc::PlacementGroupInfoGcsService.grpc_client.CreatePlacementGroup - 1 total (0 active), Execution time: mean = 0.99ms, total = 0.99ms, Queueing time: mean = 0.00ms, max = -0.00ms, min = 9223372036854.78ms, total = 0.00ms
+	ray::rpc::WorkerInfoGcsService.grpc_client.AddWorkerInfo.OnReplyReceived - 1 total (0 active), Execution time: mean = 0.02ms, total = 0.02ms, Queueing time: mean = 0.31ms, max = 0.31ms, min = 0.31ms, total = 0.31ms
+	NodeManagerService.grpc_client.RequestWorkerLease - 1 total (0 active), Execution time: mean = 838.90ms, total = 838.90ms, Queueing time: mean = 0.00ms, max = -0.00ms, min = 9223372036854.78ms, total = 0.00ms
+	ray::rpc::NodeInfoGcsService.grpc_client.GetAllNodeAddressAndLiveness.OnReplyReceived - 1 total (0 active), Execution time: mean = 0.04ms, total = 0.04ms, Queueing time: mean = 0.17ms, max = 0.17ms, min = 0.17ms, total = 0.17ms
+
+-----------------
+Task execution event stats:
+
+Global stats: 5 total (2 active)
+Queueing time: mean = 1770.63ms, max = 8853.15ms, min = 0.00ms, total = 8853.17ms
+Execution time:  mean = 1772.63ms, total = 8863.14ms
+Event stats:
+	CoreWorker.CheckSignal - 2 total (1 active), Execution time: mean = 0.00ms, total = 0.01ms, Queueing time: mean = 4426.58ms, max = 8853.15ms, min = 8853.15ms, total = 8853.15ms
+	PeriodicalRunner.RunFnPeriodically - 1 total (0 active), Execution time: mean = 0.01ms, total = 0.01ms, Queueing time: mean = 0.00ms, max = 0.00ms, min = 0.00ms, total = 0.00ms
+	CoreWorker.HandlePushTaskActor - 1 total (1 active, 1 running), Execution time: mean = 0.00ms, total = 0.00ms, Queueing time: mean = 0.00ms, max = -0.00ms, min = 9223372036854.78ms, total = 0.00ms
+	CoreWorker.HandlePushTask - 1 total (0 active), Execution time: mean = 8863.12ms, total = 8863.12ms, Queueing time: mean = 0.01ms, max = 0.01ms, min = 0.01ms, total = 0.01ms
+
+-----------------
+Task Event stats:
+
+IO Service Stats:
+
+Global stats: 541 total (1 active)
+Queueing time: mean = 0.03ms, max = 0.15ms, min = 0.01ms, total = 17.08ms
+Execution time:  mean = 0.35ms, total = 189.55ms
+Event stats:
+	ray::rpc::TaskInfoGcsService.grpc_client.AddTaskEventData - 180 total (0 active), Execution time: mean = 0.77ms, total = 139.09ms, Queueing time: mean = 0.00ms, max = -0.00ms, min = 9223372036854.78ms, total = 0.00ms
+	ray::rpc::TaskInfoGcsService.grpc_client.AddTaskEventData.OnReplyReceived - 180 total (0 active), Execution time: mean = 0.04ms, total = 7.06ms, Queueing time: mean = 0.04ms, max = 0.08ms, min = 0.01ms, total = 7.14ms
+	CoreWorker.deadline_timer.flush_task_events - 180 total (1 active), Execution time: mean = 0.24ms, total = 43.15ms, Queueing time: mean = 0.06ms, max = 0.15ms, min = 0.03ms, total = 9.92ms
+	PeriodicalRunner.RunFnPeriodically - 1 total (0 active), Execution time: mean = 0.25ms, total = 0.25ms, Queueing time: mean = 0.01ms, max = 0.01ms, min = 0.01ms, total = 0.01ms
+Other Stats:
+	gcs_grpc_in_progress:0
+	event_aggregator_grpc_in_progress:0
+	current number of task status events in buffer: 0
+	current number of profile events in buffer: 0
+	current number of dropped task attempts tracked: 0
+	total task events sent: 0.0133963 MiB
+	total number of task attempts sent: 54
+	total number of task attempts dropped reported: 0
+	total number of sent failure: 0
+	num status task events dropped: 0
+	num profile task events dropped: 0
+	num ray task events reported to aggregator: 0
+	num ray task events failed to report to aggregator: 0
+	num of task attempts dropped reported to aggregator: 0
+	num of failed requests to aggregator: 0
+
+[2026-02-14 15:49:16,184 I 2940207 2940263] core_worker.cc:455: Event stats:
+
+
+Global stats: 3877 total (12 active)
+Queueing time: mean = 0.05ms, max = 1.62ms, min = 0.00ms, total = 196.33ms
+Execution time:  mean = 84.38ms, total = 327131.79ms
+Event stats:
+	CoreWorker.RecoverObjects - 2399 total (1 active), Execution time: mean = 0.01ms, total = 21.24ms, Queueing time: mean = 0.06ms, max = 1.62ms, min = 0.00ms, total = 139.30ms
+	NodeManagerService.grpc_client.ReportWorkerBacklog - 240 total (0 active), Execution time: mean = 0.77ms, total = 185.79ms, Queueing time: mean = 0.00ms, max = -0.00ms, min = 9223372036854.78ms, total = 0.00ms
+	CoreWorker.InternalHeartbeat - 240 total (1 active), Execution time: mean = 0.19ms, total = 46.29ms, Queueing time: mean = 0.06ms, max = 1.42ms, min = 0.01ms, total = 13.71ms
+	NodeManagerService.grpc_client.ReportWorkerBacklog.OnReplyReceived - 240 total (0 active), Execution time: mean = 0.03ms, total = 6.79ms, Queueing time: mean = 0.04ms, max = 0.10ms, min = 0.01ms, total = 10.32ms
+	CoreWorker.ExitIfParentRayletDies - 240 total (1 active), Execution time: mean = 0.01ms, total = 2.66ms, Queueing time: mean = 0.05ms, max = 0.11ms, min = 0.01ms, total = 12.41ms
+	CoreWorkerService.grpc_server.PubsubCommandBatch - 56 total (0 active), Execution time: mean = 0.30ms, total = 16.57ms, Queueing time: mean = 0.00ms, max = -0.00ms, min = 9223372036854.78ms, total = 0.00ms
+	CoreWorkerService.grpc_server.PubsubCommandBatch.HandleRequestImpl - 56 total (0 active), Execution time: mean = 0.06ms, total = 3.44ms, Queueing time: mean = 0.03ms, max = 0.16ms, min = 0.01ms, total = 1.51ms
+	CoreWorker.RecordMetrics - 48 total (1 active), Execution time: mean = 0.16ms, total = 7.48ms, Queueing time: mean = 0.05ms, max = 0.11ms, min = 0.02ms, total = 2.41ms
+	CoreWorkerService.grpc_server.PubsubLongPolling - 34 total (1 active), Execution time: mean = 3507.97ms, total = 119271.15ms, Queueing time: mean = 0.00ms, max = -0.00ms, min = 9223372036854.78ms, total = 0.00ms
+	CoreWorkerService.grpc_server.PubsubLongPolling.HandleRequestImpl - 34 total (0 active), Execution time: mean = 0.05ms, total = 1.66ms, Queueing time: mean = 0.04ms, max = 0.10ms, min = 0.01ms, total = 1.32ms
+	CoreWorkerService.grpc_server.UpdateObjectLocationBatch - 26 total (0 active), Execution time: mean = 0.38ms, total = 9.94ms, Queueing time: mean = 0.00ms, max = -0.00ms, min = 9223372036854.78ms, total = 0.00ms
+	CoreWorkerService.grpc_server.UpdateObjectLocationBatch.HandleRequestImpl - 26 total (0 active), Execution time: mean = 0.07ms, total = 1.76ms, Queueing time: mean = 0.09ms, max = 0.32ms, min = 0.01ms, total = 2.29ms
+	CoreWorker.TryDelPendingObjectRefStreams - 24 total (1 active), Execution time: mean = 0.01ms, total = 0.13ms, Queueing time: mean = 0.17ms, max = 1.16ms, min = 0.02ms, total = 4.15ms
+	CoreWorkerService.grpc_client.PushTask - 20 total (0 active), Execution time: mean = 7299.65ms, total = 145993.03ms, Queueing time: mean = 0.00ms, max = -0.00ms, min = 9223372036854.78ms, total = 0.00ms
+	CoreWorkerService.grpc_client.PushTask.OnReplyReceived - 20 total (0 active), Execution time: mean = 0.16ms, total = 3.25ms, Queueing time: mean = 0.05ms, max = 0.08ms, min = 0.01ms, total = 0.90ms
+	ActorTaskSubmitter::SubmitTask - 19 total (0 active), Execution time: mean = 0.17ms, total = 3.25ms, Queueing time: mean = 0.04ms, max = 0.08ms, min = 0.02ms, total = 0.84ms
+	CoreWorkerService.grpc_server.GetCoreWorkerStats.HandleRequestImpl - 16 total (0 active), Execution time: mean = 0.09ms, total = 1.45ms, Queueing time: mean = 0.04ms, max = 0.06ms, min = 0.02ms, total = 0.57ms
+	CoreWorkerService.grpc_server.GetCoreWorkerStats - 16 total (0 active), Execution time: mean = 0.35ms, total = 5.65ms, Queueing time: mean = 0.00ms, max = -0.00ms, min = 9223372036854.78ms, total = 0.00ms
+	ray::rpc::ActorInfoGcsService.grpc_client.ListNamedActors.OnReplyReceived - 9 total (0 active), Execution time: mean = 0.06ms, total = 0.52ms, Queueing time: mean = 0.06ms, max = 0.09ms, min = 0.03ms, total = 0.51ms
+	ray::rpc::ActorInfoGcsService.grpc_client.ListNamedActors - 9 total (0 active), Execution time: mean = 0.99ms, total = 8.90ms, Queueing time: mean = 0.00ms, max = -0.00ms, min = 9223372036854.78ms, total = 0.00ms
+	NodeManagerService.grpc_client.PinObjectIDs - 8 total (0 active), Execution time: mean = 1.17ms, total = 9.39ms, Queueing time: mean = 0.00ms, max = -0.00ms, min = 9223372036854.78ms, total = 0.00ms
+	NodeManagerService.grpc_client.PinObjectIDs.OnReplyReceived - 8 total (0 active), Execution time: mean = 0.07ms, total = 0.55ms, Queueing time: mean = 0.03ms, max = 0.10ms, min = 0.01ms, total = 0.24ms
+	CoreWorkerMemoryStore.GetAsync.Callback - 8 total (0 active), Execution time: mean = 0.27ms, total = 2.20ms, Queueing time: mean = 0.02ms, max = 0.09ms, min = 0.01ms, total = 0.19ms
+	ray::rpc::ActorInfoGcsService.grpc_client.GetNamedActorInfo.OnReplyReceived - 7 total (0 active), Execution time: mean = 0.09ms, total = 0.61ms, Queueing time: mean = 0.03ms, max = 0.06ms, min = 0.02ms, total = 0.24ms
+	ray::rpc::ActorInfoGcsService.grpc_client.GetNamedActorInfo - 7 total (0 active), Execution time: mean = 0.89ms, total = 6.21ms, Queueing time: mean = 0.00ms, max = -0.00ms, min = 9223372036854.78ms, total = 0.00ms
+	PeriodicalRunner.RunFnPeriodically - 7 total (0 active), Execution time: mean = 0.07ms, total = 0.49ms, Queueing time: mean = 0.18ms, max = 0.46ms, min = 0.01ms, total = 1.29ms
+	ray::rpc::InternalPubSubGcsService.grpc_client.GcsSubscriberCommandBatch.OnReplyReceived - 4 total (0 active), Execution time: mean = 0.26ms, total = 1.05ms, Queueing time: mean = 0.09ms, max = 0.19ms, min = 0.02ms, total = 0.36ms
+	ray::rpc::InternalPubSubGcsService.grpc_client.GcsSubscriberPoll - 4 total (1 active), Execution time: mean = 6769.61ms, total = 27078.45ms, Queueing time: mean = 0.00ms, max = -0.00ms, min = 9223372036854.78ms, total = 0.00ms
+	ray::rpc::InternalPubSubGcsService.grpc_client.GcsSubscriberCommandBatch - 4 total (0 active), Execution time: mean = 0.70ms, total = 2.81ms, Queueing time: mean = 0.00ms, max = -0.00ms, min = 9223372036854.78ms, total = 0.00ms
+	CoreWorker.PrintEventStats - 4 total (1 active, 1 running), Execution time: mean = 0.99ms, total = 3.95ms, Queueing time: mean = 0.06ms, max = 0.09ms, min = 0.07ms, total = 0.23ms
+	ray::rpc::ActorInfoGcsService.grpc_client.GetActorInfo - 3 total (0 active), Execution time: mean = 0.86ms, total = 2.59ms, Queueing time: mean = 0.00ms, max = -0.00ms, min = 9223372036854.78ms, total = 0.00ms
+	Subscriber.HandlePublishedMessage_GCS_ACTOR_CHANNEL - 3 total (0 active), Execution time: mean = 0.96ms, total = 2.87ms, Queueing time: mean = 0.28ms, max = 0.33ms, min = 0.20ms, total = 0.85ms
+	ray::rpc::InternalPubSubGcsService.grpc_client.GcsSubscriberPoll.OnReplyReceived - 3 total (0 active), Execution time: mean = 0.37ms, total = 1.12ms, Queueing time: mean = 0.21ms, max = 0.50ms, min = 0.06ms, total = 0.63ms
+	ray::rpc::ActorInfoGcsService.grpc_client.GetActorInfo.OnReplyReceived - 3 total (0 active), Execution time: mean = 0.66ms, total = 1.98ms, Queueing time: mean = 0.04ms, max = 0.06ms, min = 0.03ms, total = 0.13ms
+	CoreWorker.SubmitTask - 3 total (0 active), Execution time: mean = 0.41ms, total = 1.22ms, Queueing time: mean = 0.03ms, max = 0.05ms, min = 0.02ms, total = 0.10ms
+	CoreWorkerService.grpc_server.WaitForActorRefDeleted - 2 total (2 active), Execution time: mean = 0.00ms, total = 0.00ms, Queueing time: mean = 0.00ms, max = -0.00ms, min = 9223372036854.78ms, total = 0.00ms
+	ray::rpc::ActorInfoGcsService.grpc_client.RegisterActor.OnReplyReceived - 2 total (0 active), Execution time: mean = 0.06ms, total = 0.13ms, Queueing time: mean = 0.06ms, max = 0.06ms, min = 0.06ms, total = 0.12ms
+	CoreWorkerService.grpc_server.WaitForActorRefDeleted.HandleRequestImpl - 2 total (0 active), Execution time: mean = 0.07ms, total = 0.13ms, Queueing time: mean = 0.07ms, max = 0.08ms, min = 0.06ms, total = 0.14ms
+	CoreWorkerService.grpc_server.PushTask - 2 total (1 active), Execution time: mean = 4431.83ms, total = 8863.67ms, Queueing time: mean = 0.00ms, max = -0.00ms, min = 9223372036854.78ms, total = 0.00ms
+	ray::rpc::ActorInfoGcsService.grpc_client.CreateActor.OnReplyReceived - 2 total (0 active), Execution time: mean = 0.09ms, total = 0.19ms, Queueing time: mean = 0.43ms, max = 0.58ms, min = 0.28ms, total = 0.86ms
+	CoreWorkerService.grpc_server.PushTask.HandleRequestImpl - 2 total (0 active), Execution time: mean = 0.09ms, total = 0.19ms, Queueing time: mean = 0.02ms, max = 0.03ms, min = 0.01ms, total = 0.05ms
+	ray::rpc::ActorInfoGcsService.grpc_client.RegisterActor - 2 total (0 active), Execution time: mean = 1.62ms, total = 3.24ms, Queueing time: mean = 0.00ms, max = -0.00ms, min = 9223372036854.78ms, total = 0.00ms
+	ray::rpc::ActorInfoGcsService.grpc_client.CreateActor - 2 total (0 active), Execution time: mean = 12356.51ms, total = 24713.02ms, Queueing time: mean = 0.00ms, max = -0.00ms, min = 9223372036854.78ms, total = 0.00ms
+	ray::rpc::PlacementGroupInfoGcsService.grpc_client.CreatePlacementGroup.OnReplyReceived - 1 total (0 active), Execution time: mean = 0.06ms, total = 0.06ms, Queueing time: mean = 0.06ms, max = 0.06ms, min = 0.06ms, total = 0.06ms
+	NodeManagerService.grpc_client.ReturnWorkerLease - 1 total (0 active), Execution time: mean = 1.05ms, total = 1.05ms, Queueing time: mean = 0.00ms, max = -0.00ms, min = 9223372036854.78ms, total = 0.00ms
+	NodeManagerService.grpc_client.ReturnWorkerLease.OnReplyReceived - 1 total (0 active), Execution time: mean = 0.03ms, total = 0.03ms, Queueing time: mean = 0.06ms, max = 0.06ms, min = 0.06ms, total = 0.06ms
+	ray::rpc::WorkerInfoGcsService.grpc_client.AddWorkerInfo - 1 total (0 active), Execution time: mean = 0.55ms, total = 0.55ms, Queueing time: mean = 0.00ms, max = -0.00ms, min = 9223372036854.78ms, total = 0.00ms
+	NodeManagerService.grpc_client.RequestWorkerLease.OnReplyReceived - 1 total (0 active), Execution time: mean = 0.85ms, total = 0.85ms, Queueing time: mean = 0.05ms, max = 0.05ms, min = 0.05ms, total = 0.05ms
+	Publisher.CheckDeadSubscribers - 1 total (1 active), Execution time: mean = 0.00ms, total = 0.00ms, Queueing time: mean = 0.00ms, max = -0.00ms, min = 9223372036854.78ms, total = 0.00ms
+	ray::rpc::NodeInfoGcsService.grpc_client.GetAllNodeAddressAndLiveness - 1 total (0 active), Execution time: mean = 0.88ms, total = 0.88ms, Queueing time: mean = 0.00ms, max = -0.00ms, min = 9223372036854.78ms, total = 0.00ms
+	ReporterService.grpc_client.HealthCheck - 1 total (0 active), Execution time: mean = 1.16ms, total = 1.16ms, Queueing time: mean = 0.00ms, max = -0.00ms, min = 9223372036854.78ms, total = 0.00ms
+	ReporterService.grpc_client.HealthCheck.OnReplyReceived - 1 total (0 active), Execution time: mean = 0.24ms, total = 0.24ms, Queueing time: mean = 0.02ms, max = 0.02ms, min = 0.02ms, total = 0.02ms
+	ray::rpc::PlacementGroupInfoGcsService.grpc_client.CreatePlacementGroup - 1 total (0 active), Execution time: mean = 0.99ms, total = 0.99ms, Queueing time: mean = 0.00ms, max = -0.00ms, min = 9223372036854.78ms, total = 0.00ms
+	ray::rpc::WorkerInfoGcsService.grpc_client.AddWorkerInfo.OnReplyReceived - 1 total (0 active), Execution time: mean = 0.02ms, total = 0.02ms, Queueing time: mean = 0.31ms, max = 0.31ms, min = 0.31ms, total = 0.31ms
+	NodeManagerService.grpc_client.RequestWorkerLease - 1 total (0 active), Execution time: mean = 838.90ms, total = 838.90ms, Queueing time: mean = 0.00ms, max = -0.00ms, min = 9223372036854.78ms, total = 0.00ms
+	ray::rpc::NodeInfoGcsService.grpc_client.GetAllNodeAddressAndLiveness.OnReplyReceived - 1 total (0 active), Execution time: mean = 0.04ms, total = 0.04ms, Queueing time: mean = 0.17ms, max = 0.17ms, min = 0.17ms, total = 0.17ms
+
+-----------------
+Task execution event stats:
+
+Global stats: 5 total (2 active)
+Queueing time: mean = 1770.63ms, max = 8853.15ms, min = 0.00ms, total = 8853.17ms
+Execution time:  mean = 1772.63ms, total = 8863.14ms
+Event stats:
+	CoreWorker.CheckSignal - 2 total (1 active), Execution time: mean = 0.00ms, total = 0.01ms, Queueing time: mean = 4426.58ms, max = 8853.15ms, min = 8853.15ms, total = 8853.15ms
+	PeriodicalRunner.RunFnPeriodically - 1 total (0 active), Execution time: mean = 0.01ms, total = 0.01ms, Queueing time: mean = 0.00ms, max = 0.00ms, min = 0.00ms, total = 0.00ms
+	CoreWorker.HandlePushTaskActor - 1 total (1 active, 1 running), Execution time: mean = 0.00ms, total = 0.00ms, Queueing time: mean = 0.00ms, max = -0.00ms, min = 9223372036854.78ms, total = 0.00ms
+	CoreWorker.HandlePushTask - 1 total (0 active), Execution time: mean = 8863.12ms, total = 8863.12ms, Queueing time: mean = 0.01ms, max = 0.01ms, min = 0.01ms, total = 0.01ms
+
+-----------------
+Task Event stats:
+
+IO Service Stats:
+
+Global stats: 721 total (1 active)
+Queueing time: mean = 0.03ms, max = 0.15ms, min = 0.01ms, total = 22.40ms
+Execution time:  mean = 0.36ms, total = 256.65ms
+Event stats:
+	ray::rpc::TaskInfoGcsService.grpc_client.AddTaskEventData - 240 total (0 active), Execution time: mean = 0.79ms, total = 190.38ms, Queueing time: mean = 0.00ms, max = -0.00ms, min = 9223372036854.78ms, total = 0.00ms
+	ray::rpc::TaskInfoGcsService.grpc_client.AddTaskEventData.OnReplyReceived - 240 total (0 active), Execution time: mean = 0.04ms, total = 9.36ms, Queueing time: mean = 0.04ms, max = 0.08ms, min = 0.01ms, total = 9.45ms
+	CoreWorker.deadline_timer.flush_task_events - 240 total (1 active), Execution time: mean = 0.24ms, total = 56.66ms, Queueing time: mean = 0.05ms, max = 0.15ms, min = 0.03ms, total = 12.93ms
+	PeriodicalRunner.RunFnPeriodically - 1 total (0 active), Execution time: mean = 0.25ms, total = 0.25ms, Queueing time: mean = 0.01ms, max = 0.01ms, min = 0.01ms, total = 0.01ms
+Other Stats:
+	gcs_grpc_in_progress:0
+	event_aggregator_grpc_in_progress:0
+	current number of task status events in buffer: 0
+	current number of profile events in buffer: 0
+	current number of dropped task attempts tracked: 0
+	total task events sent: 0.0146017 MiB
+	total number of task attempts sent: 59
+	total number of task attempts dropped reported: 0
+	total number of sent failure: 0
+	num status task events dropped: 0
+	num profile task events dropped: 0
+	num ray task events reported to aggregator: 0
+	num ray task events failed to report to aggregator: 0
+	num of task attempts dropped reported to aggregator: 0
+	num of failed requests to aggregator: 0
+
+[2026-02-14 15:50:16,185 I 2940207 2940263] core_worker.cc:455: Event stats:
+
+
+Global stats: 4811 total (12 active)
+Queueing time: mean = 0.05ms, max = 1.62ms, min = 0.00ms, total = 245.20ms
+Execution time:  mean = 83.33ms, total = 400894.58ms
+Event stats:
+	CoreWorker.RecoverObjects - 2999 total (1 active), Execution time: mean = 0.01ms, total = 26.41ms, Queueing time: mean = 0.06ms, max = 1.62ms, min = 0.00ms, total = 175.04ms
+	CoreWorker.ExitIfParentRayletDies - 300 total (1 active), Execution time: mean = 0.01ms, total = 3.30ms, Queueing time: mean = 0.05ms, max = 0.11ms, min = 0.01ms, total = 15.67ms
+	CoreWorker.InternalHeartbeat - 300 total (1 active), Execution time: mean = 0.19ms, total = 57.97ms, Queueing time: mean = 0.06ms, max = 1.42ms, min = 0.01ms, total = 17.00ms
+	NodeManagerService.grpc_client.ReportWorkerBacklog.OnReplyReceived - 300 total (0 active), Execution time: mean = 0.03ms, total = 8.59ms, Queueing time: mean = 0.04ms, max = 0.10ms, min = 0.01ms, total = 13.00ms
+	NodeManagerService.grpc_client.ReportWorkerBacklog - 300 total (0 active), Execution time: mean = 0.79ms, total = 235.58ms, Queueing time: mean = 0.00ms, max = -0.00ms, min = 9223372036854.78ms, total = 0.00ms
+	CoreWorkerService.grpc_server.PubsubCommandBatch - 69 total (0 active), Execution time: mean = 0.30ms, total = 20.36ms, Queueing time: mean = 0.00ms, max = -0.00ms, min = 9223372036854.78ms, total = 0.00ms
+	CoreWorkerService.grpc_server.PubsubCommandBatch.HandleRequestImpl - 69 total (0 active), Execution time: mean = 0.06ms, total = 4.41ms, Queueing time: mean = 0.03ms, max = 0.16ms, min = 0.01ms, total = 1.88ms
+	CoreWorker.RecordMetrics - 60 total (1 active), Execution time: mean = 0.14ms, total = 8.66ms, Queueing time: mean = 0.05ms, max = 0.11ms, min = 0.02ms, total = 3.10ms
+	CoreWorkerService.grpc_server.PubsubLongPolling.HandleRequestImpl - 42 total (0 active), Execution time: mean = 0.05ms, total = 2.09ms, Queueing time: mean = 0.04ms, max = 0.10ms, min = 0.01ms, total = 1.63ms
+	CoreWorkerService.grpc_server.PubsubLongPolling - 42 total (1 active), Execution time: mean = 4062.13ms, total = 170609.61ms, Queueing time: mean = 0.00ms, max = -0.00ms, min = 9223372036854.78ms, total = 0.00ms
+	CoreWorkerService.grpc_server.UpdateObjectLocationBatch - 32 total (0 active), Execution time: mean = 0.39ms, total = 12.32ms, Queueing time: mean = 0.00ms, max = -0.00ms, min = 9223372036854.78ms, total = 0.00ms
+	CoreWorkerService.grpc_server.UpdateObjectLocationBatch.HandleRequestImpl - 32 total (0 active), Execution time: mean = 0.07ms, total = 2.17ms, Queueing time: mean = 0.09ms, max = 0.51ms, min = 0.01ms, total = 2.96ms
+	CoreWorker.TryDelPendingObjectRefStreams - 30 total (1 active), Execution time: mean = 0.01ms, total = 0.16ms, Queueing time: mean = 0.18ms, max = 1.16ms, min = 0.02ms, total = 5.48ms
+	CoreWorkerService.grpc_client.PushTask.OnReplyReceived - 22 total (0 active), Execution time: mean = 0.16ms, total = 3.55ms, Queueing time: mean = 0.04ms, max = 0.08ms, min = 0.01ms, total = 0.95ms
+	CoreWorkerService.grpc_client.PushTask - 22 total (0 active), Execution time: mean = 7651.48ms, total = 168332.55ms, Queueing time: mean = 0.00ms, max = -0.00ms, min = 9223372036854.78ms, total = 0.00ms
+	ActorTaskSubmitter::SubmitTask - 21 total (0 active), Execution time: mean = 0.16ms, total = 3.29ms, Queueing time: mean = 0.05ms, max = 0.08ms, min = 0.02ms, total = 0.96ms
+	CoreWorkerService.grpc_server.GetCoreWorkerStats - 20 total (0 active), Execution time: mean = 0.35ms, total = 6.92ms, Queueing time: mean = 0.00ms, max = -0.00ms, min = 9223372036854.78ms, total = 0.00ms
+	CoreWorkerService.grpc_server.GetCoreWorkerStats.HandleRequestImpl - 20 total (0 active), Execution time: mean = 0.09ms, total = 1.80ms, Queueing time: mean = 0.04ms, max = 0.06ms, min = 0.02ms, total = 0.72ms
+	NodeManagerService.grpc_client.PinObjectIDs - 10 total (0 active), Execution time: mean = 1.16ms, total = 11.56ms, Queueing time: mean = 0.00ms, max = -0.00ms, min = 9223372036854.78ms, total = 0.00ms
+	CoreWorkerMemoryStore.GetAsync.Callback - 10 total (0 active), Execution time: mean = 0.30ms, total = 3.05ms, Queueing time: mean = 0.02ms, max = 0.09ms, min = 0.01ms, total = 0.21ms
+	NodeManagerService.grpc_client.PinObjectIDs.OnReplyReceived - 10 total (0 active), Execution time: mean = 0.07ms, total = 0.72ms, Queueing time: mean = 0.04ms, max = 0.10ms, min = 0.01ms, total = 0.37ms
+	ray::rpc::ActorInfoGcsService.grpc_client.ListNamedActors - 9 total (0 active), Execution time: mean = 0.99ms, total = 8.90ms, Queueing time: mean = 0.00ms, max = -0.00ms, min = 9223372036854.78ms, total = 0.00ms
+	ray::rpc::ActorInfoGcsService.grpc_client.ListNamedActors.OnReplyReceived - 9 total (0 active), Execution time: mean = 0.06ms, total = 0.52ms, Queueing time: mean = 0.06ms, max = 0.09ms, min = 0.03ms, total = 0.51ms
+	ray::rpc::ActorInfoGcsService.grpc_client.GetNamedActorInfo - 7 total (0 active), Execution time: mean = 0.89ms, total = 6.21ms, Queueing time: mean = 0.00ms, max = -0.00ms, min = 9223372036854.78ms, total = 0.00ms
+	ray::rpc::ActorInfoGcsService.grpc_client.GetNamedActorInfo.OnReplyReceived - 7 total (0 active), Execution time: mean = 0.09ms, total = 0.61ms, Queueing time: mean = 0.03ms, max = 0.06ms, min = 0.02ms, total = 0.24ms
+	PeriodicalRunner.RunFnPeriodically - 7 total (0 active), Execution time: mean = 0.07ms, total = 0.49ms, Queueing time: mean = 0.18ms, max = 0.46ms, min = 0.01ms, total = 1.29ms
+	CoreWorker.PrintEventStats - 5 total (1 active, 1 running), Execution time: mean = 1.07ms, total = 5.33ms, Queueing time: mean = 0.05ms, max = 0.09ms, min = 0.03ms, total = 0.27ms
+	ray::rpc::InternalPubSubGcsService.grpc_client.GcsSubscriberCommandBatch.OnReplyReceived - 4 total (0 active), Execution time: mean = 0.26ms, total = 1.05ms, Queueing time: mean = 0.09ms, max = 0.19ms, min = 0.02ms, total = 0.36ms
+	ray::rpc::InternalPubSubGcsService.grpc_client.GcsSubscriberPoll - 4 total (1 active), Execution time: mean = 6769.61ms, total = 27078.45ms, Queueing time: mean = 0.00ms, max = -0.00ms, min = 9223372036854.78ms, total = 0.00ms
+	ray::rpc::InternalPubSubGcsService.grpc_client.GcsSubscriberCommandBatch - 4 total (0 active), Execution time: mean = 0.70ms, total = 2.81ms, Queueing time: mean = 0.00ms, max = -0.00ms, min = 9223372036854.78ms, total = 0.00ms
+	CoreWorker.SubmitTask - 3 total (0 active), Execution time: mean = 0.41ms, total = 1.22ms, Queueing time: mean = 0.03ms, max = 0.05ms, min = 0.02ms, total = 0.10ms
+	ray::rpc::ActorInfoGcsService.grpc_client.GetActorInfo - 3 total (0 active), Execution time: mean = 0.86ms, total = 2.59ms, Queueing time: mean = 0.00ms, max = -0.00ms, min = 9223372036854.78ms, total = 0.00ms
+	ray::rpc::ActorInfoGcsService.grpc_client.GetActorInfo.OnReplyReceived - 3 total (0 active), Execution time: mean = 0.66ms, total = 1.98ms, Queueing time: mean = 0.04ms, max = 0.06ms, min = 0.03ms, total = 0.13ms
+	ray::rpc::InternalPubSubGcsService.grpc_client.GcsSubscriberPoll.OnReplyReceived - 3 total (0 active), Execution time: mean = 0.37ms, total = 1.12ms, Queueing time: mean = 0.21ms, max = 0.50ms, min = 0.06ms, total = 0.63ms
+	Subscriber.HandlePublishedMessage_GCS_ACTOR_CHANNEL - 3 total (0 active), Execution time: mean = 0.96ms, total = 2.87ms, Queueing time: mean = 0.28ms, max = 0.33ms, min = 0.20ms, total = 0.85ms
+	ray::rpc::ActorInfoGcsService.grpc_client.RegisterActor - 2 total (0 active), Execution time: mean = 1.62ms, total = 3.24ms, Queueing time: mean = 0.00ms, max = -0.00ms, min = 9223372036854.78ms, total = 0.00ms
+	CoreWorkerService.grpc_server.PushTask.HandleRequestImpl - 2 total (0 active), Execution time: mean = 0.09ms, total = 0.19ms, Queueing time: mean = 0.02ms, max = 0.03ms, min = 0.01ms, total = 0.05ms
+	CoreWorkerService.grpc_server.WaitForActorRefDeleted.HandleRequestImpl - 2 total (0 active), Execution time: mean = 0.07ms, total = 0.13ms, Queueing time: mean = 0.07ms, max = 0.08ms, min = 0.06ms, total = 0.14ms
+	CoreWorkerService.grpc_server.PushTask - 2 total (1 active), Execution time: mean = 4431.83ms, total = 8863.67ms, Queueing time: mean = 0.00ms, max = -0.00ms, min = 9223372036854.78ms, total = 0.00ms
+	ray::rpc::ActorInfoGcsService.grpc_client.RegisterActor.OnReplyReceived - 2 total (0 active), Execution time: mean = 0.06ms, total = 0.13ms, Queueing time: mean = 0.06ms, max = 0.06ms, min = 0.06ms, total = 0.12ms
+	ray::rpc::ActorInfoGcsService.grpc_client.CreateActor.OnReplyReceived - 2 total (0 active), Execution time: mean = 0.09ms, total = 0.19ms, Queueing time: mean = 0.43ms, max = 0.58ms, min = 0.28ms, total = 0.86ms
+	CoreWorkerService.grpc_server.WaitForActorRefDeleted - 2 total (2 active), Execution time: mean = 0.00ms, total = 0.00ms, Queueing time: mean = 0.00ms, max = -0.00ms, min = 9223372036854.78ms, total = 0.00ms
+	Publisher.CheckDeadSubscribers - 2 total (1 active), Execution time: mean = 0.00ms, total = 0.00ms, Queueing time: mean = 0.01ms, max = 0.02ms, min = 0.02ms, total = 0.02ms
+	ray::rpc::ActorInfoGcsService.grpc_client.CreateActor - 2 total (0 active), Execution time: mean = 12356.51ms, total = 24713.02ms, Queueing time: mean = 0.00ms, max = -0.00ms, min = 9223372036854.78ms, total = 0.00ms
+	NodeManagerService.grpc_client.ReturnWorkerLease.OnReplyReceived - 1 total (0 active), Execution time: mean = 0.03ms, total = 0.03ms, Queueing time: mean = 0.06ms, max = 0.06ms, min = 0.06ms, total = 0.06ms
+	NodeManagerService.grpc_client.ReturnWorkerLease - 1 total (0 active), Execution time: mean = 1.05ms, total = 1.05ms, Queueing time: mean = 0.00ms, max = -0.00ms, min = 9223372036854.78ms, total = 0.00ms
+	ray::rpc::WorkerInfoGcsService.grpc_client.AddWorkerInfo - 1 total (0 active), Execution time: mean = 0.55ms, total = 0.55ms, Queueing time: mean = 0.00ms, max = -0.00ms, min = 9223372036854.78ms, total = 0.00ms
+	ray::rpc::PlacementGroupInfoGcsService.grpc_client.CreatePlacementGroup.OnReplyReceived - 1 total (0 active), Execution time: mean = 0.06ms, total = 0.06ms, Queueing time: mean = 0.06ms, max = 0.06ms, min = 0.06ms, total = 0.06ms
+	ray::rpc::NodeInfoGcsService.grpc_client.GetAllNodeAddressAndLiveness - 1 total (0 active), Execution time: mean = 0.88ms, total = 0.88ms, Queueing time: mean = 0.00ms, max = -0.00ms, min = 9223372036854.78ms, total = 0.00ms
+	NodeManagerService.grpc_client.RequestWorkerLease.OnReplyReceived - 1 total (0 active), Execution time: mean = 0.85ms, total = 0.85ms, Queueing time: mean = 0.05ms, max = 0.05ms, min = 0.05ms, total = 0.05ms
+	ReporterService.grpc_client.HealthCheck - 1 total (0 active), Execution time: mean = 1.16ms, total = 1.16ms, Queueing time: mean = 0.00ms, max = -0.00ms, min = 9223372036854.78ms, total = 0.00ms
+	ReporterService.grpc_client.HealthCheck.OnReplyReceived - 1 total (0 active), Execution time: mean = 0.24ms, total = 0.24ms, Queueing time: mean = 0.02ms, max = 0.02ms, min = 0.02ms, total = 0.02ms
+	ray::rpc::PlacementGroupInfoGcsService.grpc_client.CreatePlacementGroup - 1 total (0 active), Execution time: mean = 0.99ms, total = 0.99ms, Queueing time: mean = 0.00ms, max = -0.00ms, min = 9223372036854.78ms, total = 0.00ms
+	NodeManagerService.grpc_client.RequestWorkerLease - 1 total (0 active), Execution time: mean = 838.90ms, total = 838.90ms, Queueing time: mean = 0.00ms, max = -0.00ms, min = 9223372036854.78ms, total = 0.00ms
+	ray::rpc::WorkerInfoGcsService.grpc_client.AddWorkerInfo.OnReplyReceived - 1 total (0 active), Execution time: mean = 0.02ms, total = 0.02ms, Queueing time: mean = 0.31ms, max = 0.31ms, min = 0.31ms, total = 0.31ms
+	ray::rpc::NodeInfoGcsService.grpc_client.GetAllNodeAddressAndLiveness.OnReplyReceived - 1 total (0 active), Execution time: mean = 0.04ms, total = 0.04ms, Queueing time: mean = 0.17ms, max = 0.17ms, min = 0.17ms, total = 0.17ms
+
+-----------------
+Task execution event stats:
+
+Global stats: 5 total (2 active)
+Queueing time: mean = 1770.63ms, max = 8853.15ms, min = 0.00ms, total = 8853.17ms
+Execution time:  mean = 1772.63ms, total = 8863.14ms
+Event stats:
+	CoreWorker.CheckSignal - 2 total (1 active), Execution time: mean = 0.00ms, total = 0.01ms, Queueing time: mean = 4426.58ms, max = 8853.15ms, min = 8853.15ms, total = 8853.15ms
+	PeriodicalRunner.RunFnPeriodically - 1 total (0 active), Execution time: mean = 0.01ms, total = 0.01ms, Queueing time: mean = 0.00ms, max = 0.00ms, min = 0.00ms, total = 0.00ms
+	CoreWorker.HandlePushTaskActor - 1 total (1 active, 1 running), Execution time: mean = 0.00ms, total = 0.00ms, Queueing time: mean = 0.00ms, max = -0.00ms, min = 9223372036854.78ms, total = 0.00ms
+	CoreWorker.HandlePushTask - 1 total (0 active), Execution time: mean = 8863.12ms, total = 8863.12ms, Queueing time: mean = 0.01ms, max = 0.01ms, min = 0.01ms, total = 0.01ms
+
+-----------------
+Task Event stats:
+
+IO Service Stats:
+
+Global stats: 901 total (1 active)
+Queueing time: mean = 0.03ms, max = 0.15ms, min = 0.01ms, total = 28.15ms
+Execution time:  mean = 0.35ms, total = 319.77ms
+Event stats:
+	ray::rpc::TaskInfoGcsService.grpc_client.AddTaskEventData - 300 total (0 active), Execution time: mean = 0.79ms, total = 237.56ms, Queueing time: mean = 0.00ms, max = -0.00ms, min = 9223372036854.78ms, total = 0.00ms
+	ray::rpc::TaskInfoGcsService.grpc_client.AddTaskEventData.OnReplyReceived - 300 total (0 active), Execution time: mean = 0.04ms, total = 11.62ms, Queueing time: mean = 0.04ms, max = 0.08ms, min = 0.01ms, total = 12.04ms
+	CoreWorker.deadline_timer.flush_task_events - 300 total (1 active), Execution time: mean = 0.23ms, total = 70.34ms, Queueing time: mean = 0.05ms, max = 0.15ms, min = 0.03ms, total = 16.10ms
+	PeriodicalRunner.RunFnPeriodically - 1 total (0 active), Execution time: mean = 0.25ms, total = 0.25ms, Queueing time: mean = 0.01ms, max = 0.01ms, min = 0.01ms, total = 0.01ms
+Other Stats:
+	gcs_grpc_in_progress:0
+	event_aggregator_grpc_in_progress:0
+	current number of task status events in buffer: 0
+	current number of profile events in buffer: 0
+	current number of dropped task attempts tracked: 0
+	total task events sent: 0.0158072 MiB
+	total number of task attempts sent: 64
+	total number of task attempts dropped reported: 0
+	total number of sent failure: 0
+	num status task events dropped: 0
+	num profile task events dropped: 0
+	num ray task events reported to aggregator: 0
+	num ray task events failed to report to aggregator: 0
+	num of task attempts dropped reported to aggregator: 0
+	num of failed requests to aggregator: 0
+
+[2026-02-14 15:51:16,187 I 2940207 2940263] core_worker.cc:455: Event stats:
+
+
+Global stats: 5677 total (12 active)
+Queueing time: mean = 0.05ms, max = 1.62ms, min = 0.00ms, total = 292.38ms
+Execution time:  mean = 70.63ms, total = 400967.77ms
+Event stats:
+	CoreWorker.RecoverObjects - 3598 total (1 active), Execution time: mean = 0.01ms, total = 32.03ms, Queueing time: mean = 0.06ms, max = 1.62ms, min = 0.00ms, total = 211.93ms
+	CoreWorker.InternalHeartbeat - 360 total (1 active), Execution time: mean = 0.19ms, total = 70.14ms, Queueing time: mean = 0.06ms, max = 1.42ms, min = 0.01ms, total = 20.15ms
+	CoreWorker.ExitIfParentRayletDies - 360 total (1 active), Execution time: mean = 0.01ms, total = 3.99ms, Queueing time: mean = 0.05ms, max = 0.11ms, min = 0.01ms, total = 18.73ms
+	NodeManagerService.grpc_client.ReportWorkerBacklog.OnReplyReceived - 360 total (0 active), Execution time: mean = 0.03ms, total = 10.38ms, Queueing time: mean = 0.04ms, max = 0.10ms, min = 0.01ms, total = 15.47ms
+	NodeManagerService.grpc_client.ReportWorkerBacklog - 360 total (0 active), Execution time: mean = 0.79ms, total = 284.51ms, Queueing time: mean = 0.00ms, max = -0.00ms, min = 9223372036854.78ms, total = 0.00ms
+	CoreWorker.RecordMetrics - 72 total (1 active), Execution time: mean = 0.14ms, total = 9.81ms, Queueing time: mean = 0.05ms, max = 0.11ms, min = 0.02ms, total = 3.75ms
+	CoreWorkerService.grpc_server.PubsubCommandBatch - 69 total (0 active), Execution time: mean = 0.30ms, total = 20.36ms, Queueing time: mean = 0.00ms, max = -0.00ms, min = 9223372036854.78ms, total = 0.00ms
+	CoreWorkerService.grpc_server.PubsubCommandBatch.HandleRequestImpl - 69 total (0 active), Execution time: mean = 0.06ms, total = 4.41ms, Queueing time: mean = 0.03ms, max = 0.16ms, min = 0.01ms, total = 1.88ms
+	CoreWorkerService.grpc_server.PubsubLongPolling - 42 total (1 active), Execution time: mean = 4062.13ms, total = 170609.61ms, Queueing time: mean = 0.00ms, max = -0.00ms, min = 9223372036854.78ms, total = 0.00ms
+	CoreWorkerService.grpc_server.PubsubLongPolling.HandleRequestImpl - 42 total (0 active), Execution time: mean = 0.05ms, total = 2.09ms, Queueing time: mean = 0.04ms, max = 0.10ms, min = 0.01ms, total = 1.63ms
+	CoreWorker.TryDelPendingObjectRefStreams - 36 total (1 active), Execution time: mean = 0.01ms, total = 0.21ms, Queueing time: mean = 0.17ms, max = 1.16ms, min = 0.02ms, total = 6.21ms
+	CoreWorkerService.grpc_server.UpdateObjectLocationBatch - 32 total (0 active), Execution time: mean = 0.39ms, total = 12.32ms, Queueing time: mean = 0.00ms, max = -0.00ms, min = 9223372036854.78ms, total = 0.00ms
+	CoreWorkerService.grpc_server.UpdateObjectLocationBatch.HandleRequestImpl - 32 total (0 active), Execution time: mean = 0.07ms, total = 2.17ms, Queueing time: mean = 0.09ms, max = 0.51ms, min = 0.01ms, total = 2.96ms
+	CoreWorkerService.grpc_server.GetCoreWorkerStats - 24 total (0 active), Execution time: mean = 0.35ms, total = 8.50ms, Queueing time: mean = 0.00ms, max = -0.00ms, min = 9223372036854.78ms, total = 0.00ms
+	CoreWorkerService.grpc_server.GetCoreWorkerStats.HandleRequestImpl - 24 total (0 active), Execution time: mean = 0.09ms, total = 2.21ms, Queueing time: mean = 0.04ms, max = 0.07ms, min = 0.02ms, total = 0.92ms
+	CoreWorkerService.grpc_client.PushTask.OnReplyReceived - 22 total (0 active), Execution time: mean = 0.16ms, total = 3.55ms, Queueing time: mean = 0.04ms, max = 0.08ms, min = 0.01ms, total = 0.95ms
+	CoreWorkerService.grpc_client.PushTask - 22 total (0 active), Execution time: mean = 7651.48ms, total = 168332.55ms, Queueing time: mean = 0.00ms, max = -0.00ms, min = 9223372036854.78ms, total = 0.00ms
+	ActorTaskSubmitter::SubmitTask - 21 total (0 active), Execution time: mean = 0.16ms, total = 3.29ms, Queueing time: mean = 0.05ms, max = 0.08ms, min = 0.02ms, total = 0.96ms
+	NodeManagerService.grpc_client.PinObjectIDs.OnReplyReceived - 10 total (0 active), Execution time: mean = 0.07ms, total = 0.72ms, Queueing time: mean = 0.04ms, max = 0.10ms, min = 0.01ms, total = 0.37ms
+	CoreWorkerMemoryStore.GetAsync.Callback - 10 total (0 active), Execution time: mean = 0.30ms, total = 3.05ms, Queueing time: mean = 0.02ms, max = 0.09ms, min = 0.01ms, total = 0.21ms
+	NodeManagerService.grpc_client.PinObjectIDs - 10 total (0 active), Execution time: mean = 1.16ms, total = 11.56ms, Queueing time: mean = 0.00ms, max = -0.00ms, min = 9223372036854.78ms, total = 0.00ms
+	ray::rpc::ActorInfoGcsService.grpc_client.ListNamedActors - 9 total (0 active), Execution time: mean = 0.99ms, total = 8.90ms, Queueing time: mean = 0.00ms, max = -0.00ms, min = 9223372036854.78ms, total = 0.00ms
+	ray::rpc::ActorInfoGcsService.grpc_client.ListNamedActors.OnReplyReceived - 9 total (0 active), Execution time: mean = 0.06ms, total = 0.52ms, Queueing time: mean = 0.06ms, max = 0.09ms, min = 0.03ms, total = 0.51ms
+	ray::rpc::ActorInfoGcsService.grpc_client.GetNamedActorInfo - 7 total (0 active), Execution time: mean = 0.89ms, total = 6.21ms, Queueing time: mean = 0.00ms, max = -0.00ms, min = 9223372036854.78ms, total = 0.00ms
+	ray::rpc::ActorInfoGcsService.grpc_client.GetNamedActorInfo.OnReplyReceived - 7 total (0 active), Execution time: mean = 0.09ms, total = 0.61ms, Queueing time: mean = 0.03ms, max = 0.06ms, min = 0.02ms, total = 0.24ms
+	PeriodicalRunner.RunFnPeriodically - 7 total (0 active), Execution time: mean = 0.07ms, total = 0.49ms, Queueing time: mean = 0.18ms, max = 0.46ms, min = 0.01ms, total = 1.29ms
+	CoreWorker.PrintEventStats - 6 total (1 active, 1 running), Execution time: mean = 1.02ms, total = 6.11ms, Queueing time: mean = 0.05ms, max = 0.09ms, min = 0.02ms, total = 0.29ms
+	ray::rpc::InternalPubSubGcsService.grpc_client.GcsSubscriberCommandBatch.OnReplyReceived - 4 total (0 active), Execution time: mean = 0.26ms, total = 1.05ms, Queueing time: mean = 0.09ms, max = 0.19ms, min = 0.02ms, total = 0.36ms
+	ray::rpc::InternalPubSubGcsService.grpc_client.GcsSubscriberPoll - 4 total (1 active), Execution time: mean = 6769.61ms, total = 27078.45ms, Queueing time: mean = 0.00ms, max = -0.00ms, min = 9223372036854.78ms, total = 0.00ms
+	ray::rpc::InternalPubSubGcsService.grpc_client.GcsSubscriberCommandBatch - 4 total (0 active), Execution time: mean = 0.70ms, total = 2.81ms, Queueing time: mean = 0.00ms, max = -0.00ms, min = 9223372036854.78ms, total = 0.00ms
+	CoreWorker.SubmitTask - 3 total (0 active), Execution time: mean = 0.41ms, total = 1.22ms, Queueing time: mean = 0.03ms, max = 0.05ms, min = 0.02ms, total = 0.10ms
+	ray::rpc::ActorInfoGcsService.grpc_client.GetActorInfo - 3 total (0 active), Execution time: mean = 0.86ms, total = 2.59ms, Queueing time: mean = 0.00ms, max = -0.00ms, min = 9223372036854.78ms, total = 0.00ms
+	ray::rpc::ActorInfoGcsService.grpc_client.GetActorInfo.OnReplyReceived - 3 total (0 active), Execution time: mean = 0.66ms, total = 1.98ms, Queueing time: mean = 0.04ms, max = 0.06ms, min = 0.03ms, total = 0.13ms
+	ray::rpc::InternalPubSubGcsService.grpc_client.GcsSubscriberPoll.OnReplyReceived - 3 total (0 active), Execution time: mean = 0.37ms, total = 1.12ms, Queueing time: mean = 0.21ms, max = 0.50ms, min = 0.06ms, total = 0.63ms
+	Subscriber.HandlePublishedMessage_GCS_ACTOR_CHANNEL - 3 total (0 active), Execution time: mean = 0.96ms, total = 2.87ms, Queueing time: mean = 0.28ms, max = 0.33ms, min = 0.20ms, total = 0.85ms
+	ray::rpc::ActorInfoGcsService.grpc_client.RegisterActor - 2 total (0 active), Execution time: mean = 1.62ms, total = 3.24ms, Queueing time: mean = 0.00ms, max = -0.00ms, min = 9223372036854.78ms, total = 0.00ms
+	CoreWorkerService.grpc_server.PushTask.HandleRequestImpl - 2 total (0 active), Execution time: mean = 0.09ms, total = 0.19ms, Queueing time: mean = 0.02ms, max = 0.03ms, min = 0.01ms, total = 0.05ms
+	CoreWorkerService.grpc_server.WaitForActorRefDeleted.HandleRequestImpl - 2 total (0 active), Execution time: mean = 0.07ms, total = 0.13ms, Queueing time: mean = 0.07ms, max = 0.08ms, min = 0.06ms, total = 0.14ms
+	CoreWorkerService.grpc_server.PushTask - 2 total (1 active), Execution time: mean = 4431.83ms, total = 8863.67ms, Queueing time: mean = 0.00ms, max = -0.00ms, min = 9223372036854.78ms, total = 0.00ms
+	ray::rpc::ActorInfoGcsService.grpc_client.RegisterActor.OnReplyReceived - 2 total (0 active), Execution time: mean = 0.06ms, total = 0.13ms, Queueing time: mean = 0.06ms, max = 0.06ms, min = 0.06ms, total = 0.12ms
+	ray::rpc::ActorInfoGcsService.grpc_client.CreateActor.OnReplyReceived - 2 total (0 active), Execution time: mean = 0.09ms, total = 0.19ms, Queueing time: mean = 0.43ms, max = 0.58ms, min = 0.28ms, total = 0.86ms
+	CoreWorkerService.grpc_server.WaitForActorRefDeleted - 2 total (2 active), Execution time: mean = 0.00ms, total = 0.00ms, Queueing time: mean = 0.00ms, max = -0.00ms, min = 9223372036854.78ms, total = 0.00ms
+	Publisher.CheckDeadSubscribers - 2 total (1 active), Execution time: mean = 0.00ms, total = 0.00ms, Queueing time: mean = 0.01ms, max = 0.02ms, min = 0.02ms, total = 0.02ms
+	ray::rpc::ActorInfoGcsService.grpc_client.CreateActor - 2 total (0 active), Execution time: mean = 12356.51ms, total = 24713.02ms, Queueing time: mean = 0.00ms, max = -0.00ms, min = 9223372036854.78ms, total = 0.00ms
+	NodeManagerService.grpc_client.ReturnWorkerLease.OnReplyReceived - 1 total (0 active), Execution time: mean = 0.03ms, total = 0.03ms, Queueing time: mean = 0.06ms, max = 0.06ms, min = 0.06ms, total = 0.06ms
+	NodeManagerService.grpc_client.ReturnWorkerLease - 1 total (0 active), Execution time: mean = 1.05ms, total = 1.05ms, Queueing time: mean = 0.00ms, max = -0.00ms, min = 9223372036854.78ms, total = 0.00ms
+	ray::rpc::WorkerInfoGcsService.grpc_client.AddWorkerInfo - 1 total (0 active), Execution time: mean = 0.55ms, total = 0.55ms, Queueing time: mean = 0.00ms, max = -0.00ms, min = 9223372036854.78ms, total = 0.00ms
+	ray::rpc::PlacementGroupInfoGcsService.grpc_client.CreatePlacementGroup.OnReplyReceived - 1 total (0 active), Execution time: mean = 0.06ms, total = 0.06ms, Queueing time: mean = 0.06ms, max = 0.06ms, min = 0.06ms, total = 0.06ms
+	ray::rpc::NodeInfoGcsService.grpc_client.GetAllNodeAddressAndLiveness - 1 total (0 active), Execution time: mean = 0.88ms, total = 0.88ms, Queueing time: mean = 0.00ms, max = -0.00ms, min = 9223372036854.78ms, total = 0.00ms
+	NodeManagerService.grpc_client.RequestWorkerLease.OnReplyReceived - 1 total (0 active), Execution time: mean = 0.85ms, total = 0.85ms, Queueing time: mean = 0.05ms, max = 0.05ms, min = 0.05ms, total = 0.05ms
+	ReporterService.grpc_client.HealthCheck - 1 total (0 active), Execution time: mean = 1.16ms, total = 1.16ms, Queueing time: mean = 0.00ms, max = -0.00ms, min = 9223372036854.78ms, total = 0.00ms
+	ReporterService.grpc_client.HealthCheck.OnReplyReceived - 1 total (0 active), Execution time: mean = 0.24ms, total = 0.24ms, Queueing time: mean = 0.02ms, max = 0.02ms, min = 0.02ms, total = 0.02ms
+	ray::rpc::PlacementGroupInfoGcsService.grpc_client.CreatePlacementGroup - 1 total (0 active), Execution time: mean = 0.99ms, total = 0.99ms, Queueing time: mean = 0.00ms, max = -0.00ms, min = 9223372036854.78ms, total = 0.00ms
+	NodeManagerService.grpc_client.RequestWorkerLease - 1 total (0 active), Execution time: mean = 838.90ms, total = 838.90ms, Queueing time: mean = 0.00ms, max = -0.00ms, min = 9223372036854.78ms, total = 0.00ms
+	ray::rpc::WorkerInfoGcsService.grpc_client.AddWorkerInfo.OnReplyReceived - 1 total (0 active), Execution time: mean = 0.02ms, total = 0.02ms, Queueing time: mean = 0.31ms, max = 0.31ms, min = 0.31ms, total = 0.31ms
+	ray::rpc::NodeInfoGcsService.grpc_client.GetAllNodeAddressAndLiveness.OnReplyReceived - 1 total (0 active), Execution time: mean = 0.04ms, total = 0.04ms, Queueing time: mean = 0.17ms, max = 0.17ms, min = 0.17ms, total = 0.17ms
+
+-----------------
+Task execution event stats:
+
+Global stats: 5 total (2 active)
+Queueing time: mean = 1770.63ms, max = 8853.15ms, min = 0.00ms, total = 8853.17ms
+Execution time:  mean = 1772.63ms, total = 8863.14ms
+Event stats:
+	CoreWorker.CheckSignal - 2 total (1 active), Execution time: mean = 0.00ms, total = 0.01ms, Queueing time: mean = 4426.58ms, max = 8853.15ms, min = 8853.15ms, total = 8853.15ms
+	PeriodicalRunner.RunFnPeriodically - 1 total (0 active), Execution time: mean = 0.01ms, total = 0.01ms, Queueing time: mean = 0.00ms, max = 0.00ms, min = 0.00ms, total = 0.00ms
+	CoreWorker.HandlePushTaskActor - 1 total (1 active, 1 running), Execution time: mean = 0.00ms, total = 0.00ms, Queueing time: mean = 0.00ms, max = -0.00ms, min = 9223372036854.78ms, total = 0.00ms
+	CoreWorker.HandlePushTask - 1 total (0 active), Execution time: mean = 8863.12ms, total = 8863.12ms, Queueing time: mean = 0.01ms, max = 0.01ms, min = 0.01ms, total = 0.01ms
+
+-----------------
+Task Event stats:
+
+IO Service Stats:
+
+Global stats: 1081 total (1 active)
+Queueing time: mean = 0.03ms, max = 0.18ms, min = 0.01ms, total = 34.83ms
+Execution time:  mean = 0.36ms, total = 384.91ms
+Event stats:
+	ray::rpc::TaskInfoGcsService.grpc_client.AddTaskEventData - 360 total (0 active), Execution time: mean = 0.79ms, total = 285.99ms, Queueing time: mean = 0.00ms, max = -0.00ms, min = 9223372036854.78ms, total = 0.00ms
+	ray::rpc::TaskInfoGcsService.grpc_client.AddTaskEventData.OnReplyReceived - 360 total (0 active), Execution time: mean = 0.04ms, total = 14.09ms, Queueing time: mean = 0.04ms, max = 0.08ms, min = 0.01ms, total = 14.76ms
+	CoreWorker.deadline_timer.flush_task_events - 360 total (1 active), Execution time: mean = 0.23ms, total = 84.58ms, Queueing time: mean = 0.06ms, max = 0.18ms, min = 0.03ms, total = 20.06ms
+	PeriodicalRunner.RunFnPeriodically - 1 total (0 active), Execution time: mean = 0.25ms, total = 0.25ms, Queueing time: mean = 0.01ms, max = 0.01ms, min = 0.01ms, total = 0.01ms
+Other Stats:
+	gcs_grpc_in_progress:0
+	event_aggregator_grpc_in_progress:0
+	current number of task status events in buffer: 0
+	current number of profile events in buffer: 0
+	current number of dropped task attempts tracked: 0
+	total task events sent: 0.0158072 MiB
+	total number of task attempts sent: 64
+	total number of task attempts dropped reported: 0
+	total number of sent failure: 0
+	num status task events dropped: 0
+	num profile task events dropped: 0
+	num ray task events reported to aggregator: 0
+	num ray task events failed to report to aggregator: 0
+	num of task attempts dropped reported to aggregator: 0
+	num of failed requests to aggregator: 0
+
+[2026-02-14 15:51:28,035 I 2940207 2940263] core_worker.cc:4090: Force kill actor request has received. exiting immediately... The actor is dead because its owner has died. Owner Id: 01000000ffffffffffffffffffffffffffffffffffffffffffffffff Owner Ip address: 172.28.6.3 Owner worker exit type: INTENDED_USER_EXIT Worker exit detail: Owner's worker process has crashed.
+[2026-02-14 15:51:28,076 I 2940207 2940263] core_worker_shutdown_executor.cc:217: Try killing all child processes of this worker as it exits. Child process pids: 
+[2026-02-14 15:51:28,076 I 2940207 2940263] core_worker_shutdown_executor.cc:262: Sending disconnect message to the local raylet.
+[2026-02-14 15:51:28,076 I 2940207 2940263] raylet_ipc_client.cc:135: RayletIpcClient::Disconnect, exit_type=INTENDED_SYSTEM_EXIT, exit_detail=Worker exits because the actor is killed. The actor is dead because its owner has died. Owner Id: 01000000ffffffffffffffffffffffffffffffffffffffffffffffff Owner Ip address: 172.28.6.3 Owner worker exit type: INTENDED_USER_EXIT Worker exit detail: Owner's worker process has crashed., has creation_task_exception_pb_bytes=0
