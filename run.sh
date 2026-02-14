@@ -93,20 +93,20 @@ mkdir -p nohup_logs/run_logs
 
 # Set Ray temp dir to local project directory to avoid permission issues
 
-#ray_temp_path="/home/zkf/dissertation/RAGEN/temp/ray"
-ray_temp_path="/data1/TROJail/RAGEN/temp/ray"
+project_root="$(pwd)"
+ray_temp_path="${project_root}/RAGEN/temp/ray"
+#ray_temp_path="/data1/TROJail/RAGEN/temp/ray"
 export RAY_TMPDIR=$(pwd)/ray_temp
 mkdir -p $RAY_TMPDIR
 
-#similarity_model_path="/home/zkf/dissertation/models/all-MiniLM-L6-v2"
-similarity_model_path="/data1/TROJail/models/all-MiniLM-L6-v2"
+similarity_model_path="${project_root}/models/all-MiniLM-L6-v2"
+#similarity_model_path="/data1/TROJail/models/all-MiniLM-L6-v2"
 
 
 echo "[$(date +'%Y-%m-%d %H:%M:%S')] Starting training: ${experiment_name_2}..."
 RAY_TEMP_PATH=$ray_temp_path SIMILARITY_MODEL_PATH=$similarity_model_path python train.py --config-name _7_jailbreak.yaml \
   model_path=$model_path env_llm.model_path=$env_llm_path judger_llm.model_path=$judger_llm_path env_llm.base_url=$env_llm_base_url judger_llm.base_url=$judger_llm_base_url \
   algorithm.heuristic_process_adv_lambda=0.1 \
-  # experiment_name=${experiment_name_2} trainer.total_training_steps=260 trainer.test_freq=10 \
   experiment_name=${experiment_name_2} trainer.total_training_steps=100 trainer.test_freq=10 \
   env_llm.max_tokens=512 \
   actor_rollout_ref.actor.optim.lr=1e-6 actor_rollout_ref.actor.optim.lr_warmup_steps=20 \
