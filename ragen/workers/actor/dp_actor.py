@@ -238,12 +238,21 @@ class DataParallelPPOActor(BasePPOActor):
 
         log_probs_lst = []
         entropy_lst = []
-        for micro_batch in micro_batches:
+        for micro_batch_index, micro_batch in enumerate(micro_batches):
             if isinstance(micro_batch, DataProto):
                 micro_batch = {**micro_batch.batch, **micro_batch.non_tensor_batch}
             attention_mask = micro_batch.get("attention_mask", None)
-            if attention_mask is None or attention_mask.numel() == 0 or int(attention_mask.sum().item()) == 0:
-                print("[WARN] compute_log_prob skip empty micro_batch", flush=True)
+            input_ids = micro_batch.get("input_ids", None)
+            responses = micro_batch.get("responses", None)
+            attn_sum = int(attention_mask.sum().item()) if attention_mask is not None and attention_mask.numel() > 0 else 0
+            input_shape = tuple(input_ids.shape) if input_ids is not None else None
+            response_len = int(responses.size(-1)) if responses is not None and responses.numel() > 0 else 0
+            if attention_mask is None or attention_mask.numel() == 0 or attn_sum == 0 or input_ids is None or input_ids.numel() == 0 or response_len == 0:
+                print(
+                    f"[WARN] compute_log_prob skip empty micro_batch index={micro_batch_index} "
+                    f"attn_sum={attn_sum} input_shape={input_shape} response_len={response_len}",
+                    flush=True,
+                )
                 continue
             with torch.no_grad():
                 entropy, log_probs = self._forward_micro_batch(micro_batch, temperature=temperature, calculate_entropy=calculate_entropy)
@@ -252,6 +261,7 @@ class DataParallelPPOActor(BasePPOActor):
                 entropy_lst.append(entropy)
 
         if len(log_probs_lst) == 0:
+            print("[WARN] compute_log_prob all micro_batches empty, returning empty log_probs", flush=True)
             empty = torch.empty((0, response_length), device=batch["input_ids"].device, dtype=torch.float32)
             if calculate_entropy:
                 return empty, empty
