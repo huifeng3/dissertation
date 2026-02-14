@@ -106,7 +106,9 @@ echo "[$(date +'%Y-%m-%d %H:%M:%S')] Starting training: ${experiment_name_2}..."
 RAY_TEMP_PATH=$ray_temp_path SIMILARITY_MODEL_PATH=$similarity_model_path python train.py --config-name _7_jailbreak.yaml \
   model_path=$model_path env_llm.model_path=$env_llm_path judger_llm.model_path=$judger_llm_path env_llm.base_url=$env_llm_base_url judger_llm.base_url=$judger_llm_base_url \
   algorithm.heuristic_process_adv_lambda=0.1 \
-  experiment_name=${experiment_name_2} trainer.total_training_steps=260 trainer.test_freq=10 \
+  # experiment_name=${experiment_name_2} trainer.total_training_steps=260 trainer.test_freq=10 \
+  experiment_name=${experiment_name_2} trainer.total_training_steps=100 trainer.test_freq=10 \
+  env_llm.max_tokens=512 \
   actor_rollout_ref.actor.optim.lr=1e-6 actor_rollout_ref.actor.optim.lr_warmup_steps=20 \
   actor_rollout_ref.actor.use_kl_loss=True actor_rollout_ref.actor.kl_loss_coef=0.01 actor_rollout_ref.actor.kl_loss_type=low_var_kl actor_rollout_ref.actor.entropy_coeff=0.01 \
   +actor_rollout_ref.actor.fsdp_config.model_dtype=bfloat16 \
