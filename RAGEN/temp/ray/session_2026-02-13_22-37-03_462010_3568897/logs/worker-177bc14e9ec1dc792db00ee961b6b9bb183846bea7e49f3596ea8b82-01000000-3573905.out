@@ -1,0 +1,238 @@
+:job_id:01000000
+:actor_name:WorkerDict
+[INFO] start to init_distributed and device, the NCCL_P2P_DISABLE is 1
+NCCL version 2.21.5+cuda12.4
+{"event": "dist_initialized", "rank": 0, "local_rank": 0, "world_size": 2, "inferred_from_ray": false, "ray_gpu_ids": ["0"], "cuda_visible_devices": "0", "device_count": 1, "current_device": 0, "device_id": "cuda:0", "init_kwargs": {"backend": "nccl", "rank": 0, "world_size": 2, "device_id": "cuda:0"}}
+{"event": "worker_init", "worker": "ActorRolloutRefWorker", "role": "actor_rollout", "rank": 0, "world_size": 2, "current_device": 0, "cuda_visible_devices": "0"}
+[INFO] start to init_distributed and device, the NCCL_P2P_DISABLE is 1
+{"event": "dist_already_initialized", "rank": 0, "world_size": 2, "cuda_visible_devices": "0", "current_device": 0}
+{"event": "worker_init", "worker": "ActorRolloutRefWorker", "role": "ref", "rank": 0, "world_size": 2, "current_device": 0, "cuda_visible_devices": "0"}
+{"event": "actor_rollout_init_model_start", "role": "ref", "rank": 0, "world_size": 2, "current_device": 0, "cuda_visible_devices": "0", "pid": 3573905}
+{"event": "build_ref_start", "role": "ref", "rank": 0, "current_device": 0, "cuda_visible_devices": "0", "pid": 3573905}
+Model config after override: Qwen2Config {
+  "architectures": [
+    "Qwen2ForCausalLM"
+  ],
+  "attention_dropout": 0.0,
+  "eos_token_id": 151645,
+  "hidden_act": "silu",
+  "hidden_size": 2048,
+  "initializer_range": 0.02,
+  "intermediate_size": 11008,
+  "layer_types": [
+    "full_attention",
+    "full_attention",
+    "full_attention",
+    "full_attention",
+    "full_attention",
+    "full_attention",
+    "full_attention",
+    "full_attention",
+    "full_attention",
+    "full_attention",
+    "full_attention",
+    "full_attention",
+    "full_attention",
+    "full_attention",
+    "full_attention",
+    "full_attention",
+    "full_attention",
+    "full_attention",
+    "full_attention",
+    "full_attention",
+    "full_attention",
+    "full_attention",
+    "full_attention",
+    "full_attention",
+    "full_attention",
+    "full_attention",
+    "full_attention",
+    "full_attention",
+    "full_attention",
+    "full_attention",
+    "full_attention",
+    "full_attention",
+    "full_attention",
+    "full_attention",
+    "full_attention",
+    "full_attention"
+  ],
+  "max_position_embeddings": 32768,
+  "max_window_layers": 70,
+  "model_type": "qwen2",
+  "num_attention_heads": 16,
+  "num_hidden_layers": 36,
+  "num_key_value_heads": 2,
+  "pad_token_id": 151643,
+  "rms_norm_eps": 1e-06,
+  "rope_scaling": null,
+  "rope_theta": 1000000.0,
+  "sliding_window": null,
+  "tie_word_embeddings": true,
+  "torch_dtype": "bfloat16",
+  "transformers_version": "4.53.2",
+  "use_cache": true,
+  "use_sliding_window": false,
+  "vocab_size": 151936
+}
+
+{"event": "load_pretrained_start", "role": "ref", "rank": 0, "world_size": 2, "current_device": 0, "cuda_visible_devices": "0", "model_path": "./models/Qwen2.5-3B-Instruct", "torch_dtype": "torch.bfloat16", "trust_remote_code": false}
+{"event": "from_pretrained_start", "role": "ref", "rank": 0, "world_size": 2, "current_device": 0, "cuda_visible_devices": "0", "model_class": "AutoModelForCausalLM", "attn_implementation": "flash_attention_2"}
+{"event": "from_pretrained_done", "role": "ref", "rank": 0, "world_size": 2, "current_device": 0, "cuda_visible_devices": "0", "model_class": "AutoModelForCausalLM"}
+Monkey patch _flash_attention_forward in transformers.integrations.flash_attention
+{"event": "load_pretrained_barrier_start", "role": "ref", "rank": 0, "world_size": 2, "current_device": 0, "cuda_visible_devices": "0"}
+{"event": "load_pretrained_barrier_done", "role": "ref", "rank": 0, "world_size": 2, "current_device": 0, "cuda_visible_devices": "0"}
+Qwen2ForCausalLM contains 3.09B parameters
+wrap_policy: functools.partial(<function _or_policy at 0x7f21d8529b20>, policies=[functools.partial(<function transformer_auto_wrap_policy at 0x7f21d85299e0>, transformer_layer_cls={<class 'transformers.models.qwen2.modeling_qwen2.Qwen2DecoderLayer'>})])
+{"event": "build_ref_done", "role": "ref", "rank": 0, "current_device": 0, "cuda_visible_devices": "0", "pid": 3573905}
+Actor use_remove_padding=True
+{"event": "actor_rollout_init_model_done", "role": "ref", "rank": 0, "world_size": 2, "current_device": 0, "cuda_visible_devices": "0", "pid": 3573905}
+{"event": "actor_rollout_init_model_start", "role": "actor_rollout", "rank": 0, "world_size": 2, "current_device": 0, "cuda_visible_devices": "0", "pid": 3573905}
+{"event": "build_actor_start", "role": "actor_rollout", "rank": 0, "current_device": 0, "cuda_visible_devices": "0", "pid": 3573905}
+Model config after override: Qwen2Config {
+  "architectures": [
+    "Qwen2ForCausalLM"
+  ],
+  "attention_dropout": 0.0,
+  "eos_token_id": 151645,
+  "hidden_act": "silu",
+  "hidden_size": 2048,
+  "initializer_range": 0.02,
+  "intermediate_size": 11008,
+  "layer_types": [
+    "full_attention",
+    "full_attention",
+    "full_attention",
+    "full_attention",
+    "full_attention",
+    "full_attention",
+    "full_attention",
+    "full_attention",
+    "full_attention",
+    "full_attention",
+    "full_attention",
+    "full_attention",
+    "full_attention",
+    "full_attention",
+    "full_attention",
+    "full_attention",
+    "full_attention",
+    "full_attention",
+    "full_attention",
+    "full_attention",
+    "full_attention",
+    "full_attention",
+    "full_attention",
+    "full_attention",
+    "full_attention",
+    "full_attention",
+    "full_attention",
+    "full_attention",
+    "full_attention",
+    "full_attention",
+    "full_attention",
+    "full_attention",
+    "full_attention",
+    "full_attention",
+    "full_attention",
+    "full_attention"
+  ],
+  "max_position_embeddings": 32768,
+  "max_window_layers": 70,
+  "model_type": "qwen2",
+  "num_attention_heads": 16,
+  "num_hidden_layers": 36,
+  "num_key_value_heads": 2,
+  "pad_token_id": 151643,
+  "rms_norm_eps": 1e-06,
+  "rope_scaling": null,
+  "rope_theta": 1000000.0,
+  "sliding_window": null,
+  "tie_word_embeddings": true,
+  "torch_dtype": "bfloat16",
+  "transformers_version": "4.53.2",
+  "use_cache": true,
+  "use_sliding_window": false,
+  "vocab_size": 151936
+}
+
+{"event": "load_pretrained_start", "role": "actor", "rank": 0, "world_size": 2, "current_device": 0, "cuda_visible_devices": "0", "model_path": "./models/Qwen2.5-3B-Instruct", "torch_dtype": "torch.bfloat16", "trust_remote_code": false}
+{"event": "from_pretrained_start", "role": "actor", "rank": 0, "world_size": 2, "current_device": 0, "cuda_visible_devices": "0", "model_class": "AutoModelForCausalLM", "attn_implementation": "flash_attention_2"}
+{"event": "from_pretrained_done", "role": "actor", "rank": 0, "world_size": 2, "current_device": 0, "cuda_visible_devices": "0", "model_class": "AutoModelForCausalLM"}
+Monkey patch _flash_attention_forward in transformers.integrations.flash_attention
+{"event": "load_pretrained_barrier_start", "role": "actor", "rank": 0, "world_size": 2, "current_device": 0, "cuda_visible_devices": "0"}
+{"event": "load_pretrained_barrier_done", "role": "actor", "rank": 0, "world_size": 2, "current_device": 0, "cuda_visible_devices": "0"}
+Qwen2ForCausalLM contains 3.09B parameters
+wrap_policy: functools.partial(<function _or_policy at 0x7f21d8529b20>, policies=[functools.partial(<function transformer_auto_wrap_policy at 0x7f21d85299e0>, transformer_layer_cls={<class 'transformers.models.qwen2.modeling_qwen2.Qwen2DecoderLayer'>})])
+Total steps: 260, num_warmup_steps: 20
+{"event": "build_actor_done", "role": "actor_rollout", "rank": 0, "current_device": 0, "cuda_visible_devices": "0", "pid": 3573905}
+Actor use_remove_padding=True
+{"event": "build_rollout_start", "role": "actor_rollout", "rank": 0, "current_device": 0, "cuda_visible_devices": "0", "pid": 3573905}
+{"event": "build_rollout_vllm_start", "role": "actor_rollout", "rank": 0, "current_device": 0, "cuda_visible_devices": "0", "pid": 3573905, "vllm_mode": "spmd", "rollout_mode": "sync", "load_format": "dummy_dtensor", "tensor_model_parallel_size": 2}
+{"event": "build_rollout_vllm_local_path_ready", "role": "actor_rollout", "rank": 0, "current_device": 0, "cuda_visible_devices": "0", "pid": 3573905, "local_path": "./models/Qwen2.5-3B-Instruct"}
+{"event": "build_rollout_vllm_init_start", "role": "actor_rollout", "rank": 0, "current_device": 0, "cuda_visible_devices": "0", "pid": 3573905, "init_mode": "spmd", "rollout_cls": "vLLMRollout"}
+WARNING 02-13 22:38:00 [cuda.py:95] To see benefits of async output processing, enable CUDA graph. Since, enforce-eager is enabled, async output processor cannot be used
+WARNING 02-13 22:38:01 [utils.py:2321] Methods determine_num_available_blocks,device_config,get_cache_block_size_bytes,initialize_cache not implemented in <vllm.v1.worker.gpu_worker.Worker object at 0x7f1e9d0f1970>
+WARNING 02-13 22:38:02 [topk_topp_sampler.py:63] FlashInfer is not available. Falling back to the PyTorch-native implementation of top-p & top-k sampling. For the best performance, please install FlashInfer.
+kwargs: {'n': 1, 'logprobs': 0, 'max_tokens': 128, 'detokenize': False, 'temperature': 1, 'top_k': -1, 'top_p': 1, 'ignore_eos': False}
+{"event": "build_rollout_vllm_init_done", "role": "actor_rollout", "rank": 0, "current_device": 0, "cuda_visible_devices": "0", "pid": 3573905}
+{"event": "build_rollout_vllm_sharding_manager_start", "role": "actor_rollout", "rank": 0, "current_device": 0, "cuda_visible_devices": "0", "pid": 3573905, "full_params": false, "offload_param": false}
+{"event": "build_rollout_vllm_sharding_manager_done", "role": "actor_rollout", "rank": 0, "current_device": 0, "cuda_visible_devices": "0", "pid": 3573905}
+{"event": "build_rollout_done", "role": "actor_rollout", "rank": 0, "current_device": 0, "cuda_visible_devices": "0", "pid": 3573905}
+{"event": "actor_rollout_init_model_done", "role": "actor_rollout", "rank": 0, "world_size": 2, "current_device": 0, "cuda_visible_devices": "0", "pid": 3573905}
+{"event": "rollout_worker_generate_enter", "role": "actor_rollout", "rank": 0, "current_device": 0, "cuda_visible_devices": "0", "prompt_len": 2}
+{"event": "rollout_worker_preprocess_start", "role": "actor_rollout", "rank": 0, "current_device": 0, "cuda_visible_devices": "0"}
+{"event": "rollout_worker_preprocess_done", "role": "actor_rollout", "rank": 0, "current_device": 0, "cuda_visible_devices": "0"}
+{"event": "rollout_worker_generate_start", "role": "actor_rollout", "rank": 0, "current_device": 0, "cuda_visible_devices": "0", "rollout_name": "vllm"}
+{"event": "rollout_worker_generate_done", "role": "actor_rollout", "rank": 0, "current_device": 0, "cuda_visible_devices": "0", "rollout_name": "vllm"}
+{"event": "rollout_worker_postprocess_start", "role": "actor_rollout", "rank": 0, "current_device": 0, "cuda_visible_devices": "0"}
+{"event": "rollout_worker_postprocess_done", "role": "actor_rollout", "rank": 0, "current_device": 0, "cuda_visible_devices": "0"}
+{"event": "rollout_worker_generate_enter", "role": "actor_rollout", "rank": 0, "current_device": 0, "cuda_visible_devices": "0", "prompt_len": 1}
+{"event": "rollout_worker_preprocess_start", "role": "actor_rollout", "rank": 0, "current_device": 0, "cuda_visible_devices": "0"}
+{"event": "rollout_worker_preprocess_done", "role": "actor_rollout", "rank": 0, "current_device": 0, "cuda_visible_devices": "0"}
+{"event": "rollout_worker_generate_start", "role": "actor_rollout", "rank": 0, "current_device": 0, "cuda_visible_devices": "0", "rollout_name": "vllm"}
+{"event": "rollout_worker_generate_done", "role": "actor_rollout", "rank": 0, "current_device": 0, "cuda_visible_devices": "0", "rollout_name": "vllm"}
+{"event": "rollout_worker_postprocess_start", "role": "actor_rollout", "rank": 0, "current_device": 0, "cuda_visible_devices": "0"}
+{"event": "rollout_worker_postprocess_done", "role": "actor_rollout", "rank": 0, "current_device": 0, "cuda_visible_devices": "0"}
+{"event": "rollout_worker_generate_enter", "role": "actor_rollout", "rank": 0, "current_device": 0, "cuda_visible_devices": "0", "prompt_len": 1}
+{"event": "rollout_worker_preprocess_start", "role": "actor_rollout", "rank": 0, "current_device": 0, "cuda_visible_devices": "0"}
+{"event": "rollout_worker_preprocess_done", "role": "actor_rollout", "rank": 0, "current_device": 0, "cuda_visible_devices": "0"}
+{"event": "rollout_worker_generate_start", "role": "actor_rollout", "rank": 0, "current_device": 0, "cuda_visible_devices": "0", "rollout_name": "vllm"}
+{"event": "rollout_worker_generate_done", "role": "actor_rollout", "rank": 0, "current_device": 0, "cuda_visible_devices": "0", "rollout_name": "vllm"}
+{"event": "rollout_worker_postprocess_start", "role": "actor_rollout", "rank": 0, "current_device": 0, "cuda_visible_devices": "0"}
+{"event": "rollout_worker_postprocess_done", "role": "actor_rollout", "rank": 0, "current_device": 0, "cuda_visible_devices": "0"}
+{"event": "rollout_worker_generate_enter", "role": "actor_rollout", "rank": 0, "current_device": 0, "cuda_visible_devices": "0", "prompt_len": 16}
+{"event": "rollout_worker_preprocess_start", "role": "actor_rollout", "rank": 0, "current_device": 0, "cuda_visible_devices": "0"}
+{"event": "rollout_worker_preprocess_done", "role": "actor_rollout", "rank": 0, "current_device": 0, "cuda_visible_devices": "0"}
+{"event": "rollout_worker_generate_start", "role": "actor_rollout", "rank": 0, "current_device": 0, "cuda_visible_devices": "0", "rollout_name": "vllm"}
+{"event": "rollout_worker_generate_done", "role": "actor_rollout", "rank": 0, "current_device": 0, "cuda_visible_devices": "0", "rollout_name": "vllm"}
+{"event": "rollout_worker_postprocess_start", "role": "actor_rollout", "rank": 0, "current_device": 0, "cuda_visible_devices": "0"}
+{"event": "rollout_worker_postprocess_done", "role": "actor_rollout", "rank": 0, "current_device": 0, "cuda_visible_devices": "0"}
+{"event": "rollout_worker_generate_enter", "role": "actor_rollout", "rank": 0, "current_device": 0, "cuda_visible_devices": "0", "prompt_len": 16}
+{"event": "rollout_worker_preprocess_start", "role": "actor_rollout", "rank": 0, "current_device": 0, "cuda_visible_devices": "0"}
+{"event": "rollout_worker_preprocess_done", "role": "actor_rollout", "rank": 0, "current_device": 0, "cuda_visible_devices": "0"}
+{"event": "rollout_worker_generate_start", "role": "actor_rollout", "rank": 0, "current_device": 0, "cuda_visible_devices": "0", "rollout_name": "vllm"}
+{"event": "rollout_worker_generate_done", "role": "actor_rollout", "rank": 0, "current_device": 0, "cuda_visible_devices": "0", "rollout_name": "vllm"}
+{"event": "rollout_worker_postprocess_start", "role": "actor_rollout", "rank": 0, "current_device": 0, "cuda_visible_devices": "0"}
+{"event": "rollout_worker_postprocess_done", "role": "actor_rollout", "rank": 0, "current_device": 0, "cuda_visible_devices": "0"}
+{"event": "rollout_worker_generate_enter", "role": "actor_rollout", "rank": 0, "current_device": 0, "cuda_visible_devices": "0", "prompt_len": 16}
+{"event": "rollout_worker_preprocess_start", "role": "actor_rollout", "rank": 0, "current_device": 0, "cuda_visible_devices": "0"}
+{"event": "rollout_worker_preprocess_done", "role": "actor_rollout", "rank": 0, "current_device": 0, "cuda_visible_devices": "0"}
+{"event": "rollout_worker_generate_start", "role": "actor_rollout", "rank": 0, "current_device": 0, "cuda_visible_devices": "0", "rollout_name": "vllm"}
+{"event": "rollout_worker_generate_done", "role": "actor_rollout", "rank": 0, "current_device": 0, "cuda_visible_devices": "0", "rollout_name": "vllm"}
+{"event": "rollout_worker_postprocess_start", "role": "actor_rollout", "rank": 0, "current_device": 0, "cuda_visible_devices": "0"}
+{"event": "rollout_worker_postprocess_done", "role": "actor_rollout", "rank": 0, "current_device": 0, "cuda_visible_devices": "0"}
+{"event": "rollout_worker_generate_enter", "role": "actor_rollout", "rank": 0, "current_device": 0, "cuda_visible_devices": "0", "prompt_len": 16}
+{"event": "rollout_worker_preprocess_start", "role": "actor_rollout", "rank": 0, "current_device": 0, "cuda_visible_devices": "0"}
+{"event": "rollout_worker_preprocess_done", "role": "actor_rollout", "rank": 0, "current_device": 0, "cuda_visible_devices": "0"}
+{"event": "rollout_worker_generate_start", "role": "actor_rollout", "rank": 0, "current_device": 0, "cuda_visible_devices": "0", "rollout_name": "vllm"}
+{"event": "rollout_worker_generate_done", "role": "actor_rollout", "rank": 0, "current_device": 0, "cuda_visible_devices": "0", "rollout_name": "vllm"}
+{"event": "rollout_worker_postprocess_start", "role": "actor_rollout", "rank": 0, "current_device": 0, "cuda_visible_devices": "0"}
+{"event": "rollout_worker_postprocess_done", "role": "actor_rollout", "rank": 0, "current_device": 0, "cuda_visible_devices": "0"}
+{"event": "rollout_worker_generate_enter", "role": "actor_rollout", "rank": 0, "current_device": 0, "cuda_visible_devices": "0", "prompt_len": 16}
+{"event": "rollout_worker_preprocess_start", "role": "actor_rollout", "rank": 0, "current_device": 0, "cuda_visible_devices": "0"}
+{"event": "rollout_worker_preprocess_done", "role": "actor_rollout", "rank": 0, "current_device": 0, "cuda_visible_devices": "0"}
+{"event": "rollout_worker_generate_start", "role": "actor_rollout", "rank": 0, "current_device": 0, "cuda_visible_devices": "0", "rollout_name": "vllm"}
+{"event": "rollout_worker_generate_done", "role": "actor_rollout", "rank": 0, "current_device": 0, "cuda_visible_devices": "0", "rollout_name": "vllm"}
+{"event": "rollout_worker_postprocess_start", "role": "actor_rollout", "rank": 0, "current_device": 0, "cuda_visible_devices": "0"}
+{"event": "rollout_worker_postprocess_done", "role": "actor_rollout", "rank": 0, "current_device": 0, "cuda_visible_devices": "0"}
