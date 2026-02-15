@@ -1,0 +1,114 @@
+:job_id:01000000
+:actor_name:WorkerDict
+You are attempting to use Flash Attention 2.0 with a model not initialized on GPU. Make sure to move the model to GPU after initializing it on CPU with `model.to('cuda')`.
+Loading checkpoint shards:   0%|          | 0/2 [00:00<?, ?it/s]Loading checkpoint shards: 100%|██████████| 2/2 [00:00<00:00, 16.80it/s]Loading checkpoint shards: 100%|██████████| 2/2 [00:00<00:00, 16.78it/s]
+Loading checkpoint shards:   0%|          | 0/2 [00:00<?, ?it/s]Loading checkpoint shards: 100%|██████████| 2/2 [00:00<00:00, 16.17it/s]Loading checkpoint shards: 100%|██████████| 2/2 [00:00<00:00, 16.15it/s]
+/home/zkf/miniconda3/envs/TROJail-test/lib/python3.12/site-packages/torch/distributed/fsdp/fully_sharded_data_parallel.py:690: FutureWarning: FSDP.state_dict_type() and FSDP.set_state_dict_type() are being deprecated. Please use APIs, get_state_dict() and set_state_dict(), which can support different parallelisms, FSDP1, FSDP2, DDP. API doc: https://pytorch.org/docs/stable/distributed.checkpoint.html#torch.distributed.checkpoint.state_dict.get_state_dict .Tutorial: https://pytorch.org/tutorials/recipes/distributed_checkpoint_recipe.html .
+  warnings.warn(
+/home/zkf/miniconda3/envs/TROJail-test/lib/python3.12/multiprocessing/resource_tracker.py:147: UserWarning: resource_tracker: process died unexpectedly, relaunching.  Some resources might leak.
+Exception ignored in: <function ShmRingBuffer.__del__ at 0x74f1d4752480>
+Traceback (most recent call last):
+  File "/home/zkf/miniconda3/envs/TROJail-test/lib/python3.12/site-packages/vllm/distributed/device_communicators/shm_broadcast.py", line 150, in __del__
+  File "/home/zkf/miniconda3/envs/TROJail-test/lib/python3.12/multiprocessing/shared_memory.py", line 244, in unlink
+  File "/home/zkf/miniconda3/envs/TROJail-test/lib/python3.12/multiprocessing/resource_tracker.py", line 203, in unregister
+  File "/home/zkf/miniconda3/envs/TROJail-test/lib/python3.12/multiprocessing/resource_tracker.py", line 207, in _send
+  File "/home/zkf/miniconda3/envs/TROJail-test/lib/python3.12/multiprocessing/resource_tracker.py", line 173, in ensure_running
+  File "/home/zkf/miniconda3/envs/TROJail-test/lib/python3.12/multiprocessing/util.py", line 451, in spawnv_passfds
+ImportError: sys.meta_path is None, Python is likely shutting down
+[rank0]:[W215 11:31:06.436048854 ProcessGroupNCCL.cpp:1496] Warning: WARNING: destroy_process_group() was not called before program exit, which can leak resources. For more info, please see https://pytorch.org/docs/stable/distributed.html#shutdown (function operator())
+[2026-02-15 11:31:13,020 E 4018167 4018167] logging.cc:118: Unhandled exception: N3c105ErrorE. what(): Trying to free a pointer not allocated here
+Exception raised from raw_delete at /pytorch/torch/csrc/cuda/CUDAPluggableAllocator.cpp:151 (most recent call first):
+frame #0: c10::Error::Error(c10::SourceLocation, std::string) + 0x96 (0x74f63936c1b6 in /home/zkf/miniconda3/envs/TROJail-test/lib/python3.12/site-packages/torch/lib/libc10.so)
+frame #1: c10::detail::torchCheckFail(char const*, char const*, unsigned int, char const*) + 0x68 (0x74f639315b3f in /home/zkf/miniconda3/envs/TROJail-test/lib/python3.12/site-packages/torch/lib/libc10.so)
+frame #2: torch::cuda::CUDAPluggableAllocator::CUDAPluggableAllocator::raw_delete(void*) + 0x1a7 (0x74f5e2263667 in /home/zkf/miniconda3/envs/TROJail-test/lib/python3.12/site-packages/torch/lib/libtorch_cuda.so)
+frame #3: <unknown function> + 0x22b78 (0x74f6397e4b78 in /home/zkf/miniconda3/envs/TROJail-test/lib/python3.12/site-packages/torch/lib/libc10_cuda.so)
+frame #4: <unknown function> + 0x2320e (0x74f6397e520e in /home/zkf/miniconda3/envs/TROJail-test/lib/python3.12/site-packages/torch/lib/libc10_cuda.so)
+frame #5: <unknown function> + 0x39afa (0x74f6397fbafa in /home/zkf/miniconda3/envs/TROJail-test/lib/python3.12/site-packages/torch/lib/libc10_cuda.so)
+frame #6: c10::cuda::MemPool::~MemPool() + 0x1b9 (0x74f6397e7329 in /home/zkf/miniconda3/envs/TROJail-test/lib/python3.12/site-packages/torch/lib/libc10_cuda.so)
+frame #7: <unknown function> + 0xdffa90 (0x74f6299ffa90 in /home/zkf/miniconda3/envs/TROJail-test/lib/python3.12/site-packages/torch/lib/libtorch_python.so)
+frame #8: <unknown function> + 0x517c37 (0x74f629117c37 in /home/zkf/miniconda3/envs/TROJail-test/lib/python3.12/site-packages/torch/lib/libtorch_python.so)
+frame #9: <unknown function> + 0x518881 (0x74f629118881 in /home/zkf/miniconda3/envs/TROJail-test/lib/python3.12/site-packages/torch/lib/libtorch_python.so)
+frame #10: ray::WorkerDict() [0x570d05]
+frame #11: ray::WorkerDict() [0x5154bc]
+frame #12: ray::WorkerDict() [0x515cf3]
+frame #13: ray::WorkerDict() [0x570f35]
+frame #14: ray::WorkerDict() [0x515f73]
+frame #15: ray::WorkerDict() [0x612427]
+frame #16: ray::WorkerDict() [0x530869]
+frame #17: ray::WorkerDict() [0x61a88c]
+frame #18: Py_FinalizeEx + 0x181 (0x600061 in ray::WorkerDict)
+frame #19: Py_Exit + 0x8 (0x61aac8 in ray::WorkerDict)
+frame #20: ray::WorkerDict() [0x61827b]
+frame #21: ray::WorkerDict() [0x617ed1]
+frame #22: ray::WorkerDict() [0x4685e9]
+frame #23: _PyRun_AnyFileObject + 0x43 (0x6118c3 in ray::WorkerDict)
+frame #24: Py_RunMain + 0x3a7 (0x60e707 in ray::WorkerDict)
+frame #25: Py_BytesMain + 0x39 (0x5c5bd9 in ray::WorkerDict)
+frame #26: <unknown function> + 0x29d90 (0x7508eb829d90 in /lib/x86_64-linux-gnu/libc.so.6)
+frame #27: __libc_start_main + 0x80 (0x7508eb829e40 in /lib/x86_64-linux-gnu/libc.so.6)
+frame #28: ray::WorkerDict() [0x5c5a09]
+ /home/zkf/miniconda3/envs/TROJail-test/lib/python3.12/site-packages/ray/_raylet.so(+0x16cacfa) [0x7508ea2cacfa] ray::operator<<()
+/home/zkf/miniconda3/envs/TROJail-test/lib/python3.12/site-packages/ray/_raylet.so(+0x16cb7ac) [0x7508ea2cb7ac] ray::RayLog::operator<< <>()
+/home/zkf/miniconda3/envs/TROJail-test/lib/python3.12/site-packages/ray/_raylet.so(+0x861967) [0x7508e9461967] ray::TerminateHandler()
+/home/zkf/miniconda3/envs/TROJail-test/bin/../lib/libstdc++.so.6(+0xc2519) [0x7508e8acd519] __cxxabiv1::__terminate()
+/home/zkf/miniconda3/envs/TROJail-test/bin/../lib/libstdc++.so.6(__cxa_call_terminate+0x2e) [0x7508e8ac704c] __cxa_call_terminate
+/home/zkf/miniconda3/envs/TROJail-test/bin/../lib/libstdc++.so.6(__gxx_personality_v0+0x72) [0x7508e8acce55] __gxx_personality_v0
+/home/zkf/miniconda3/envs/TROJail-test/bin/../lib/libgcc_s.so.1(+0x16194) [0x7508eaaf6194] _Unwind_RaiseException_Phase2
+/home/zkf/miniconda3/envs/TROJail-test/bin/../lib/libgcc_s.so.1(_Unwind_Resume+0x63) [0x7508eaaf676a] _Unwind_Resume
+/home/zkf/miniconda3/envs/TROJail-test/lib/python3.12/site-packages/torch/lib/libc10_cuda.so(+0x14524) [0x74f6397d6524] c10::cuda::MemPool::~MemPool()
+/home/zkf/miniconda3/envs/TROJail-test/lib/python3.12/site-packages/torch/lib/libtorch_python.so(+0xdffa90) [0x74f6299ffa90] pybind11::class_<>::dealloc()
+/home/zkf/miniconda3/envs/TROJail-test/lib/python3.12/site-packages/torch/lib/libtorch_python.so(+0x517c37) [0x74f629117c37] pybind11::detail::clear_instance()
+/home/zkf/miniconda3/envs/TROJail-test/lib/python3.12/site-packages/torch/lib/libtorch_python.so(+0x518881) [0x74f629118881] pybind11_object_dealloc
+ray::WorkerDict() [0x570d05] subtype_dealloc
+ray::WorkerDict() [0x5154bc] tupledealloc
+ray::WorkerDict() [0x515cf3] dict_dealloc
+ray::WorkerDict() [0x570f35] subtype_dealloc
+ray::WorkerDict() [0x515f73] free_keys_object
+ray::WorkerDict() [0x612427] type_clear
+ray::WorkerDict() [0x530869] gc_collect_main
+ray::WorkerDict() [0x61a88c] _PyGC_CollectNoFail.isra.0
+ray::WorkerDict(Py_FinalizeEx+0x181) [0x600061] Py_FinalizeEx
+ray::WorkerDict(Py_Exit+0x8) [0x61aac8] Py_Exit
+ray::WorkerDict() [0x61827b] handle_system_exit
+ray::WorkerDict() [0x617ed1] _PyErr_PrintEx
+ray::WorkerDict() [0x4685e9] _PyRun_SimpleFileObject.cold
+ray::WorkerDict(_PyRun_AnyFileObject+0x43) [0x6118c3] _PyRun_AnyFileObject
+ray::WorkerDict(Py_RunMain+0x3a7) [0x60e707] Py_RunMain
+ray::WorkerDict(Py_BytesMain+0x39) [0x5c5bd9] Py_BytesMain
+/lib/x86_64-linux-gnu/libc.so.6(+0x29d90) [0x7508eb829d90]
+/lib/x86_64-linux-gnu/libc.so.6(__libc_start_main+0x80) [0x7508eb829e40] __libc_start_main
+ray::WorkerDict() [0x5c5a09]
+
+[2026-02-15 11:31:13,029 E 4018167 4018167] logging.cc:125: Stack trace: 
+ /home/zkf/miniconda3/envs/TROJail-test/lib/python3.12/site-packages/ray/_raylet.so(+0x16cacfa) [0x7508ea2cacfa] ray::operator<<()
+/home/zkf/miniconda3/envs/TROJail-test/lib/python3.12/site-packages/ray/_raylet.so(+0x16cb7ac) [0x7508ea2cb7ac] ray::RayLog::operator<< <>()
+/home/zkf/miniconda3/envs/TROJail-test/lib/python3.12/site-packages/ray/_raylet.so(+0x16cdd68) [0x7508ea2cdd68] ray::TerminateHandler()
+/home/zkf/miniconda3/envs/TROJail-test/bin/../lib/libstdc++.so.6(+0xc2519) [0x7508e8acd519] __cxxabiv1::__terminate()
+/home/zkf/miniconda3/envs/TROJail-test/bin/../lib/libstdc++.so.6(__cxa_call_terminate+0x2e) [0x7508e8ac704c] __cxa_call_terminate
+/home/zkf/miniconda3/envs/TROJail-test/bin/../lib/libstdc++.so.6(__gxx_personality_v0+0x72) [0x7508e8acce55] __gxx_personality_v0
+/home/zkf/miniconda3/envs/TROJail-test/bin/../lib/libgcc_s.so.1(+0x16194) [0x7508eaaf6194] _Unwind_RaiseException_Phase2
+/home/zkf/miniconda3/envs/TROJail-test/bin/../lib/libgcc_s.so.1(_Unwind_Resume+0x63) [0x7508eaaf676a] _Unwind_Resume
+/home/zkf/miniconda3/envs/TROJail-test/lib/python3.12/site-packages/torch/lib/libc10_cuda.so(+0x14524) [0x74f6397d6524] c10::cuda::MemPool::~MemPool()
+/home/zkf/miniconda3/envs/TROJail-test/lib/python3.12/site-packages/torch/lib/libtorch_python.so(+0xdffa90) [0x74f6299ffa90] pybind11::class_<>::dealloc()
+/home/zkf/miniconda3/envs/TROJail-test/lib/python3.12/site-packages/torch/lib/libtorch_python.so(+0x517c37) [0x74f629117c37] pybind11::detail::clear_instance()
+/home/zkf/miniconda3/envs/TROJail-test/lib/python3.12/site-packages/torch/lib/libtorch_python.so(+0x518881) [0x74f629118881] pybind11_object_dealloc
+ray::WorkerDict() [0x570d05] subtype_dealloc
+ray::WorkerDict() [0x5154bc] tupledealloc
+ray::WorkerDict() [0x515cf3] dict_dealloc
+ray::WorkerDict() [0x570f35] subtype_dealloc
+ray::WorkerDict() [0x515f73] free_keys_object
+ray::WorkerDict() [0x612427] type_clear
+ray::WorkerDict() [0x530869] gc_collect_main
+ray::WorkerDict() [0x61a88c] _PyGC_CollectNoFail.isra.0
+ray::WorkerDict(Py_FinalizeEx+0x181) [0x600061] Py_FinalizeEx
+ray::WorkerDict(Py_Exit+0x8) [0x61aac8] Py_Exit
+ray::WorkerDict() [0x61827b] handle_system_exit
+ray::WorkerDict() [0x617ed1] _PyErr_PrintEx
+ray::WorkerDict() [0x4685e9] _PyRun_SimpleFileObject.cold
+ray::WorkerDict(_PyRun_AnyFileObject+0x43) [0x6118c3] _PyRun_AnyFileObject
+ray::WorkerDict(Py_RunMain+0x3a7) [0x60e707] Py_RunMain
+ray::WorkerDict(Py_BytesMain+0x39) [0x5c5bd9] Py_BytesMain
+/lib/x86_64-linux-gnu/libc.so.6(+0x29d90) [0x7508eb829d90]
+/lib/x86_64-linux-gnu/libc.so.6(__libc_start_main+0x80) [0x7508eb829e40] __libc_start_main
+ray::WorkerDict() [0x5c5a09]
+
