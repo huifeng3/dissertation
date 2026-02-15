@@ -87,15 +87,16 @@ class DataParallelPPOActor(BasePPOActor):
                 position_ids = position_ids.transpose(0, 1)  # (bsz, 3, seqlen) -> (3, bsz, seqlen)
 
             if self.use_remove_padding:
+                micro_batch_index = micro_batch.get("_micro_batch_index", None)
                 input_ids_rmpad, indices, *_ = unpad_input(input_ids.unsqueeze(-1), attention_mask)
-                if micro_batch.get("_micro_batch_index", None) == 0:
+                if input_ids_rmpad.numel() == 0 or indices.numel() == 0 or micro_batch_index in (0, 1):
                     try:
                         row_sums = attention_mask.sum(dim=1).detach().cpu().tolist()
                     except Exception:
                         row_sums = None
                     print(json.dumps({
                         "event": "micro_batch_rmpad",
-                        "index": micro_batch.get("_micro_batch_index", None),
+                        "index": micro_batch_index,
                         "rmpad_numel": int(input_ids_rmpad.numel()),
                         "indices_numel": int(indices.numel()),
                         "attention_row_sums": row_sums,

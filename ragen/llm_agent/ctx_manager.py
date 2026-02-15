@@ -318,6 +318,30 @@ class ContextManager:
         input_ids, attention_mask = inputs.input_ids, inputs.attention_mask
         position_ids = attention_mask.cumsum(dim=-1)
         if prepare_for_update:
+            pad_id = self.tokenizer.pad_token_id
+            try:
+                row_sums = attention_mask.sum(dim=1).detach().cpu().tolist()
+            except Exception:
+                row_sums = None
+            if pad_id is not None:
+                try:
+                    pad_counts = (input_ids == pad_id).sum(dim=1).detach().cpu().tolist()
+                except Exception:
+                    pad_counts = None
+            else:
+                pad_counts = None
+            msg_counts = [len(m) for m in messages_list]
+            text_lengths = [len(t) for t in llm_input_texts]
+            print(json.dumps({
+                "event": "tokenize_summary",
+                "batch_size": int(input_ids.shape[0]),
+                "seq_len": int(input_ids.shape[1]) if input_ids.dim() > 1 else None,
+                "pad_token_id": pad_id,
+                "attention_row_sums": row_sums,
+                "pad_counts": pad_counts,
+                "message_counts": msg_counts,
+                "text_lengths": text_lengths,
+            }), flush=True)
             scores = [[i.get('reward', 0.0) for i in env_output['history']] for env_output in env_outputs]
             score_tensor, loss_mask, response_mask = get_masks_and_scores(input_ids=input_ids, tokenizer=self.tokenizer, messages_list=messages_list, all_scores=scores, use_turn_scores=self.config.agent_proxy.use_turn_scores, enable_response_mask=self.config.enable_response_mask, filter_single_turn=self.config.algorithm.filter_single_turn)
 
