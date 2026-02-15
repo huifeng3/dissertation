@@ -87,8 +87,20 @@ class DataParallelPPOActor(BasePPOActor):
                 position_ids = position_ids.transpose(0, 1)  # (bsz, 3, seqlen) -> (3, bsz, seqlen)
 
             if self.use_remove_padding:
-                input_ids_rmpad, indices, *_ = unpad_input(input_ids.unsqueeze(-1), attention_mask)  # input_ids_rmpad (total_nnz, ...)
-                input_ids_rmpad = input_ids_rmpad.transpose(0, 1)  # (1, total_nnz)
+                input_ids_rmpad, indices, *_ = unpad_input(input_ids.unsqueeze(-1), attention_mask)
+                if micro_batch.get("_micro_batch_index", None) == 0:
+                    try:
+                        row_sums = attention_mask.sum(dim=1).detach().cpu().tolist()
+                    except Exception:
+                        row_sums = None
+                    print(json.dumps({
+                        "event": "micro_batch_rmpad",
+                        "index": micro_batch.get("_micro_batch_index", None),
+                        "rmpad_numel": int(input_ids_rmpad.numel()),
+                        "indices_numel": int(indices.numel()),
+                        "attention_row_sums": row_sums,
+                    }), flush=True)
+                input_ids_rmpad = input_ids_rmpad.transpose(0, 1)
 
                 # unpad the position_ids to align the rotary
                 if position_ids.dim() == 3:
