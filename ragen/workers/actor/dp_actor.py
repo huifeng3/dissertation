@@ -242,7 +242,6 @@ class DataParallelPPOActor(BasePPOActor):
         for micro_batch_index, micro_batch in enumerate(micro_batches):
             if isinstance(micro_batch, DataProto):
                 micro_batch = {**micro_batch.batch, **micro_batch.non_tensor_batch}
-            micro_batch["_micro_batch_index"] = micro_batch_index
             attention_mask = micro_batch.get("attention_mask", None)
             input_ids = micro_batch.get("input_ids", None)
             responses = micro_batch.get("responses", None)
