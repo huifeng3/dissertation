@@ -35,6 +35,7 @@ class DummyRewardManager():
             if return_dict:
                 return {
                     "reward_tensor": data.batch['rm_scores'],
+                    "reward_extra_info": {},
                 }
             else:
                 return data.batch['rm_scores']
@@ -89,6 +90,7 @@ class DummyRewardManager():
         if return_dict:
             return {
                 "reward_tensor": reward_tensor,
+                "reward_extra_info": {},
             }
         else:
             return reward_tensor

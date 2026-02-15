@@ -242,6 +242,7 @@ class DataParallelPPOActor(BasePPOActor):
         for micro_batch_index, micro_batch in enumerate(micro_batches):
             if isinstance(micro_batch, DataProto):
                 micro_batch = {**micro_batch.batch, **micro_batch.non_tensor_batch}
+            micro_batch["_micro_batch_index"] = micro_batch_index
             attention_mask = micro_batch.get("attention_mask", None)
             input_ids = micro_batch.get("input_ids", None)
             responses = micro_batch.get("responses", None)
@@ -285,8 +286,15 @@ class DataParallelPPOActor(BasePPOActor):
                     flush=True,
                 )
                 continue
-            with torch.no_grad():
-                entropy, log_probs = self._forward_micro_batch(micro_batch, temperature=temperature, calculate_entropy=calculate_entropy)
+            try:
+                with torch.no_grad():
+                    entropy, log_probs = self._forward_micro_batch(micro_batch, temperature=temperature, calculate_entropy=calculate_entropy)
+            except Exception as e:
+                print(
+                    f"[ERROR] micro_batch_forward_error index={micro_batch_index} attn_sum={attn_sum} input_shape={input_shape} response_len={response_len} error={e}",
+                    flush=True,
+                )
+                raise
             log_probs_lst.append(log_probs)
             if calculate_entropy:
                 entropy_lst.append(entropy)
