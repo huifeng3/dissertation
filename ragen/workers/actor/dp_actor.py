@@ -244,10 +244,30 @@ class DataParallelPPOActor(BasePPOActor):
                 micro_batch = {**micro_batch.batch, **micro_batch.non_tensor_batch}
             attention_mask = micro_batch.get("attention_mask", None)
             input_ids = micro_batch.get("input_ids", None)
+            position_ids = micro_batch.get("position_ids", None)
             responses = micro_batch.get("responses", None)
             attn_sum = int(attention_mask.sum().item()) if attention_mask is not None and attention_mask.numel() > 0 else 0
             input_shape = tuple(input_ids.shape) if input_ids is not None else None
             response_len = int(responses.size(-1)) if responses is not None and responses.numel() > 0 else 0
+            if micro_batch_index == 0:
+                try:
+                    input_ids_list = input_ids.detach().cpu().tolist() if input_ids is not None else None
+                    attention_mask_list = attention_mask.detach().cpu().tolist() if attention_mask is not None else None
+                    position_ids_list = position_ids.detach().cpu().tolist() if position_ids is not None else None
+                    responses_list = responses.detach().cpu().tolist() if responses is not None else None
+                except Exception:
+                    input_ids_list = None
+                    attention_mask_list = None
+                    position_ids_list = None
+                    responses_list = None
+                print(json.dumps({
+                    "event": "micro_batch_full",
+                    "index": micro_batch_index,
+                    "input_ids": input_ids_list,
+                    "attention_mask": attention_mask_list,
+                    "position_ids": position_ids_list,
+                    "responses": responses_list,
+                }), flush=True)
             input_head = None
             input_tail = None
             response_head = None
